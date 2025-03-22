@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -5,13 +6,25 @@ public class TileInstancer : MonoBehaviour
 {
     [SerializeField]
     GameObject[] tilePrefabs;
-    
+
+    protected LayerMask raycastMask = ~(1<<2);
+
+    public delegate void InstantiateTileEventHandler(object sender, int tileIndex,Tileable generatedTile);
+    public event InstantiateTileEventHandler InstantiateTileEvent;
+    public delegate void TileMovedEventHandler(object sender,Vector2Int newGridPosition, Vector2Int oldGridPosition);
+    public event TileMovedEventHandler TileMovedEvent;
+
+    // private void Start()
+    // {
+    //     raycastMask = ~LayerMask.GetMask("Ignore Raycast");
+    // }
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Physics.Raycast(ray, out RaycastHit hit,1000,raycastMask))
             {
                 Tileable tileable = hit.collider.GetComponentInParent<Tileable>();
                 if (tileable != null)
@@ -63,7 +76,11 @@ public class TileInstancer : MonoBehaviour
             Vector3 newPosition = Camera.main.ScreenToWorldPoint(mousePos);
             newPosition.z = tile.transform.position.z;
 
-            tile.TryMove(newPosition);
+            Vector2Int oldGridPosition = tile.LastGridPosition;
+            if (tile.TryMove(newPosition))
+            {
+                TileMovedEvent?.Invoke(this, tile.LastGridPosition, oldGridPosition);
+            }
 
             if (Input.GetMouseButtonUp(0))
             {
@@ -81,6 +98,7 @@ public class TileInstancer : MonoBehaviour
             GameObject tile = Instantiate(tilePrefabs[tileIndex],position,Quaternion.identity);
             Tileable tileable = tile.GetComponent<Tileable>();
             tileable.SetInGrid(gridManager);
+            InstantiateTileEvent?.Invoke(this, tileIndex, tileable);
             return tile;
         }
     

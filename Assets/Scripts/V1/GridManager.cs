@@ -19,6 +19,7 @@ public class GridManager : MonoBehaviour
     private GameObject backgroundTilePrefab;
 
     private int[,] grid;
+    private Tileable[,] tiles;
 
     public int Width => width;
     public int Height => height;
@@ -26,6 +27,7 @@ public class GridManager : MonoBehaviour
     public void Awake()
     {
         grid = new int[width,height];
+        tiles = new Tileable[width, height];
         GenerateBackgroundTiles();
     }
     
@@ -53,6 +55,12 @@ public class GridManager : MonoBehaviour
             {
                 GameObject backgroundTile = Instantiate(backgroundTilePrefab, transform);
                 backgroundTile.transform.localPosition = new Vector3(x*cellSize, y*cellSize, 1);
+                backgroundTile.transform.localScale *= cellSize;
+                backgroundTile.layer = gameObject.layer;
+                foreach (Transform child in backgroundTile.transform)
+                {
+                    child.gameObject.layer = gameObject.layer;
+                }
             }
         }
     }
@@ -64,14 +72,14 @@ public class GridManager : MonoBehaviour
         {
             Vector3 start = new Vector3(x * cellSize, 0, 0);
             Vector3 end = new Vector3(x * cellSize, height * cellSize, 0);
-            Gizmos.DrawLine(start, end);
+            Gizmos.DrawLine(start + transform.position, end + transform.position);
         }
 
         for (int y = 0; y <= height; y++)
         {
             Vector3 start = new Vector3(0, y * cellSize, 0);
             Vector3 end = new Vector3(width * cellSize, y * cellSize, 0);
-            Gizmos.DrawLine(start, end);
+            Gizmos.DrawLine(start + transform.position, end + transform.position);
         }
     }
     public Vector2Int SetInGrid(Tileable tileable)
@@ -84,6 +92,7 @@ public class GridManager : MonoBehaviour
                 for (int y = 0; y < tileable.HeightTiles; ++y)
                 {
                     grid[assignedCoordinates.x + x, assignedCoordinates.y + y] = 1;
+                    tiles[assignedCoordinates.x + x, assignedCoordinates.y + y] = tileable;
                 }
             }
         }
@@ -99,6 +108,7 @@ public class GridManager : MonoBehaviour
                 for (int y = 0; y < tileable.HeightTiles; ++y)
                 {
                     grid[assignedCoordinates.x + x, assignedCoordinates.y + y] = 0;
+                    tiles[assignedCoordinates.x + x, assignedCoordinates.y + y] = null;
                 }
             }
         }
@@ -133,6 +143,7 @@ public class GridManager : MonoBehaviour
         {
             ClearGrid();
             grid = new int[width, height];
+            tiles = new Tileable[width, height];
         }
 
         List<Vector2Int> candidates = new List<Vector2Int>();
@@ -186,6 +197,15 @@ public class GridManager : MonoBehaviour
 
     public Vector3 GridToWorld(Vector2Int gridPosition)
     {
-        return new Vector3(gridPosition.x * cellSize+transform.position.x, gridPosition.y * cellSize+transform.position.y, 0);
+        return new Vector3(gridPosition.x * cellSize+transform.position.x, gridPosition.y * cellSize+transform.position.y, transform.position.z);
+    }
+
+    public Tileable GetTile(Vector2Int gridPosition)
+    {
+        if (gridPosition.x > 0 && gridPosition.x < tiles.Length && gridPosition.y > 0 && gridPosition.y < tiles.Length)
+        {
+            return tiles[gridPosition.x, gridPosition.y];
+        }
+        return null;
     }
 }

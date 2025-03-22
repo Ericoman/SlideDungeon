@@ -13,13 +13,19 @@ public class Tileable : MonoBehaviour
     private GridManager gridManager;
     public int WidthTiles => widthTiles;
     public int HeightTiles => heightTiles;
-    
+
+    private int originalLayer;
     private bool isInGrid = false;
     private Vector2Int gridPosition = new Vector2Int(-1,-1);
     private Vector2Int lastGridPosition = new Vector2Int(-1,-1);
     public Vector2Int GridPosition => gridPosition;
     public Vector2Int LastGridPosition => lastGridPosition;
     public GridManager GridManager => gridManager;
+
+    private void Start()
+    {
+        originalLayer = gameObject.layer;
+    }
 
     private void Update()
     {
@@ -37,6 +43,11 @@ public class Tileable : MonoBehaviour
         lastGridPosition = gridPosition;
         gridPosition = new Vector2Int(-1,-1);
         transform.parent = null;
+        transform.gameObject.layer = originalLayer;
+        foreach (Transform child in transform)
+        {
+            child.gameObject.layer = originalLayer;
+        }
         isInGrid = false;
     }
 
@@ -63,6 +74,11 @@ public class Tileable : MonoBehaviour
         if (gridPosition.x >= 0 && gridPosition.y >= 0)
         {
             transform.parent = gridManager.transform;
+            transform.gameObject.layer = gridManager.gameObject.layer;
+            foreach (Transform child in transform)
+            {
+                child.gameObject.layer = gridManager.gameObject.layer;
+            }
             isInGrid = true;
         }
         else
@@ -76,7 +92,7 @@ public class Tileable : MonoBehaviour
     }
     private void SnapToGrid()
     {
-        transform.localPosition = gridManager.GridToWorld(gridPosition);  
+        transform.position = gridManager.GridToWorld(gridPosition);  
     }
 
     private void OnDestroy()
@@ -87,6 +103,19 @@ public class Tileable : MonoBehaviour
     public bool TryMove(Vector3 newPosition)
     {
         Vector2Int newPositionGrid = gridManager.GetNextAvailableCoordinates(widthTiles,heightTiles,gridManager.WorldToGrid(newPosition));
+        if (Mathf.Abs(newPositionGrid.x - lastGridPosition.x) == 1 && newPositionGrid.y == lastGridPosition.y ||
+            Mathf.Abs(newPositionGrid.y - lastGridPosition.y) == 1 && newPositionGrid.x == lastGridPosition.x )
+        {
+            transform.position = gridManager.GridToWorld(newPositionGrid);
+            lastGridPosition = newPositionGrid;
+            return true;
+        }
+        transform.position = gridManager.GridToWorld(lastGridPosition);
+        return false;
+    }
+    public bool TryMove(Vector2Int newGridPosition)
+    {
+        Vector2Int newPositionGrid = gridManager.GetNextAvailableCoordinates(widthTiles,heightTiles,newGridPosition);
         if (Mathf.Abs(newPositionGrid.x - lastGridPosition.x) == 1 && newPositionGrid.y == lastGridPosition.y ||
             Mathf.Abs(newPositionGrid.y - lastGridPosition.y) == 1 && newPositionGrid.x == lastGridPosition.x )
         {
