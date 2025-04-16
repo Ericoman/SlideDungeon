@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ThunderSpellCast : MonoBehaviour
+public class ThunderSpellCast : SpellBase
 {
     public GameObject thunderLinkPrefab; // Assign the ThunderLink prefab in the inspector
     public Transform targetTransform;   // Assign the selectable Transform in the inspector
@@ -12,7 +12,7 @@ public class ThunderSpellCast : MonoBehaviour
     private ThunderLink currentThunderLink; // Reference to the current ThunderLink instance
     private bool isFirstCast = true;        // Tracks whether it's the first or second cast
 
-    public void OnCast() // Directly callable by SpellHudManager
+    public override void CastSpell() // Directly callable by SpellHudManager
     {
         Debug.Log("ThunderSpellCast: OnCast triggered."); // Debug
 

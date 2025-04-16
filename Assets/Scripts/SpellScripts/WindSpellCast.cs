@@ -1,12 +1,17 @@
 using UnityEngine;
 using System.Collections;
-public class WindSpellCast : MonoBehaviour
+
+public class WindSpellCast : SpellBase
 {
     public Vector3 spellOffset = Vector3.zero; // Offset position for the OverlapSphere
     public GameObject windSpellPrefab; // Prefab for the spell
     public float spellRadius = 3f;     // Radius of the spell
     public LayerMask windableLayer;    // Layers affected by the wind spell
 
+    public override void CastSpell()
+    {
+        CastWindSpell();
+    }
     public void CastWindSpell()
     {
         // Calculate the position of the spell (in front of the player)
