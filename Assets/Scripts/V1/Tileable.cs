@@ -103,6 +103,7 @@ public class Tileable : MonoBehaviour
     public bool TryMove(Vector3 newPosition)
     {
         Vector2Int newPositionGrid = gridManager.GetNextAvailableCoordinates(widthTiles,heightTiles,gridManager.WorldToGrid(newPosition));
+        Debug.Log("TRYMOVE COORDINATES: "+newPositionGrid.x + " and " + newPositionGrid.y);
         if (Mathf.Abs(newPositionGrid.x - lastGridPosition.x) == 1 && newPositionGrid.y == lastGridPosition.y ||
             Mathf.Abs(newPositionGrid.y - lastGridPosition.y) == 1 && newPositionGrid.x == lastGridPosition.x )
         {

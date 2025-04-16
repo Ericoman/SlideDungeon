@@ -86,7 +86,9 @@ public class GridManager : MonoBehaviour
     }
     public Vector2Int SetInGrid(Tileable tileable)
     {
+        //Debug.Log(tileable.transform.position);
         Vector2Int assignedCoordinates = GetNextAvailableCoordinates(tileable.WidthTiles, tileable.HeightTiles,WorldToGrid(tileable.transform.position));
+        //Debug.Log("NEXTAVAILABLE COORDINATES: "+assignedCoordinates.x + " "+ assignedCoordinates.y);
         if (assignedCoordinates.x >= 0 && assignedCoordinates.y >= 0)
         {
             for (int x = 0; x < tileable.WidthTiles; ++x)
@@ -190,16 +192,18 @@ public class GridManager : MonoBehaviour
 
     public Vector2Int WorldToGrid(Vector3 position)
     {
-        int x = Mathf.FloorToInt((position.x -transform.position.x) / cellSize);
+        int x = Mathf.FloorToInt((position.x - transform.position.x)  / cellSize);
         int z = Mathf.FloorToInt((position.z - transform.position.z)/ cellSize);
+        //Debug.Log("WorldToGrid TO GRID: " + x + " and " + z);
         x = Mathf.FloorToInt(Mathf.Clamp(x, 0, width));
         z = Mathf.FloorToInt(Mathf.Clamp(z, 0, height));
+
         return new Vector2Int(x,z);
     }
 
     public Vector3 GridToWorld(Vector2Int gridPosition)
     {
-        return new Vector3(gridPosition.x * cellSize+transform.position.x, transform.position.y, gridPosition.magnitude * CellSize+transform.position.z);
+        return new Vector3(gridPosition.x * cellSize+transform.position.x, transform.position.y, gridPosition.y * CellSize+transform.position.z);
     }
 
     public Tileable GetTile(Vector2Int gridPosition)

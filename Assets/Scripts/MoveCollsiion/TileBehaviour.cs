@@ -19,8 +19,8 @@ public class TileBehaviour : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            
-            Debug.Log("UWU");
+            GameObject tInstancer = GameObject.FindGameObjectWithTag("TileInstancer");
+            //Debug.Log("UWU");
             // Obtener dirección del impacto
             Vector3 direction = collision.GetContact(0).normal;
 
@@ -30,12 +30,13 @@ public class TileBehaviour : MonoBehaviour
             //Mover la tile una unidad en esa dirección
             Vector3 newPosition = transform.position + direction;
             Vector2Int oldGridPosition = tile.LastGridPosition;
-            if (tile.TryMove(newPosition))
-            {
-                //TileMovedEvent?.Invoke(this, tile.LastGridPosition, oldGridPosition);
-            }
+            
 
-            transform.position += direction;
+            tInstancer.GetComponent<TileInstancer>().NewMoveTile(tile, newPosition, oldGridPosition);
+                    //TileMovedEvent?.Invoke(this, tile.LastGridPosition, oldGridPosition);
+            
+
+            //transform.position += direction;
         }
         
     }
@@ -46,11 +47,12 @@ public class TileBehaviour : MonoBehaviour
         // Detectar el eje más dominante
         if (Mathf.Abs(dir.x) > Mathf.Abs(dir.z))
         {
-            return new Vector3(Mathf.Sign(dir.x), 0, 0);
+            return new Vector3(Mathf.Sign(dir.x), 0f, 0f);
         }
         else
         {
-            return new Vector3(0, 0, Mathf.Sign(dir.z));
+            return new Vector3(0f, 0f, Mathf.Sign(dir.z));
         }
+        
     }
 }

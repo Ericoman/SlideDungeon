@@ -70,6 +70,18 @@ public class TileInstancer : MonoBehaviour
         StartCoroutine(MoveTile_CO(tile));
     }
 
+    public void NewMoveTile(Tileable tile, Vector3 newPosition, Vector2Int oldGridPosition)
+    {
+        tile.RemoveFromGrid();
+
+        if (tile.TryMove(newPosition))
+        {
+            
+            TileMovedEvent?.Invoke(this, tile.LastGridPosition, oldGridPosition);
+        }
+        tile.ResetToPreviousGrid();
+    }
+
     IEnumerator MoveTile_CO(Tileable tile)
     {
         bool moving = true;
@@ -101,7 +113,7 @@ public class TileInstancer : MonoBehaviour
     {
         if (gridManager)
         {
-            Debug.Log(position);
+            //Debug.Log(position);
             GameObject tile = Instantiate(tilePrefabs[tileIndex],position,Quaternion.identity);
             Tileable tileable = tile.GetComponent<Tileable>();
             tileable.SetInGrid(gridManager);
