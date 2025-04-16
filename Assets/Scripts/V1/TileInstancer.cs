@@ -70,11 +70,24 @@ public class TileInstancer : MonoBehaviour
         StartCoroutine(MoveTile_CO(tile));
     }
 
-    public void NewMoveTile(Tileable tile, Vector3 newPosition, Vector2Int oldGridPosition)
+    public void NewMoveTile(Tileable tile, Vector3 newPosition)
     {
         tile.RemoveFromGrid();
+        Vector2Int oldGridPosition = tile.LastGridPosition;
 
         if (tile.TryMove(newPosition))
+        {
+            
+            TileMovedEvent?.Invoke(this, tile.LastGridPosition, oldGridPosition);
+        }
+        tile.ResetToPreviousGrid();
+    }
+    public void NewMoveTile(Tileable tile, Vector2Int direction)
+    {
+        tile.RemoveFromGrid();
+        Vector2Int oldGridPosition = tile.LastGridPosition;
+
+        if (tile.TryMove(oldGridPosition + direction))
         {
             
             TileMovedEvent?.Invoke(this, tile.LastGridPosition, oldGridPosition);

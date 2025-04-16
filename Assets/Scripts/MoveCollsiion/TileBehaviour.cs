@@ -21,19 +21,19 @@ public class TileBehaviour : MonoBehaviour
         {
             GameObject tInstancer = GameObject.FindGameObjectWithTag("TileInstancer");
             //Debug.Log("UWU");
-            // Obtener dirección del impacto
+            // Obtener direcciï¿½n del impacto
             Vector3 direction = collision.GetContact(0).normal;
 
-            // Redondear dirección a una unidad en el eje dominante
+            // Redondear direcciï¿½n a una unidad en el eje dominante
             direction = GetDominantDirection(direction);
 
-            //Mover la tile una unidad en esa dirección
+            //Mover la tile una unidad en esa direcciï¿½n
             Vector3 newPosition = transform.position + direction;
             Vector2Int oldGridPosition = tile.LastGridPosition;
             
 
-            tInstancer.GetComponent<TileInstancer>().NewMoveTile(tile, newPosition, oldGridPosition);
-                    //TileMovedEvent?.Invoke(this, tile.LastGridPosition, oldGridPosition);
+            tInstancer.GetComponent<TileInstancer>().NewMoveTile(tile, new Vector2Int(Mathf.FloorToInt(direction.x),Mathf.FloorToInt(direction.z)));
+            //TileMovedEvent?.Invoke(this, tile.LastGridPosition, oldGridPosition);
             
 
             //transform.position += direction;
@@ -44,7 +44,7 @@ public class TileBehaviour : MonoBehaviour
     {
         dir = dir.normalized;
 
-        // Detectar el eje más dominante
+        // Detectar el eje mï¿½s dominante
         if (Mathf.Abs(dir.x) > Mathf.Abs(dir.z))
         {
             return new Vector3(Mathf.Sign(dir.x), 0f, 0f);
