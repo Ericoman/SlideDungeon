@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public class TileInstancer : MonoBehaviour
 {
@@ -24,6 +26,7 @@ public class TileInstancer : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Debug.DrawRay(ray.origin, ray.direction*10000, Color.red, 10f);
             if (Physics.Raycast(ray, out RaycastHit hit,1000,raycastMask))
             {
                 Tileable tileable = hit.collider.GetComponentInParent<Tileable>();
@@ -48,6 +51,7 @@ public class TileInstancer : MonoBehaviour
                     }
                     
                     GridManager gridManager = hit.collider.gameObject.GetComponentInParent<GridManager>();
+                    //Debug.Log(hit.point);
                     GameObject tile = InstantiateTileOnGrid(gridManager,hit.point,tileIndex);
                     if (tile == null)
                     {
@@ -69,17 +73,19 @@ public class TileInstancer : MonoBehaviour
     IEnumerator MoveTile_CO(Tileable tile)
     {
         bool moving = true;
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero); // Ground at Y=0
         while (moving)
         {
-            Vector3 mousePos = Input.mousePosition;
-            mousePos.z = -Camera.main.transform.position.z;
-            Vector3 newPosition = Camera.main.ScreenToWorldPoint(mousePos);
-            newPosition.z = tile.transform.position.z;
-
-            Vector2Int oldGridPosition = tile.LastGridPosition;
-            if (tile.TryMove(newPosition))
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (groundPlane.Raycast(ray, out float enter))
             {
-                TileMovedEvent?.Invoke(this, tile.LastGridPosition, oldGridPosition);
+                Vector3 newPosition = ray.GetPoint(enter);
+
+                Vector2Int oldGridPosition = tile.LastGridPosition;
+                if (tile.TryMove(newPosition))
+                {
+                    TileMovedEvent?.Invoke(this, tile.LastGridPosition, oldGridPosition);
+                }
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -95,6 +101,7 @@ public class TileInstancer : MonoBehaviour
     {
         if (gridManager)
         {
+            Debug.Log(position);
             GameObject tile = Instantiate(tilePrefabs[tileIndex],position,Quaternion.identity);
             Tileable tileable = tile.GetComponent<Tileable>();
             tileable.SetInGrid(gridManager);

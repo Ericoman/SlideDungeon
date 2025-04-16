@@ -49,13 +49,15 @@ public class GridManager : MonoBehaviour
 
     private void GenerateBackgroundTiles()
     {
-        for (int y = 0; y < height; y++)
+        for (int z = 0; z < height; z++)
         {
             for (int x = 0; x < width; x++)
             {
                 GameObject backgroundTile = Instantiate(backgroundTilePrefab, transform);
-                backgroundTile.transform.localPosition = new Vector3(x*cellSize, y*cellSize, 1);
+                backgroundTile.transform.localPosition = new Vector3(x*cellSize, z*cellSize, 0);
+                //backgroundTile.transform.localPosition = new Vector3(x * cellSize, 0, y * cellSize);
                 backgroundTile.transform.localScale *= cellSize;
+                //backgroundTile.transform.rotation = Quaternion.Euler(90, 0, 0);
                 backgroundTile.layer = gameObject.layer;
                 foreach (Transform child in backgroundTile.transform)
                 {
@@ -71,14 +73,14 @@ public class GridManager : MonoBehaviour
         for (int x = 0; x <= width; x++)
         {
             Vector3 start = new Vector3(x * cellSize, 0, 0);
-            Vector3 end = new Vector3(x * cellSize, height * cellSize, 0);
+            Vector3 end = new Vector3(x * cellSize,0, height * cellSize);
             Gizmos.DrawLine(start + transform.position, end + transform.position);
         }
 
-        for (int y = 0; y <= height; y++)
+        for (int z = 0; z <= height; z++)
         {
-            Vector3 start = new Vector3(0, y * cellSize, 0);
-            Vector3 end = new Vector3(width * cellSize, y * cellSize, 0);
+            Vector3 start = new Vector3(0, 0, z * cellSize);
+            Vector3 end = new Vector3(width * cellSize,0, z * cellSize);
             Gizmos.DrawLine(start + transform.position, end + transform.position);
         }
     }
@@ -189,15 +191,15 @@ public class GridManager : MonoBehaviour
     public Vector2Int WorldToGrid(Vector3 position)
     {
         int x = Mathf.FloorToInt((position.x -transform.position.x) / cellSize);
-        int y = Mathf.FloorToInt((position.y - transform.position.y)/ cellSize);
+        int z = Mathf.FloorToInt((position.z - transform.position.z)/ cellSize);
         x = Mathf.FloorToInt(Mathf.Clamp(x, 0, width));
-        y = Mathf.FloorToInt(Mathf.Clamp(y, 0, height));
-        return new Vector2Int(x,y);
+        z = Mathf.FloorToInt(Mathf.Clamp(z, 0, height));
+        return new Vector2Int(x,z);
     }
 
     public Vector3 GridToWorld(Vector2Int gridPosition)
     {
-        return new Vector3(gridPosition.x * cellSize+transform.position.x, gridPosition.y * cellSize+transform.position.y, transform.position.z);
+        return new Vector3(gridPosition.x * cellSize+transform.position.x, transform.position.y, gridPosition.magnitude * CellSize+transform.position.z);
     }
 
     public Tileable GetTile(Vector2Int gridPosition)
