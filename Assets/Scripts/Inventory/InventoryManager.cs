@@ -49,6 +49,14 @@ public class InventoryManager : MonoBehaviour
     private void OnItemSelectedEvent(ItemBase sender)
     {
         int nextSlot = _lastAssignedSlot + 1;
+        for(int i=0; i < _usableSlots.Length;++i)
+        {
+            if ( _usableSlots[i] == null)
+            {
+                nextSlot = i;
+                break;
+            }
+        }
         if (nextSlot >= _usableSlotsNumber)
         {
             nextSlot = 0;
