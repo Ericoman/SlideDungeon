@@ -21,6 +21,7 @@ public class SpellHudManager : MonoBehaviour
     
     private PlayerInput playerInput;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private InventoryManager inventoryManager;
     void Start()
     {
         // Initialize spell list (add more spells here in the future)
@@ -73,20 +74,22 @@ public class SpellHudManager : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started) // Only trigger on button press (not hold)
         {
-            switch (spells[currentSpellIndex])
-            {
-                case SpellType.Thunder:
-                    thunderSpellCast?.OnCast(); // Call ThunderSpellCast method
-                    break;
-
-                case SpellType.Iceberg:
-                    icebergSpellCast?.OnCastIce(); // Call IcebergSpellCast method
-                    break;
-                
-                case SpellType.Wind:
-                    windSpellCast?.CastWindSpell();
-                    break;
-            }
+            inventoryManager.UseSlot(currentSpellIndex);
+            // switch (spells[currentSpellIndex])
+            // {
+            //     
+            //     case SpellType.Thunder:
+            //         thunderSpellCast?.CastSpell(); // Call ThunderSpellCast method
+            //         break;
+            //     
+            //     case SpellType.Iceberg:
+            //         icebergSpellCast?.CastSpell(); // Call IcebergSpellCast method
+            //         break;
+            //     
+            //     case SpellType.Wind:
+            //         windSpellCast?.CastSpell();
+            //         break;
+            // }
         }
     }
     

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class IcebergSpellCast : MonoBehaviour
+public class IcebergSpellCast : SpellBase
 {
     public GameObject icebergPrefab; // Assign the Iceberg prefab in the inspector
     private GameObject currentIceberg; // Keep a reference to the instantiated iceberg
@@ -17,7 +17,7 @@ public class IcebergSpellCast : MonoBehaviour
         }
     }
     
-    public void OnCastIce() // Directly callable by SpellHudManager
+    public override void CastSpell() // Directly callable by SpellHudManager
     {
         if (currentIceberg == null)
         {
