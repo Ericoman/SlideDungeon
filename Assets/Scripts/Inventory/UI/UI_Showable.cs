@@ -4,6 +4,8 @@ using UnityEngine;
 public class UI_Showable : MonoBehaviour
 {
     private CanvasGroup _canvasGroup;
+    bool shown = false;
+    public bool IsShown => shown;
     private void Awake()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
@@ -21,5 +23,6 @@ public class UI_Showable : MonoBehaviour
         {
             gameObject.SetActive(show);
         }
+        shown = show;
     }
 }

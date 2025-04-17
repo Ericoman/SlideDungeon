@@ -6,23 +6,28 @@ namespace Inventory
     public class ItemBase:MonoBehaviour
     {
         public ItemSO itemData;
-        private int _currentAmmount = 0;
+        private int _currentAmount = 0;
         
-        public int CurrentAmmount => _currentAmmount;
+        public delegate void AmmountChangedEventHandler();
+        public event AmmountChangedEventHandler AmountChangedEvent;
+        
+        public int CurrentAmount => _currentAmount;
 
         public void Initialize(ItemSO _itemData)
         {
             this.itemData = _itemData;
-            IncreaseAmmount(1);
+            IncreaseAmount(1);
         }
-        public void IncreaseAmmount(int amount=1)
+        public void IncreaseAmount(int amount=1)
         {
-            _currentAmmount += amount;
+            _currentAmount += amount;
+            AmountChangedEvent?.Invoke();
         }
 
-        public void DecreaseAmmount(int amount=1)
+        public void DecreaseAmount(int amount=1)
         {
-            _currentAmmount -= amount;
+            _currentAmount -= amount;
+            AmountChangedEvent?.Invoke();
         }
     }
 }

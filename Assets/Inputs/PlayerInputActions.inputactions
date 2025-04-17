@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "CastThunder",
+                    "name": "UseItemSlot1",
                     "type": "Button",
                     "id": "60d69fee-7c78-40b6-86c8-ba1b1c7fb319",
                     "expectedControlType": "",
@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "CastIce",
+                    "name": "UseItemSlot2",
                     "type": "Button",
                     "id": "cd1c57fa-8a72-4275-99c6-4ea723ba13a6",
                     "expectedControlType": "",
@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "OpenInventory",
+                    "type": "Button",
+                    "id": "f529c2b5-190d-4530-a708-76715a9d1bbf",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -125,7 +134,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "CastThunder",
+                    "action": "UseItemSlot1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -136,7 +145,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "CastThunder",
+                    "action": "UseItemSlot1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -147,7 +156,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "CastIce",
+                    "action": "UseItemSlot2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -194,6 +203,17 @@
                     "action": "NavigateSpells",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "411baf55-a73a-4895-9da9-48f321a43287",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

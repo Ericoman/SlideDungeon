@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Inventory;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -21,7 +22,8 @@ public class InventoryManager : MonoBehaviour
     private Dictionary<ItemSO, ItemBase> _itemInstances = new Dictionary<ItemSO, ItemBase>();
     
     public List<ItemSO> InitialItems => _initialItems;
-    
+
+    private int _lastAssignedSlot = -1;
 
     private void Awake()
     {
@@ -30,22 +32,35 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
+        _uiInventoryManager.Initialize(_usableSlotsNumber);
+        _uiInventoryManager.ItemSelectedEvent += OnItemSelectedEvent;
+        
         int i = 0;
         foreach (ItemSO item in _initialItems)
         {
             AddItem(item);
 
-            _usableSlots[i] = item;//TODO hacer bien
+            //AssignItemToSlot(item,i);
             i++;
         }
+        
+    }
+
+    private void OnItemSelectedEvent(ItemBase sender)
+    {
+        int nextSlot = _lastAssignedSlot + 1;
+        if (nextSlot >= _usableSlotsNumber)
+        {
+            nextSlot = 0;
+        }
+        AssignItemToSlot(sender.itemData,nextSlot);
     }
 
     public void AddItem(ItemSO item)
     {
         if (_itemInstances.ContainsKey(item))
         {
-            _itemInstances[item].IncreaseAmmount();
-            //TODO make updateui event
+            _itemInstances[item].IncreaseAmount();
         }
         else
         {
@@ -61,8 +76,8 @@ public class InventoryManager : MonoBehaviour
         if (_itemInstances.ContainsKey(item))
         {
             ItemBase itemBase = _itemInstances[item];
-            itemBase.DecreaseAmmount();
-            if (itemBase.CurrentAmmount <= 0)
+            itemBase.DecreaseAmount();
+            if (itemBase.CurrentAmount <= 0)
             {
                 _itemInstances.Remove(item);
                 
@@ -76,7 +91,18 @@ public class InventoryManager : MonoBehaviour
 
     public void AssignItemToSlot(ItemSO item, int slot)
     {
+        if (_usableSlots.Contains(item))
+        {
+            int oldIndex = Array.IndexOf(_usableSlots, item);
+            _usableSlots[oldIndex] = null;
+            _uiInventoryManager.AssignItemToSlot(null, oldIndex); //TODO make with event
+            return;
+        }
         _usableSlots[slot] = item;
+        
+        _uiInventoryManager.AssignItemToSlot(_itemInstances[item], slot); //TODO make with event
+        
+        _lastAssignedSlot = slot;
     }
 
     public void UseSlot(int slot)
@@ -88,10 +114,21 @@ public class InventoryManager : MonoBehaviour
     }
     public void UseItem(ItemSO item)
     {
+        if (item == null) return;
         ItemBase itemInstance = _itemInstances[item];
         if (itemInstance is IUsable usable)
         {
             usable.Use();
         }
+    }
+
+    private void OnDestroy()
+    {
+        _uiInventoryManager.ItemSelectedEvent -= OnItemSelectedEvent;
+    }
+
+    public void OpenCloseInventory()
+    {
+        _uiInventoryManager.OpenCloseInventory();
     }
 }
