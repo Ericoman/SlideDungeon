@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 // [ExecuteInEditMode]
 public class Tileable : MonoBehaviour
@@ -55,7 +56,7 @@ public class Tileable : MonoBehaviour
     {
         if (gridManager != null)
         {
-            SetInGrid(gridManager);
+            SetInGrid(gridManager,LastGridPosition);
         }
         else
         {
@@ -66,14 +67,20 @@ public class Tileable : MonoBehaviour
 #endif
         }
     }
-    public void SetInGrid(GridManager grid)
+
+    public void SetInGrid(GridManager gridManager)
+    {
+        SetInGrid(gridManager, new Vector2Int(-1,-1));
+    }
+    public void SetInGrid(GridManager grid,Vector2Int preferredGridPosition)
     {
         gridManager = grid;
-        gridPosition = gridManager.SetInGrid(this);
+        gridPosition = gridManager.SetInGrid(this,preferredGridPosition);
         lastGridPosition = gridPosition;
         if (gridPosition.x >= 0 && gridPosition.y >= 0)
         {
             transform.parent = gridManager.transform;
+            transform.localRotation = Quaternion.identity;
             transform.gameObject.layer = gridManager.gameObject.layer;
             foreach (Transform child in transform)
             {

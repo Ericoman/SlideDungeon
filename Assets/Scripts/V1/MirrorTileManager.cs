@@ -10,7 +10,7 @@ public class MirrorTileManager : MonoBehaviour
     [SerializeField]
     GameObject[] tilePrefabs;
 
-    void Start()
+    void Awake()
     {
         mirroredTileInstancer.InstantiateTileEvent += MirroredTileInstancerOnInstantiateTileEvent;
         mirroredTileInstancer.TileMovedEvent += MirroredTileInstancerOnTileMovedEvent;
@@ -28,10 +28,10 @@ public class MirrorTileManager : MonoBehaviour
     {
         GameObject tile = Instantiate(tilePrefabs[tileIndex],gridManager.GridToWorld(generatedtile.GridPosition),Quaternion.identity);
         //ONLY TO TEST
-        tile.transform.localScale *= gridManager.CellSize;
+        // tile.transform.localScale *= gridManager.CellSize;
         //
         Tileable tileable = tile.GetComponent<Tileable>();
-        tileable.SetInGrid(gridManager);
+        tileable.SetInGrid(gridManager,generatedtile.GridPosition);
     }
 
     private void OnDestroy()

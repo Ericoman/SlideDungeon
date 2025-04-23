@@ -84,10 +84,20 @@ public class GridManager : MonoBehaviour
             Gizmos.DrawLine(start + transform.position, end + transform.position);
         }
     }
+
     public Vector2Int SetInGrid(Tileable tileable)
     {
+        return SetInGrid(tileable,new Vector2Int(-1, -1));
+    }
+    public Vector2Int SetInGrid(Tileable tileable, Vector2Int preferredGridPosition)
+    {
         //Debug.Log(tileable.transform.position);
-        Vector2Int assignedCoordinates = GetNextAvailableCoordinates(tileable.WidthTiles, tileable.HeightTiles,WorldToGrid(tileable.transform.position));
+        Vector2Int finalPreferredGridPosition = preferredGridPosition;
+        if(preferredGridPosition.x < 0 || preferredGridPosition.y < 0)
+        {
+            finalPreferredGridPosition = WorldToGrid(tileable.transform.position);
+        }
+        Vector2Int assignedCoordinates = GetNextAvailableCoordinates(tileable.WidthTiles, tileable.HeightTiles,finalPreferredGridPosition);
         //Debug.Log("NEXTAVAILABLE COORDINATES: "+assignedCoordinates.x + " "+ assignedCoordinates.y);
         if (assignedCoordinates.x >= 0 && assignedCoordinates.y >= 0)
         {
@@ -208,7 +218,7 @@ public class GridManager : MonoBehaviour
 
     public Tileable GetTile(Vector2Int gridPosition)
     {
-        if (gridPosition.x > 0 && gridPosition.x < tiles.Length && gridPosition.y > 0 && gridPosition.y < tiles.Length)
+        if (gridPosition.x >= 0 && gridPosition.x < tiles.Length && gridPosition.y >= 0 && gridPosition.y < tiles.Length)
         {
             return tiles[gridPosition.x, gridPosition.y];
         }

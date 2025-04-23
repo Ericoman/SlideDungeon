@@ -45,45 +45,45 @@ public class TileInstancer : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.DrawRay(ray.origin, ray.direction*10000, Color.red, 10f);
-            if (Physics.Raycast(ray, out RaycastHit hit,1000,raycastMask))
-            {
-                Tileable tileable = hit.collider.GetComponentInParent<Tileable>();
-                if (tileable != null)
-                {
-                    MoveTile(tileable);
-                }
-                else
-                {
-                    int tileIndex = 0;
-                    if (Input.GetKey(KeyCode.Alpha1))
-                    {
-                        tileIndex = 1;
-                    }    
-                    else if (Input.GetKey(KeyCode.Alpha2))
-                    {
-                        tileIndex = 2;
-                    }
-                    else if (Input.GetKey(KeyCode.Alpha3))
-                    {
-                        tileIndex = 3;
-                    }
-                    
-                    GridManager gridManager = hit.collider.gameObject.GetComponentInParent<GridManager>();
-                    //Debug.Log(hit.point);
-                    GameObject tile = InstantiateTileOnGrid(gridManager,hit.point,tileIndex);
-                    if (tile == null)
-                    {
-                        Debug.LogWarning("Tile not instantiated, no valid grid found");
-                    }
-                }
-            }
-
-            
-        }
+        // if (Input.GetMouseButtonDown(0))
+        // {
+        //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //     Debug.DrawRay(ray.origin, ray.direction*10000, Color.red, 10f);
+        //     if (Physics.Raycast(ray, out RaycastHit hit,1000,raycastMask))
+        //     {
+        //         Tileable tileable = hit.collider.GetComponentInParent<Tileable>();
+        //         if (tileable != null)
+        //         {
+        //             MoveTile(tileable);
+        //         }
+        //         else
+        //         {
+        //             int tileIndex = 0;
+        //             if (Input.GetKey(KeyCode.Alpha1))
+        //             {
+        //                 tileIndex = 1;
+        //             }    
+        //             else if (Input.GetKey(KeyCode.Alpha2))
+        //             {
+        //                 tileIndex = 2;
+        //             }
+        //             else if (Input.GetKey(KeyCode.Alpha3))
+        //             {
+        //                 tileIndex = 3;
+        //             }
+        //             
+        //             GridManager gridManager = hit.collider.gameObject.GetComponentInParent<GridManager>();
+        //             //Debug.Log(hit.point);
+        //             GameObject tile = InstantiateTileOnGrid(gridManager,hit.point,tileIndex);
+        //             if (tile == null)
+        //             {
+        //                 Debug.LogWarning("Tile not instantiated, no valid grid found");
+        //             }
+        //         }
+        //     }
+        //
+        //     
+        // }
     }
 
     void MoveTile(Tileable tile)
