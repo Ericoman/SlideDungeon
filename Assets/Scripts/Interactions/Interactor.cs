@@ -31,7 +31,7 @@ public class Interactor : MonoBehaviour
             {
 
                 Debug.Log("interaction in reach");
-                _canvas.gameObject.SetActive(true);
+                if (_canvas) _canvas.gameObject.SetActive(true);
 
 
                 if (_playerInput.actions["Interact"].WasReleasedThisFrame())
@@ -44,7 +44,7 @@ public class Interactor : MonoBehaviour
         }
         else
         {
-            _canvas.gameObject.SetActive(false);
+            if(_canvas) _canvas.gameObject.SetActive(false);
         }
     }
 

@@ -567,6 +567,7 @@ GameObject:
   - component: {fileID: 2473395456148950053}
   - component: {fileID: 572824037103335223}
   - component: {fileID: 67195190061879040}
+  - component: {fileID: 8785778020092391441}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -731,6 +732,7 @@ MonoBehaviour:
   thunderSpellSprite: {fileID: 21300000, guid: 11558c3714a8c1f4e975da90713e4e15, type: 3}
   icebergSpellSprite: {fileID: 21300000, guid: b491d454d76e4934e842790eed53a879, type: 3}
   windSpellSprite: {fileID: 21300000, guid: 3824acd80289385428cad73d43f3e88d, type: 3}
+  inventoryManager: {fileID: 0}
 --- !u!114 &8835197056227840182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -829,6 +831,23 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8785778020092391441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8268433213911476575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f467d4aa02b47f449832558a1a8ae1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactionRadius: 1.5
+  _interactableLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  _canvas: {fileID: 0}
 --- !u!1 &8641869889656185479
 GameObject:
   m_ObjectHideFlags: 0
