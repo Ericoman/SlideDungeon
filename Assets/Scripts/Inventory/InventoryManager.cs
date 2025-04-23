@@ -76,6 +76,12 @@ public class InventoryManager : MonoBehaviour
             itemBase.Initialize(item);
             _itemInstances.Add(item, itemBase);
             _uiInventoryManager.AddItem(itemBase); //TODO make with event
+
+            int firstNullIndex = Array.IndexOf(_usableSlots, null);
+            if (firstNullIndex >= 0)
+            {
+                AssignItemToSlot(item, firstNullIndex);
+            }
         }
     }
 
