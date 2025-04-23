@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class ThunderLink : MonoBehaviour
@@ -26,6 +27,11 @@ public class ThunderLink : MonoBehaviour
         // Create a new BoxCollider and attach it to this GameObject
         //lineCollider = gameObject.AddComponent<BoxCollider>();
         //lineCollider.isTrigger = true; // Optional: Make it a trigger collider
+    }
+
+    public void OnIsBeingDestroyed()
+    {
+        StopAllCoroutines();
     }
 
     void Update()
@@ -77,6 +83,13 @@ public class ThunderLink : MonoBehaviour
                     if (Physics.Raycast(hitPoint, perpendicular1, out RaycastHit hit1, Mathf.Infinity))
                     {
                         endPoint1 = hit1.point; // Stop at the collision point
+                        
+                        TeslaCoil coil1 = hit1.collider.gameObject.GetComponent<TeslaCoil>();
+                        if (coil1 != null)
+                        {
+                            coil1.Activate(); // Activate TeslaCoil 1
+                        }
+                        
                     }
                     else
                     {
@@ -87,6 +100,13 @@ public class ThunderLink : MonoBehaviour
                     if (Physics.Raycast(hitPoint, perpendicular2, out RaycastHit hit2, Mathf.Infinity))
                     {
                         endPoint2 = hit2.point; // Stop at the collision point
+                        
+                        // Check if the object hit is a TeslaCoil
+                        TeslaCoil coil2 = hit2.collider.gameObject.GetComponent<TeslaCoil>();
+                        if (coil2 != null)
+                        {
+                            coil2.Activate(); // Activate TeslaCoil 2
+                        }
                     }
                     else
                     {

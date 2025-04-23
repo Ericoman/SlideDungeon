@@ -19,6 +19,7 @@ public class ThunderSpellCast : SpellBase
 
     private Transform originalSphere2Parent;
     
+    
     public void Awake()
     {
         GameObject rayCastLaunchPoint = GameObject.Find("RayCastLaunchPoint");
@@ -175,4 +176,5 @@ public class ThunderSpellCast : SpellBase
         // Ensure the sphere snaps exactly to the target position at the end of the movement
         sphereTransform.position = targetPoint;
     }
+    
 }
