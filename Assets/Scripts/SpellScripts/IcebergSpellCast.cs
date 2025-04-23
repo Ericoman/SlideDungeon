@@ -13,6 +13,11 @@ public class IcebergSpellCast : SpellBase
 
         if (playerMovement == null)
         {
+            playerMovement = FindAnyObjectByType<PlayerMovement>();
+        }
+        
+        if (playerMovement == null)
+        {
             Debug.LogError("PlayerMovement script not found on the player.");
         }
     }

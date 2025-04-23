@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ThunderSpellCast : SpellBase
@@ -11,6 +13,35 @@ public class ThunderSpellCast : SpellBase
     
     private ThunderLink currentThunderLink; // Reference to the current ThunderLink instance
     private bool isFirstCast = true;        // Tracks whether it's the first or second cast
+
+    private Queue<GameObject> thunderLinkQueue = new Queue<GameObject>(); // Store instantiated prefabs
+    public int maxThunderLinks = 3; // Maximum number of ThunderLinks to store in the queue
+
+    private Transform originalSphere2Parent;
+    
+    public void Awake()
+    {
+        GameObject rayCastLaunchPoint = GameObject.Find("RayCastLaunchPoint");
+        GameObject targetTransformObject = GameObject.Find("Crystal");
+
+        if (targetTransformObject != null)
+        {
+            targetTransform = targetTransformObject.transform;
+        }
+        else
+        {
+            Debug.LogError("ThunderSpellCast: 'Crystal' GameObject not found! Assign it manually or ensure the GameObject exists.");
+        }
+        
+        if (rayCastLaunchPoint != null)
+        {
+            castOrigin = rayCastLaunchPoint.transform;
+        }
+        else
+        {
+            Debug.LogError("ThunderSpellCast: 'RayCastLaunchPoint' GameObject not found! Assign it manually or ensure the GameObject exists.");
+        }
+    }
 
     public override void CastSpell() // Directly callable by SpellHudManager
     {
@@ -48,7 +79,9 @@ public class ThunderSpellCast : SpellBase
 
             // Instantiate the ThunderLink prefab
             GameObject thunderLinkInstance = Instantiate(thunderLinkPrefab, transform.position, Quaternion.identity);
-
+            
+            ManagePrefabQueue(thunderLinkInstance); // Manage the prefab queue;
+            
             // Get the ThunderLink script on the prefab
             currentThunderLink = thunderLinkInstance.GetComponent<ThunderLink>();
             if (currentThunderLink != null)
@@ -64,6 +97,9 @@ public class ThunderSpellCast : SpellBase
                 if (currentThunderLink.sphere2 != null && targetTransform != null)
                 {
                     currentThunderLink.sphere2.transform.position = targetTransform.position;
+                    
+                    originalSphere2Parent = currentThunderLink.sphere2.transform.parent;
+                    
                     currentThunderLink.sphere2.transform.SetParent(targetTransform, true); // Make it a child
                 }
 
@@ -92,7 +128,7 @@ public class ThunderSpellCast : SpellBase
         Debug.Log("ThunderSpellCast: Second cast triggered.");
 
         // Release sphere2 from the parent Transform
-        currentThunderLink.sphere2.transform.SetParent(null);
+        currentThunderLink.sphere2.transform.SetParent(originalSphere2Parent, true); // Restore the original parent;
 
         // Perform raycast for the second sphere
         Ray ray = new Ray(castOrigin.position, castOrigin.forward); // Raycast from the cast origin
@@ -107,10 +143,24 @@ public class ThunderSpellCast : SpellBase
         {
             Debug.Log("ThunderSpellCast: Second cast raycast did not hit anything.");
         }
-
+        
+        
         // Reset to handle new casts later
         isFirstCast = true; // Reset to allow the first cast logic to run again
         currentThunderLink = null; // Clear the reference to the current ThunderLink
+    }
+    
+    private void ManagePrefabQueue(GameObject thunderLinkInstance)
+    {
+        // Enqueue the new prefab
+        thunderLinkQueue.Enqueue(thunderLinkInstance);
+
+        // Check and remove (destroy) the oldest prefab if queue size exceeds the limit
+        if (thunderLinkQueue.Count > maxThunderLinks)
+        {
+            GameObject oldest = thunderLinkQueue.Dequeue();
+            Destroy(oldest);
+        }
     }
     
     private System.Collections.IEnumerator MoveSphereToPoint(Transform sphereTransform, Vector3 targetPoint)

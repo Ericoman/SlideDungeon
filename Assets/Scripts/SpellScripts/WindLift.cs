@@ -51,7 +51,7 @@ public class WindLift : MonoBehaviour
             if (windSpellCast != null)
             {
                 Debug.Log($"{other.gameObject.name} has the WindSpellCast component.");
-                StartCoroutine(LiftAndLowerObject(other.gameObject));
+                //StartCoroutine(LiftAndLowerObject(other.gameObject));
             }
             else
             {
