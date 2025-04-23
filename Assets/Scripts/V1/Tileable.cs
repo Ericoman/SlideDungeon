@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[ExecuteInEditMode]
+// [ExecuteInEditMode]
 public class Tileable : MonoBehaviour
 {
     [SerializeField] 
@@ -97,7 +97,10 @@ public class Tileable : MonoBehaviour
 
     private void OnDestroy()
     {
-        gridManager.DeleteFromGrid(this);
+        if (gridManager)
+        {
+            gridManager.DeleteFromGrid(this);
+        }
     }
 
     public bool TryMove(Vector3 newPosition)

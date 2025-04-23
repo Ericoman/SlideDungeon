@@ -54,7 +54,7 @@ public class GridManager : MonoBehaviour
             for (int x = 0; x < width; x++)
             {
                 GameObject backgroundTile = Instantiate(backgroundTilePrefab, transform);
-                backgroundTile.transform.localPosition = new Vector3(x*cellSize, z*cellSize, 0);
+                backgroundTile.transform.localPosition = new Vector3(x*cellSize, z*cellSize, cellSize);
                 //backgroundTile.transform.localPosition = new Vector3(x * cellSize, 0, y * cellSize);
                 backgroundTile.transform.localScale *= cellSize;
                 //backgroundTile.transform.rotation = Quaternion.Euler(90, 0, 0);

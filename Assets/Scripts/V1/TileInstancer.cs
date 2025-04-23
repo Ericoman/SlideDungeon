@@ -6,9 +6,19 @@ using static UnityEngine.UI.Image;
 
 public class TileInstancer : MonoBehaviour
 {
+    [Serializable]
+    struct DefaultTile
+    {
+        public Transform tile;
+        public int tileIndex;
+    }
+    
     [SerializeField]
     GameObject[] tilePrefabs;
 
+    [SerializeField]
+    private DefaultTile[] _defaultTiles;
+    
     protected LayerMask raycastMask = ~(1<<2);
 
     public delegate void InstantiateTileEventHandler(object sender, int tileIndex,Tileable generatedTile);
@@ -21,6 +31,18 @@ public class TileInstancer : MonoBehaviour
     //     raycastMask = ~LayerMask.GetMask("Ignore Raycast");
     // }
 
+    private void Start()
+    {
+        foreach (DefaultTile tile in _defaultTiles)
+        {
+            GridManager gridManager = tile.tile.GetComponentInParent<GridManager>();
+            if (gridManager)
+            {
+                InstantiateTileOnGrid(gridManager, tile.tile.position, tile.tileIndex);
+                Destroy(tile.tile.gameObject);
+            }
+        }
+    }
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -122,7 +144,7 @@ public class TileInstancer : MonoBehaviour
             yield return null;
         }
     }
-    GameObject InstantiateTileOnGrid(GridManager gridManager, Vector3 position, int tileIndex)
+    public GameObject InstantiateTileOnGrid(GridManager gridManager, Vector3 position, int tileIndex)
     {
         if (gridManager)
         {
