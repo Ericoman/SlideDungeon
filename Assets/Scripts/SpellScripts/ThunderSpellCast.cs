@@ -91,7 +91,7 @@ public class ThunderSpellCast : SpellBase
                 if (currentThunderLink.sphere1 != null)
                 {
                     currentThunderLink.sphere1.transform.position = castOrigin.position;
-                    StartCoroutine(MoveSphereToPoint(currentThunderLink.sphere1.transform, hitInfo.point));
+                    currentThunderLink.StartSphere1Movement(currentThunderLink.sphere1.transform, hitInfo.point, sphereMoveSpeed);
                 }
 
                 // Parent sphere2 (second sphere) to the specified Transform
@@ -138,7 +138,7 @@ public class ThunderSpellCast : SpellBase
             Debug.Log($"ThunderSpellCast: Raycast hit {hitInfo.collider.name} (Second Cast).");
 
             // Move sphere2 to the raycast hit point
-            StartCoroutine(MoveSphereToPoint(currentThunderLink.sphere2.transform, hitInfo.point));
+            currentThunderLink.StartSphere2Movement(currentThunderLink.sphere2.transform, hitInfo.point, sphereMoveSpeed);
         }
         else
         {
@@ -153,18 +153,24 @@ public class ThunderSpellCast : SpellBase
     
     private void ManagePrefabQueue(GameObject thunderLinkInstance)
     {
-        // Enqueue the new prefab
         thunderLinkQueue.Enqueue(thunderLinkInstance);
 
-        // Check and remove (destroy) the oldest prefab if queue size exceeds the limit
         if (thunderLinkQueue.Count > maxThunderLinks)
         {
-            GameObject oldest = thunderLinkQueue.Dequeue();
-            Destroy(oldest);
+            GameObject oldestLinkObject = thunderLinkQueue.Dequeue();
+
+            // Ensure the ThunderLink cleans up its coroutines and resources before destruction
+            ThunderLink oldestLink = oldestLinkObject.GetComponent<ThunderLink>();
+            if (oldestLink != null)
+            {
+                oldestLink.OnIsBeingDestroyed(); // Stop coroutines safely
+            }
+
+            Destroy(oldestLinkObject); // Destroy the object
         }
     }
     
-    private System.Collections.IEnumerator MoveSphereToPoint(Transform sphereTransform, Vector3 targetPoint)
+    /*private System.Collections.IEnumerator MoveSphereToPoint(Transform sphereTransform, Vector3 targetPoint)
     {
         while (Vector3.Distance(sphereTransform.position, targetPoint) > 0.1f)
         {
@@ -175,6 +181,6 @@ public class ThunderSpellCast : SpellBase
 
         // Ensure the sphere snaps exactly to the target position at the end of the movement
         sphereTransform.position = targetPoint;
-    }
+    }*/
     
 }

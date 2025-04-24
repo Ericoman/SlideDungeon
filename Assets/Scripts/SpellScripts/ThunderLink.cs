@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class ThunderLink : MonoBehaviour
@@ -6,6 +7,10 @@ public class ThunderLink : MonoBehaviour
     public GameObject sphere1; // Reference to the first sphere
     public GameObject sphere2; // Reference to the second sphere
 
+    private Coroutine sphere1MovementCoroutine;
+    private Coroutine sphere2MovementCoroutine;
+
+    
     public LineRenderer lineRenderer;
     //private BoxCollider lineCollider; // The collider along the line
     
@@ -29,9 +34,61 @@ public class ThunderLink : MonoBehaviour
         //lineCollider.isTrigger = true; // Optional: Make it a trigger collider
     }
 
+    public void StartSphere1Movement(Transform target, Vector3 targetPoint, float speed)
+    {
+        StopSphere1Movement(); // Ensure the old coroutine is stopped
+        sphere1MovementCoroutine = StartCoroutine(MoveSphereToPoint(target, targetPoint, speed));
+    }
+
+    public void StartSphere2Movement(Transform target, Vector3 targetPoint, float speed)
+    {
+        StopSphere2Movement(); // Ensure the old coroutine is stopped
+        sphere2MovementCoroutine = StartCoroutine(MoveSphereToPoint(target, targetPoint, speed));
+    }
+
+    public void StopSphere1Movement()
+    {
+        if (sphere1MovementCoroutine != null)
+        {
+            StopCoroutine(sphere1MovementCoroutine);
+            sphere1MovementCoroutine = null;
+        }
+    }
+
+    public void StopSphere2Movement()
+    {
+        if (sphere2MovementCoroutine != null)
+        {
+            StopCoroutine(sphere2MovementCoroutine);
+            sphere2MovementCoroutine = null;
+        }
+    }
+
     public void OnIsBeingDestroyed()
     {
-        StopAllCoroutines();
+        // Stop all coroutines for sphere movement
+        StopSphere1Movement();
+        StopSphere2Movement();
+    }
+
+    private IEnumerator MoveSphereToPoint(Transform sphereTransform, Vector3 targetPoint, float moveSpeed)
+    {
+        while (sphereTransform != null && Vector3.Distance(sphereTransform.position, targetPoint) > 0.1f)
+        {
+            sphereTransform.position = Vector3.MoveTowards(sphereTransform.position, targetPoint, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        if (sphereTransform != null)
+        {
+            // Snap to target point
+            sphereTransform.position = targetPoint;
+        }
+    }
+
+    void OnDestroy()
+    {
+        OnIsBeingDestroyed(); // Ensure cleanup when the object is destroyed
     }
 
     void Update()
