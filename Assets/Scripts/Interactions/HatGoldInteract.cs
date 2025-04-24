@@ -1,5 +1,7 @@
 using Assets.Devs.Julia.Scripts;
 using UnityEngine;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class HatGoldInteract : MonoBehaviour, IInteractable
 {
@@ -20,7 +22,15 @@ public class HatGoldInteract : MonoBehaviour, IInteractable
 
                 hat.SetActive(true);
             }
-            Destroy(gameObject);
+            gameObject.transform.position = new Vector3(0, -800, 0);
+
+            StartCoroutine(EndGame());
         }
+    }
+
+    private IEnumerator EndGame()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(2);
     }
 }
