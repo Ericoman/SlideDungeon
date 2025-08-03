@@ -6,16 +6,16 @@ public class HealthComponent : MonoBehaviour
 {
 
     [SerializeField]
-    private float maxHealth = 1;
-    private float currentHealth;
+    protected float maxHealth = 1;
+    protected float currentHealth;
 
     [SerializeField]
     bool doesRespawn = false;
-    private Vector3 respawnPotition = Vector3.zero;
+    protected Vector3 respawnPotition = Vector3.zero;
 
     [SerializeField]
-    private float damageCooldown = 1;
-    private bool _canTakeDamage = true;
+    protected float damageCooldown = 1;
+    protected bool _canTakeDamage = true;
 
 
     void Start()
@@ -24,7 +24,7 @@ public class HealthComponent : MonoBehaviour
         respawnPotition = gameObject.transform.position;
     }
 
-    public void ReceiveDamage(float damage)
+    virtual public void ReceiveDamage(float damage)
     {
         if (!_canTakeDamage)
             return;
@@ -56,7 +56,7 @@ public class HealthComponent : MonoBehaviour
     }
 
 
-    public void ReceiveHealth(float health) 
+    virtual public void ReceiveHealth(float health) 
     {
         currentHealth = Math.Min(maxHealth, currentHealth + health);
     }
