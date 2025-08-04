@@ -123,7 +123,7 @@ public class PatrolController : MonoBehaviour
     {
         _playerPosition = Vector3.zero;
         navMeshAgent.SetDestination(waypoints[_currentWaypointIndex].position);
-        if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
+        if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance + 1)
         {
             if (_waitTime <= 0)
             {
