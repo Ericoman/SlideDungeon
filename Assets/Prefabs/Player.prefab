@@ -566,6 +566,7 @@ GameObject:
   - component: {fileID: 2672363916702475161}
   - component: {fileID: 2473395456148950053}
   - component: {fileID: 572824037103335223}
+  - component: {fileID: 1114356677823533789}
   - component: {fileID: 67195190061879040}
   - component: {fileID: 8785778020092391441}
   m_Layer: 3
@@ -810,6 +811,22 @@ MonoBehaviour:
   windableLayer:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &1114356677823533789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8268433213911476575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a97f7f0b32314f439be591efa465fa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 6
+  doesRespawn: 1
+  damageCooldown: 1
+  heartsText: {fileID: 0}
 --- !u!136 &67195190061879040
 CapsuleCollider:
   m_ObjectHideFlags: 0

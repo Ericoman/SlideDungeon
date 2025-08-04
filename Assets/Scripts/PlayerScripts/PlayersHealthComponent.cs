@@ -12,13 +12,13 @@ public class PlayersHealthComponent : HealthComponent
         SetText();
     }
 
-    override public void ReceiveDamage(float damage)
+    override public void ReceiveDamage(int damage)
     {
         base.ReceiveDamage(damage);//call parent 
         SetText();
     }
 
-    override public void ReceiveHealth(float health)
+    override public void ReceiveHealth(int health) 
     {
         base.ReceiveHealth(health);//call parent 
         SetText();
@@ -26,6 +26,6 @@ public class PlayersHealthComponent : HealthComponent
 
     void SetText() 
     {
-        heartsText.text = $"{currentHealth}";
+        if(heartsText != null ) heartsText.text = $"{currentHealth}";
     }
 }

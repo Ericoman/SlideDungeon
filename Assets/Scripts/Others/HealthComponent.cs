@@ -6,8 +6,8 @@ public class HealthComponent : MonoBehaviour
 {
 
     [SerializeField]
-    protected float maxHealth = 1;
-    protected float currentHealth;
+    protected int maxHealth = 1;
+    protected int currentHealth;
 
     [SerializeField]
     bool doesRespawn = false;
@@ -24,7 +24,7 @@ public class HealthComponent : MonoBehaviour
         respawnPotition = gameObject.transform.position;
     }
 
-    virtual public void ReceiveDamage(float damage)
+    virtual public void ReceiveDamage(int damage)
     {
         if (!_canTakeDamage)
             return;
@@ -56,7 +56,7 @@ public class HealthComponent : MonoBehaviour
     }
 
 
-    virtual public void ReceiveHealth(float health) 
+    virtual public void ReceiveHealth(int health) 
     {
         currentHealth = Math.Min(maxHealth, currentHealth + health);
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 public class DamageInteract : MonoBehaviour, IInteractable
 {
     [SerializeField]
-    private float damageRecived = 1;
+    private int damageRecived = 1;
     public void Interact(GameObject interactor)
     {
         HealthComponent health = gameObject.GetComponentInChildren<HealthComponent>();

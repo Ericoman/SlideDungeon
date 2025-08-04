@@ -15,7 +15,7 @@ public class PatrolController : MonoBehaviour
     public LayerMask obstacleMasck;
 
     //player
-    public float damage = 1;
+    public int damage = 1;
     public float damageRadius = 2;    
     Vector3 _playerPosition;
 

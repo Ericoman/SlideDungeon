@@ -4,7 +4,7 @@ using UnityEngine;
 public class HealthInteract : MonoBehaviour, IInteractable
 {
     [SerializeField] 
-    private float healthRecived = 1;
+    private int healthRecived = 1;
 
     public void Interact(GameObject interactor)
     {
