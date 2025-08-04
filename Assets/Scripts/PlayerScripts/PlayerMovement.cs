@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
                 else {
                     
                     canMove = true;
-                    GameManager.Instance.ResetMainCamera(GameManager.Instance.maincamera.transform, GameManager.Instance.maincameraRightPosition);
+                    GameManager.Instance.ResetMainCamera(GameManager.Instance.maincamera.transform, GameManager.Instance.maincameraRightPosition.transform);
                 }
             }
             
