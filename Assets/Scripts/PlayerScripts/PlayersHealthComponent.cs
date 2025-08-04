@@ -9,7 +9,6 @@ public class PlayersHealthComponent : HealthComponent
     public float updateFallPositionCooldown = 2;
     private float _checkDistance = 1; // Distance below object to check for ground
     private Vector3 _fallPosition;
-    private bool _canUpdateFallPosition = true;
 
     void Start()
     {
@@ -44,12 +43,18 @@ public class PlayersHealthComponent : HealthComponent
         base.RespawnDeath();//call parent 
         SetText();
     }
-
-    override public void ReceiveHealth(int health) 
+    override public void ReceiveHealth(int health)
     {
         base.ReceiveHealth(health);//call parent 
         SetText();
     }
+
+    override public void ReceiveDamage(int damage)
+    {
+        base.ReceiveDamage(damage);//call parent 
+        SetText();
+    }
+
     override protected void RespawnFall()
     {
         gameObject.transform.position = _fallPosition;
