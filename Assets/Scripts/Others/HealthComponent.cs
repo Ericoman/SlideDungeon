@@ -39,8 +39,7 @@ public class HealthComponent : MonoBehaviour
             }
             else
             {
-                gameObject.transform.position = respawnPotition;
-                currentHealth = maxHealth;
+                RespawnDeath();
             }
         }
 
@@ -61,9 +60,41 @@ public class HealthComponent : MonoBehaviour
         currentHealth = Math.Min(maxHealth, currentHealth + health);
     }
 
+    public void ReceiveDamageByFall(int damage)
+    {
+        currentHealth -= damage;
+
+        if (!doesRespawn)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            if (currentHealth <= 0)
+            {
+                RespawnDeath();
+            }
+            else
+            {
+                RespawnFall();
+            }
+        }
+    }
+
     public void SetRespawnPosition(Vector3 respawn) 
     {
         respawnPotition = respawn;
+    }
+
+    virtual protected void RespawnDeath() 
+    {
+        gameObject.transform.position = respawnPotition;
+        currentHealth = maxHealth;
+    }
+
+    virtual protected void RespawnFall()
+    {
+        Destroy(gameObject);
     }
 
 }

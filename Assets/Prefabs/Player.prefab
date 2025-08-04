@@ -827,6 +827,9 @@ MonoBehaviour:
   doesRespawn: 1
   damageCooldown: 1
   heartsText: {fileID: 0}
+  updateFallPositionCooldown: 2
+  checkDistance: 1
+  _fallPosition: {x: 0, y: 0, z: 0}
 --- !u!136 &67195190061879040
 CapsuleCollider:
   m_ObjectHideFlags: 0
