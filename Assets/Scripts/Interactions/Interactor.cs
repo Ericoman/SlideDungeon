@@ -1,4 +1,5 @@
 using Assets.Devs.Julia.Scripts;
+using Assets.Scripts.Interactions;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -13,20 +14,26 @@ public class Interactor : MonoBehaviour
     [SerializeField] private float _maxDistanceToFloor = 2;
 
     private PlayerInput _playerInput;
+    private InputAction _interactAction;
     private Transform _transform;
 
     private GameObject _grabbedObject = null;
+
+    private float _interactHeldTime = 0f;
+    public float holdThreshold = 0.5f;
 
     private void Awake()
     {
         _transform = transform;
         _playerInput = GetComponent<PlayerInput>();
+        _interactAction = _playerInput.actions["Interact"];
     }
 
 
     public void SetGrabbedObject(GameObject grabbedObject) 
     {
         _grabbedObject = grabbedObject;
+        if (_canvas && grabbedObject != null) _canvas.gameObject.SetActive(false);
     }
 
     ///////VERSION 2
@@ -38,16 +45,47 @@ public class Interactor : MonoBehaviour
         {
             if (Physics.Raycast(_transform.position, transform.forward, out var hit, _interactionRadius, _interactableLayer))
             {
-                if (hit.transform.TryGetComponent(out IInteractable interactableObject))
+                IInteractable interactableObject = null;
+                hit.transform.TryGetComponent(out interactableObject);
+                IInteractableHeld interactableHeldObject = null;
+                hit.transform.TryGetComponent(out interactableHeldObject);
+
+                if (interactableObject != null || interactableHeldObject != null)
                 {
-                    Debug.Log("interaction in reach");
                     if (_canvas) _canvas.gameObject.SetActive(true);
 
+                    //Diferenciate if holding or just press considerring witch acction is available
 
-                    if (_playerInput.actions["Interact"].WasReleasedThisFrame())
+                    if (interactableHeldObject != null && _interactAction.IsPressed()) //HOLDING
                     {
-                        interactableObject.Interact(gameObject);
-                        Debug.Log("interactableObject reached");
+                        _interactHeldTime += Time.deltaTime;
+
+                        if (_interactHeldTime >= holdThreshold) //---> holding action 
+                        {
+                            Debug.Log("Holding Interact");
+                            if (_playerInput.actions["RotateRight"].WasReleasedThisFrame()) //right
+                            {
+                                interactableHeldObject.InteractHeldRight(gameObject);
+                            }
+                            else if (_playerInput.actions["RotateLeft"].WasReleasedThisFrame()) //left
+                            {
+                                interactableHeldObject.InteractHeldLeft(gameObject);
+                            }
+
+                        }
+                    }
+                    else if (_interactAction.WasPressedThisFrame()) //INITIAL PRESS
+                    {
+                        _interactHeldTime = 0f;
+                    }
+                    else if (_interactAction.WasReleasedThisFrame()) //RELEASE PRESS
+                    {
+                        if (interactableObject != null && _interactHeldTime < holdThreshold) //---> press action 
+                        {
+                            interactableObject.Interact(gameObject);
+                            Debug.Log("interactableObject reached");
+                        }
+                        _interactHeldTime = 0f; 
                     }
                 }
             }
@@ -56,10 +94,9 @@ public class Interactor : MonoBehaviour
                 if (_canvas) _canvas.gameObject.SetActive(false);
             }
         }
-        else //grabing
+        else //grabing -> DROP
         {
-            if (_canvas) _canvas.gameObject.SetActive(false);
-            if (_playerInput.actions["Interact"].WasReleasedThisFrame()) //try drop 
+            if (_interactAction.WasReleasedThisFrame()) //try drop 
             {
                 bool isHitDrop = Physics.Raycast(_transform.position, transform.forward, out var hitDrop, _grabbedObject.transform.localScale.x + 1);
                 Debug.DrawRay(_transform.position, transform.forward * (_grabbedObject.transform.localScale.x + 1), Color.red, 2f, false);
@@ -71,11 +108,6 @@ public class Interactor : MonoBehaviour
 
                 if ((!isHitDrop || hitDrop.collider.gameObject == _grabbedObject) && isFloor) //can drop
                 {
-                    /* _grabbedObject.transform.SetParent(null);
-                     //_grabbedObject.transform.position += gameObject.transform.forward.normalized / 2;
-                     _grabbedObject.transform.position = hitDrop.transform.position;
-                     _grabbedObject = null;*/
-
                     // Detach from parent
                     _grabbedObject.transform.SetParent(null);
 
@@ -91,7 +123,6 @@ public class Interactor : MonoBehaviour
                     _grabbedObject = null;
 
                 }
-                
             }
         }
 

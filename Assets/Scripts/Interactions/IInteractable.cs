@@ -5,6 +5,6 @@ namespace Assets.Devs.Julia.Scripts
 {
     public interface IInteractable
     {
-        void Interact (GameObject interactor);
+        void Interact(GameObject interactor);
     }
 }
