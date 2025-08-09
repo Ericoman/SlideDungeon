@@ -37,11 +37,19 @@ public class PatrolController : MonoBehaviour
         _waitTime = startWaitTime;
         _currentWaypointIndex = 0;
 
+        if (waypoints.Length == 0)
+        {
+            GameObject punto = new GameObject("Waypoint0");
+            punto.transform.position = transform.position;
+
+            waypoints = new Transform[1];
+            waypoints[0] = punto.transform;
+        }
+
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.isStopped = false;
         navMeshAgent.speed = speedWalk;
         navMeshAgent.SetDestination(waypoints[_currentWaypointIndex].position);
-
     }
 
     void Update()
@@ -56,7 +64,6 @@ public class PatrolController : MonoBehaviour
         {
             Chase();
         }
-        
     }
 
     void CheckPlayer() 

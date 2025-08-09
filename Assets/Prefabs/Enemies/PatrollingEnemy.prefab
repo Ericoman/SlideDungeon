@@ -189,9 +189,7 @@ MonoBehaviour:
     m_Bits: 1024
   damage: 1
   damageRadius: 1
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  waypoints: []
 --- !u!114 &5441248092016423965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba80f48243df7c4886b2043ea0a74ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageRecived: 1
+  damageProduced: 1
 --- !u!114 &682217247322852044
 MonoBehaviour:
   m_ObjectHideFlags: 0

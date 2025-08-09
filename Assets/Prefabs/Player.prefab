@@ -611,6 +611,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  InteractPuzzle: {fileID: 0}
+  canMove: 1
 --- !u!114 &3091067174608430516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,8 +830,6 @@ MonoBehaviour:
   damageCooldown: 1
   heartsText: {fileID: 0}
   updateFallPositionCooldown: 2
-  checkDistance: 1
-  _fallPosition: {x: 0, y: 0, z: 0}
 --- !u!136 &67195190061879040
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -865,11 +865,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f467d4aa02b47f449832558a1a8ae1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionRadius: 1.5
+  _interactionRadius: 2.5
   _interactableLayer:
     serializedVersion: 2
     m_Bits: 512
   _canvas: {fileID: 0}
+  _maxDistanceToFloor: 2
+  holdThreshold: 0.25
 --- !u!1 &8641869889656185479
 GameObject:
   m_ObjectHideFlags: 0
