@@ -829,6 +829,8 @@ MonoBehaviour:
   doesRespawn: 1
   damageCooldown: 1
   heartsText: {fileID: 0}
+  extraHeartsText: {fileID: 0}
+  maxExtraHealth: 2
   updateFallPositionCooldown: 2
 --- !u!136 &67195190061879040
 CapsuleCollider:

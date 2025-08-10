@@ -1,10 +1,16 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using System;
 
 public class PlayersHealthComponent : HealthComponent
 {
     public TextMeshProUGUI heartsText;
+    public TextMeshProUGUI extraHeartsText;
+
+    [SerializeField]
+    protected int maxExtraHealth = 2;
+    protected int currentExtraHealth = 0;
 
     public float updateFallPositionCooldown = 2;
     private float _checkDistance = 1; // Distance below object to check for ground
@@ -15,6 +21,8 @@ public class PlayersHealthComponent : HealthComponent
         currentHealth = maxHealth;
         respawnPotition = gameObject.transform.position;
         _fallPosition = gameObject.transform.position;
+
+        extraHeartsText.enabled = false;
         SetText();
 
         StartCoroutine(FallPositionCoroutine());
@@ -38,33 +46,82 @@ public class PlayersHealthComponent : HealthComponent
         return Physics.Raycast(transform.position, Vector3.down, _checkDistance);
     }
 
-    override protected void RespawnDeath()
-    {
-        base.RespawnDeath();//call parent 
-        SetText();
-    }
+    //healthComponent 
     override public void ReceiveHealth(int health)
     {
-        base.ReceiveHealth(health);//call parent 
+        base.ReceiveHealth(health);
         SetText();
     }
-
     override public void ReceiveDamage(int damage)
     {
-        base.ReceiveDamage(damage);//call parent 
-        SetText();
+        if (currentExtraHealth == 0) 
+        { 
+            base.ReceiveDamage(damage);
+            SetText();
+        }
+        else 
+        {
+            if (!_canTakeDamage)
+                return;
+            ReceiveExtraDamage(damage);
+        }
+       
+    }
+    override public void ReceiveDamageByFall(int damage) 
+    {
+        if (currentExtraHealth == 0)
+        {
+            base.ReceiveDamageByFall(damage);
+        }
+        else
+        {
+            ReceiveExtraDamage(damage);
+            RespawnFall();
+        }
     }
 
+    //healthComponent respawn
+    override protected void RespawnDeath()
+    {
+        base.RespawnDeath();
+        SetText();
+    }
     override protected void RespawnFall()
     {
         gameObject.transform.position = _fallPosition;
         SetText();
     }
 
+    //extra healht
+    public void ReceiveExtraHealth(int health)
+    {
+        currentExtraHealth = Math.Min(maxExtraHealth, currentExtraHealth + health);
+        SetTextExtra();
+    }
+    public void ReceiveExtraDamage(int damage)
+    {
+        currentExtraHealth -= damage;
+        SetTextExtra();
+    }
+
     void SetText() 
     {
         if(heartsText != null ) heartsText.text = $"{currentHealth}";
     }
+    void SetTextExtra() 
+    {
+        if (extraHeartsText != null) 
+        {
+            if (currentExtraHealth == 0) 
+            { 
+                extraHeartsText.enabled = false;
+            }
+            else 
+            {
+                extraHeartsText.enabled = true;
+                extraHeartsText.text = $"{currentExtraHealth}";
+            }
+        }          
+    }
 
-   
 }

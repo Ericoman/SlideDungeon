@@ -60,7 +60,7 @@ public class HealthComponent : MonoBehaviour
         currentHealth = Math.Min(maxHealth, currentHealth + health);
     }
 
-    public void ReceiveDamageByFall(int damage)
+    virtual public void ReceiveDamageByFall(int damage)
     {
         currentHealth -= damage;
 
