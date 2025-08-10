@@ -11,6 +11,7 @@ public class TileInstancer : MonoBehaviour
     {
         public Transform tile;
         public int tileIndex;
+        public bool keepOriginal;
     }
     
     [SerializeField]
@@ -38,8 +39,15 @@ public class TileInstancer : MonoBehaviour
             GridManager gridManager = tile.tile.GetComponentInParent<GridManager>();
             if (gridManager)
             {
-                InstantiateTileOnGrid(gridManager, tile.tile.position, tile.tileIndex);
-                Destroy(tile.tile.gameObject);
+                if (tile.keepOriginal)
+                {
+                    SetTileOnGrid(gridManager, tile.tileIndex, tile.tile.gameObject);
+                }
+                else
+                {
+                    InstantiateTileOnGrid(gridManager, tile.tile.position, tile.tileIndex);
+                    Destroy(tile.tile.gameObject);
+                }
             }
         }
     }
@@ -157,5 +165,15 @@ public class TileInstancer : MonoBehaviour
         }
     
         return null;
+    }
+
+    public void SetTileOnGrid(GridManager gridManager, int tileIndex, GameObject tile)
+    {
+        if (gridManager)
+        {   
+            Tileable tileable = tile.GetComponent<Tileable>();
+            tileable.SetInGrid(gridManager);
+            InstantiateTileEvent?.Invoke(this, tileIndex, tileable);
+        }
     }
 }
