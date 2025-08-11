@@ -1,0 +1,146 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1075286808785745073
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 9159158641831727415}
+    m_Modifications:
+    - target: {fileID: 8574448978283712228, guid: 93e21f2592770f34a9685fbec02daf13,
+        type: 3}
+      propertyPath: m_Name
+      value: SM_Props_WoodenBarrel_Drink
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058250980012823646, guid: 93e21f2592770f34a9685fbec02daf13,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058250980012823646, guid: 93e21f2592770f34a9685fbec02daf13,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058250980012823646, guid: 93e21f2592770f34a9685fbec02daf13,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058250980012823646, guid: 93e21f2592770f34a9685fbec02daf13,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058250980012823646, guid: 93e21f2592770f34a9685fbec02daf13,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058250980012823646, guid: 93e21f2592770f34a9685fbec02daf13,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058250980012823646, guid: 93e21f2592770f34a9685fbec02daf13,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058250980012823646, guid: 93e21f2592770f34a9685fbec02daf13,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058250980012823646, guid: 93e21f2592770f34a9685fbec02daf13,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058250980012823646, guid: 93e21f2592770f34a9685fbec02daf13,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058250980012823646, guid: 93e21f2592770f34a9685fbec02daf13,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 93e21f2592770f34a9685fbec02daf13, type: 3}
+--- !u!1001 &1594143372855291775
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7084028206200726770, guid: 736b0dadba6eeb14dae0d7a367c52acf,
+        type: 3}
+      propertyPath: m_Name
+      value: SM_Props_WoodenBarrel_Drink_WithSupport
+      objectReference: {fileID: 0}
+    - target: {fileID: 7567268598335503944, guid: 736b0dadba6eeb14dae0d7a367c52acf,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7567268598335503944, guid: 736b0dadba6eeb14dae0d7a367c52acf,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7567268598335503944, guid: 736b0dadba6eeb14dae0d7a367c52acf,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7567268598335503944, guid: 736b0dadba6eeb14dae0d7a367c52acf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7567268598335503944, guid: 736b0dadba6eeb14dae0d7a367c52acf,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7567268598335503944, guid: 736b0dadba6eeb14dae0d7a367c52acf,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7567268598335503944, guid: 736b0dadba6eeb14dae0d7a367c52acf,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7567268598335503944, guid: 736b0dadba6eeb14dae0d7a367c52acf,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7567268598335503944, guid: 736b0dadba6eeb14dae0d7a367c52acf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7567268598335503944, guid: 736b0dadba6eeb14dae0d7a367c52acf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7567268598335503944, guid: 736b0dadba6eeb14dae0d7a367c52acf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 736b0dadba6eeb14dae0d7a367c52acf, type: 3}
+--- !u!4 &9159158641831727415 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7567268598335503944, guid: 736b0dadba6eeb14dae0d7a367c52acf,
+    type: 3}
+  m_PrefabInstance: {fileID: 1594143372855291775}
+  m_PrefabAsset: {fileID: 0}
