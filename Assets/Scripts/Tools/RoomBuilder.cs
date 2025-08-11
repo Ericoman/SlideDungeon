@@ -21,10 +21,19 @@ namespace Tools
         private GameObject _wallsContainer;
         private GameObject _floorContainer;
         private GameObject _customElementsContainer;
+        
+        private const string WALLS_PARENT_NAME = "Walls";
+        private const string WALL_PARENT_NAME = "Wall";
+        private const string FLOOR_PARENT_NAME = "Floor";
+        private const string CUSTOM_ELEMENTS_PARENT_NAME = "Custom Elements";
 
         private void Awake()
         {
             _tileable = GetComponent<Tileable>();
+            _wallsContainer = transform.Find(WALLS_PARENT_NAME)?.gameObject;
+            _floorContainer = transform.Find(FLOOR_PARENT_NAME)?.gameObject;
+            _customElementsContainer = transform.Find(CUSTOM_ELEMENTS_PARENT_NAME)?.gameObject;
+            
         }
 
         public void GenerateRoom()
@@ -45,7 +54,7 @@ namespace Tools
                 _wallsContainer = new GameObject();
                 _wallsContainer.transform.SetParent(transform);
                 _wallsContainer.transform.localPosition = Vector3.zero;
-                _wallsContainer.name = "Walls";
+                _wallsContainer.name = WALLS_PARENT_NAME;
             }
 
             if (expandWallPrefab)
@@ -72,7 +81,7 @@ namespace Tools
                     GameObject currentWall = new GameObject();
                     currentWall.transform.SetParent(_wallsContainer.transform);
                     currentWall.transform.localPosition = Vector3.zero;
-                    currentWall.name = "Wall" + i;
+                    currentWall.name = WALL_PARENT_NAME + i;
 
                     if (i % 2 != 0)
                     {
@@ -115,13 +124,13 @@ namespace Tools
                 _floorContainer = new GameObject();
                 _floorContainer.transform.SetParent(transform);
                 _floorContainer.transform.localPosition = Vector3.zero;
-                _floorContainer.name = "Floor";
+                _floorContainer.name = FLOOR_PARENT_NAME;
             }
 
             if (expandFloorPrefab)
             {
                 GameObject floor = Instantiate(floorUnitPrefab,_floorContainer.transform);
-                floor.name = "Floor";
+                floor.name = FLOOR_PARENT_NAME;
 
                 int width = _tileable.WidthTiles * cellSize - 2;
                 int height = _tileable.HeightTiles * cellSize - 2;
@@ -136,7 +145,7 @@ namespace Tools
                 GameObject floor = new GameObject();
                 floor.transform.SetParent(_floorContainer.transform);
                 floor.transform.localPosition = Vector3.zero;
-                floor.name = "Floor";
+                floor.name = FLOOR_PARENT_NAME;
                 
                 int numTilesWidth = _tileable.WidthTiles * cellSize - 2;
                 int numTilesHeight = _tileable.HeightTiles * cellSize - 2;
@@ -199,7 +208,7 @@ namespace Tools
                 _customElementsContainer = new GameObject();
                 _customElementsContainer.transform.SetParent(transform);
                 _customElementsContainer.transform.localPosition = Vector3.zero;
-                _customElementsContainer.name = "Custom Elements";
+                _customElementsContainer.name = CUSTOM_ELEMENTS_PARENT_NAME;
             }
         }
     }
