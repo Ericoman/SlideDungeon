@@ -193,6 +193,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6786724048309119703}
     m_Modifications:
+    - target: {fileID: 1195515250414528180, guid: 0b3bc7b313eb61c46a727add8df439e9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.75
+      objectReference: {fileID: 0}
     - target: {fileID: 8808965022465303797, guid: 0b3bc7b313eb61c46a727add8df439e9, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.099999994
@@ -254,7 +258,8 @@ PrefabInstance:
       value: LightiningTowerlvl02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7662296413847052931, guid: 0b3bc7b313eb61c46a727add8df439e9, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b3bc7b313eb61c46a727add8df439e9, type: 3}
