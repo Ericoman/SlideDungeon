@@ -40,6 +40,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2797595069975680913}
     m_Modifications:
+    - target: {fileID: -2371407740175172869, guid: 4397c4a11affa944c949c5d32d78bea8, type: 3}
+      propertyPath: m_Size.y
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8523001438815043560, guid: 4397c4a11affa944c949c5d32d78bea8, type: 3}
       propertyPath: m_Name
       value: SM_Modular_Ground_1x1 Variant
