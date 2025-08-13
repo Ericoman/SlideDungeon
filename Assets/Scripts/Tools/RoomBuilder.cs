@@ -26,7 +26,10 @@ namespace Tools
         private const string WALL_PARENT_NAME = "Wall";
         private const string FLOOR_PARENT_NAME = "Floor";
         private const string CUSTOM_ELEMENTS_PARENT_NAME = "Custom Elements";
-
+        
+        Bounds wallTileBounds;
+        Bounds floorTileBounds;
+        
         private void Awake()
         {
             _tileable = GetComponent<Tileable>();
@@ -36,6 +39,36 @@ namespace Tools
             
         }
 
+        private Bounds GetBounds(Transform objectTransform)
+        {
+            Bounds combinedBounds = new Bounds(objectTransform.position, Vector3.zero);
+            bool hasBounds = false;
+    
+            foreach (Renderer rend in objectTransform.GetComponentsInChildren<Renderer>())
+            {
+                if (!hasBounds)
+                {
+                    combinedBounds = rend.bounds;
+                    hasBounds = true;
+                }
+                else
+                {
+                    combinedBounds.Encapsulate(rend.bounds);
+                }
+            }
+    
+            if (hasBounds)
+            {
+                Vector3 totalSize = combinedBounds.size;
+                Debug.Log("Total object size (world space): " + totalSize);
+            }
+            else
+            {
+                Debug.LogWarning("No renderers found on this object or its children.");
+            }
+            
+            return combinedBounds;
+        }
         public void GenerateRoom()
         {
             GenerateCustomElementsContainer();
@@ -46,6 +79,7 @@ namespace Tools
         public void GenerateWalls()
         {
             ClearWalls();
+            wallTileBounds = GetBounds(wallUnitPrefab.transform);
 
             if (wallUnitPrefab == null) return;
             
@@ -85,37 +119,75 @@ namespace Tools
 
                     if (i % 2 != 0)
                     {
-                        int numTiles = _tileable.HeightTiles * cellSize;
+                        int numTiles = Mathf.CeilToInt(_tileable.HeightTiles * cellSize / wallTileBounds.size.x);
                         for (int j = 0; j < numTiles; j++)
                         {
                             GameObject wallTile = Instantiate(wallUnitPrefab, currentWall.transform);
-                            wallTile.transform.localScale = new Vector3(1f,1f, wallHeight);
-                            wallTile.transform.localPosition = new Vector3(wallTile.transform.localPosition.x,j,wallTile.transform.localPosition.z);
+                            wallTile.transform.localScale = new Vector3(1f,wallHeight,1f);
+                            RotateWall(wallTile.transform,-currentWall.transform.right,currentWall.transform.up,i/2 == 0);
+                            wallTile.transform.localPosition += new Vector3(0,wallTileBounds.size.x * j,0);
                         }
                     }
                     else
                     {
-                        int numTiles = _tileable.WidthTiles * cellSize;
+                        int numTiles = Mathf.CeilToInt(_tileable.WidthTiles * cellSize / wallTileBounds.size.x);
                         for (int j = 0; j < numTiles; j++)
                         {
                             GameObject wallTile = Instantiate(wallUnitPrefab, currentWall.transform);
-                            wallTile.transform.localScale = new Vector3(1f,1f, wallHeight);
-                            wallTile.transform.localPosition = new Vector3(j,wallTile.transform.localPosition.y,wallTile.transform.localPosition.z);
+                            wallTile.transform.localScale = new Vector3(1f,wallHeight,1f);
+                            RotateWall(wallTile.transform,currentWall.transform.up,currentWall.transform.right,i/2 == 0);
+                            wallTile.transform.localPosition += new Vector3(wallTileBounds.size.x * j,0,0);
                         }
                     }
                     
-                    int posX = i % 2 == 0 ? 0 : i/2 * (_tileable.WidthTiles * cellSize - 1);
-                    int posY = i % 2 != 0 ? 0 : (WALL_NUMBER-1-i)/2 * (_tileable.HeightTiles * cellSize - 1);
-                    float posZ = currentWall.transform.localPosition.z - wallHeight;
-                    currentWall.transform.localPosition = new Vector3(posX ,posY,posZ);
+                    float posX = i % 2 == 0 ? 0 : i/2 * _tileable.WidthTiles * cellSize;
+                    float posY = i % 2 != 0 ? 0 : (WALL_NUMBER-1-i)/2 * _tileable.HeightTiles * cellSize;
+                    float posZ = currentWall.transform.localPosition.z;
+                    currentWall.transform.localPosition = new Vector3(posX,posY,posZ);
                 }
             }
 
+        }
+        public static Quaternion GetPrefabToParentRotation()
+        {
+            Vector3 right = Vector3.right;       // Parent +X
+            Vector3 up = Vector3.back;            // Parent -Z
+            Vector3 forward = Vector3.up;         // Parent +Y
+
+            Matrix4x4 m = new Matrix4x4();
+            m.SetColumn(0, right);
+            m.SetColumn(1, up);
+            m.SetColumn(2, forward);
+            m.SetColumn(3, new Vector4(0, 0, 0, 1));
+
+            return m.rotation;
+        }
+        private void RotateWall(Transform wallTransform,Vector3 wallForward ,Vector3 wallDirection, bool interiorOnRight)
+        {
+            wallTransform.localRotation = GetPrefabToParentRotation();
+            
+            wallDirection.Normalize();
+            wallForward.Normalize();
+            
+            if (!interiorOnRight)
+            {
+                wallForward *= -1;
+                wallDirection *= -1;
+            }
+            wallTransform.localPosition -= wallForward * wallTileBounds.size.z;
+            
+            wallTransform.localRotation = Quaternion.LookRotation(wallForward, wallTransform.up);
+            if (!interiorOnRight)
+            {
+                wallTransform.localPosition -= wallDirection * wallTileBounds.size.x;
+            }
         }
 
         public void GenerateFloors()
         {
             ClearFloors();
+            wallTileBounds = GetBounds(wallUnitPrefab.transform);
+            floorTileBounds = GetBounds(floorUnitPrefab.transform);
 
             if (floorUnitPrefab == null) return;
             
@@ -132,12 +204,12 @@ namespace Tools
                 GameObject floor = Instantiate(floorUnitPrefab,_floorContainer.transform);
                 floor.name = FLOOR_PARENT_NAME;
 
-                int width = _tileable.WidthTiles * cellSize - 2;
-                int height = _tileable.HeightTiles * cellSize - 2;
-                floor.transform.localScale = new Vector3(width,height, floorHeight);
+                int width = Mathf.CeilToInt(_tileable.WidthTiles * cellSize / floorTileBounds.size.x - 2*wallTileBounds.size.z);
+                int height = Mathf.CeilToInt(_tileable.HeightTiles * cellSize / floorTileBounds.size.z - 2*wallTileBounds.size.z);
+                floor.transform.localScale = new Vector3(width,floorHeight, height);
                 
-                float posZ = floor.transform.localPosition.z - floorHeight;
-                floor.transform.localPosition = new Vector3(1 ,1,posZ);
+                float posZ = floor.transform.localPosition.z - floorTileBounds.size.y*floorHeight;
+                floor.transform.localPosition = new Vector3(0 ,0,posZ);
                 
             }
             else
@@ -147,20 +219,21 @@ namespace Tools
                 floor.transform.localPosition = Vector3.zero;
                 floor.name = FLOOR_PARENT_NAME;
                 
-                int numTilesWidth = _tileable.WidthTiles * cellSize - 2;
-                int numTilesHeight = _tileable.HeightTiles * cellSize - 2;
+                int numTilesWidth = Mathf.CeilToInt(_tileable.WidthTiles * cellSize / floorTileBounds.size.x - 2*wallTileBounds.size.z);
+                int numTilesHeight = Mathf.CeilToInt(_tileable.HeightTiles * cellSize / floorTileBounds.size.z - 2*wallTileBounds.size.z);
                 for (int i = 0; i < numTilesWidth; i++)
                 {
                     for (int j = 0; j < numTilesHeight; j++)
                     {
                         GameObject floorTile = Instantiate(floorUnitPrefab, floor.transform);
-                        floorTile.transform.localScale = new Vector3(1f,1f, floorHeight);
-                        floorTile.transform.localPosition = new Vector3(i,j,floorTile.transform.localPosition.z);
+                        floorTile.transform.localScale = new Vector3(1f,floorHeight,1f);
+                        floorTile.transform.localRotation = GetPrefabToParentRotation();
+                        floorTile.transform.localPosition += new Vector3(i,j,0);
                     }
                 }
                 
-                float posZ = floor.transform.localPosition.z - floorHeight;
-                floor.transform.localPosition = new Vector3(1 ,1,posZ);
+                float posZ = floor.transform.localPosition.z - floorTileBounds.size.y*floorHeight;
+                floor.transform.localPosition = new Vector3( wallTileBounds.size.z,wallTileBounds.size.z,posZ);
             }
         }
 
