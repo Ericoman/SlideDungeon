@@ -7,7 +7,7 @@ public class HatInteract : MonoBehaviour, IInteractable
     {
         if (interactor.tag == "Player")
         {
-            GameObject hat = interactor.transform.Find("Mage_Hat_01")?.gameObject;
+            GameObject hat = interactor.transform.Find("Hat 02 Brown")?.gameObject;
             if (hat != null)
             {
                 hat.SetActive(true);

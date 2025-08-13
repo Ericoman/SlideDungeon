@@ -22,7 +22,7 @@ public class PlayersHealthComponent : HealthComponent
         respawnPotition = gameObject.transform.position;
         _fallPosition = gameObject.transform.position;
 
-        extraHeartsText.enabled = false;
+        if(extraHeartsText) extraHeartsText.enabled = false;
         SetText();
 
         StartCoroutine(FallPositionCoroutine());

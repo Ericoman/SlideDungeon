@@ -10,10 +10,10 @@ public class HatGoldInteract : MonoBehaviour, IInteractable
     {
         if (interactor.tag == "Player")
         {
-            GameObject hat = interactor.transform.Find("Mage_Hat_01")?.gameObject;
+            GameObject hat = interactor.transform.Find("Hat 02 Brown")?.gameObject;
             if (hat != null)
             {
-                SkinnedMeshRenderer smr = hat.GetComponentInChildren<SkinnedMeshRenderer>(true);
+                MeshRenderer smr = hat.GetComponentInChildren<MeshRenderer>(true);
 
                 if (smr != null)
                 {
