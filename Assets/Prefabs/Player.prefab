@@ -358,7 +358,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.67, y: 1.14, z: 4.484828}
-  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2038620066650201746}
@@ -484,6 +484,26 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 31ec3c3a-18f9-4ded-926f-b348daade2e0
     m_ActionName: 'Player/NavigateSpells[/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d1abf948-c580-4f94-9873-2ae56f2af628
+    m_ActionName: 'Player/Interact[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f529c2b5-190d-4530-a708-76715a9d1bbf
+    m_ActionName: 'Player/OpenInventory[/Keyboard/i]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 70cb0268-f807-4422-a06e-7abb3a708194
+    m_ActionName: 'Player/InteractPuzzle[/Keyboard/f]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 247769e7-c08d-4a2c-90ac-0d5ea8e6e146
+    m_ActionName: 'Player/RotateRight[/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a7cc0c52-fea8-4797-af90-e916d608ac7a
+    m_ActionName: 'Player/RotateLeft[/Keyboard/leftArrow]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
