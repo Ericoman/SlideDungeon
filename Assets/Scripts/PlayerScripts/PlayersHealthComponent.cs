@@ -52,7 +52,7 @@ public class PlayersHealthComponent : HealthComponent
         base.ReceiveHealth(health);
         SetText();
     }
-    override public void ReceiveDamage(int damage)
+    override public bool ReceiveDamage(int damage)
     {
         if (currentExtraHealth == 0) 
         { 
@@ -62,10 +62,10 @@ public class PlayersHealthComponent : HealthComponent
         else 
         {
             if (!_canTakeDamage)
-                return;
+                return false;
             ReceiveExtraDamage(damage);
         }
-       
+       return true;
     }
     override public void ReceiveDamageByFall(int damage) 
     {

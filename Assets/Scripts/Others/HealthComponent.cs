@@ -24,10 +24,10 @@ public class HealthComponent : MonoBehaviour
         respawnPotition = gameObject.transform.position;
     }
 
-    virtual public void ReceiveDamage(int damage)
+    virtual public bool ReceiveDamage(int damage)
     {
         if (!_canTakeDamage)
-            return;
+            return false;
 
         currentHealth -= damage;
 
@@ -45,6 +45,7 @@ public class HealthComponent : MonoBehaviour
 
         // Start cooldown coroutine
         StartCoroutine(DamageCooldownCoroutine());
+        return true;
     }
 
     private IEnumerator DamageCooldownCoroutine()

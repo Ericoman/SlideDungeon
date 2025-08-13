@@ -1,10 +1,13 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class PatrolController : MonoBehaviour
 {
+    public Animator animator;
+
     //movement
-    public NavMeshAgent navMeshAgent;
+    NavMeshAgent navMeshAgent;
     public float startWaitTime = 4;
     public float speedWalk = 6;
     public float speedRun = 9;
@@ -55,6 +58,8 @@ public class PatrolController : MonoBehaviour
     void Update()
     {
         CheckPlayer();
+        animator.SetBool("animPatrolling", _isPatrol);
+
 
         if (_isPatrol)
         {
@@ -108,7 +113,7 @@ public class PatrolController : MonoBehaviour
 
     void Chase() 
     {
-        if(_playerPosition != Vector3.zero) 
+        if (_playerPosition != Vector3.zero) 
         {
             Move(speedRun);
             navMeshAgent.SetDestination(_playerPosition);
@@ -120,7 +125,11 @@ public class PatrolController : MonoBehaviour
                 if (playerInRange.Length != 0)
                 {
                     HealthComponent health = playerInRange[0].gameObject.GetComponentInChildren<HealthComponent>();
-                    health.ReceiveDamage(damage);
+                    if (health.ReceiveDamage(damage)) 
+                    {
+                      animator.SetBool("animBite", true);
+                      StartCoroutine(EndAnimBite());
+                    }
                 }
             }
         }
@@ -168,5 +177,11 @@ public class PatrolController : MonoBehaviour
     {
         _currentWaypointIndex = (_currentWaypointIndex + 1) % waypoints.Length;
         navMeshAgent.SetDestination(waypoints[_currentWaypointIndex].position);
+    }
+
+    private IEnumerator EndAnimBite()
+    {
+        yield return new WaitForSeconds(0.5f);
+        animator.SetBool("animBite", false);
     }
 }
