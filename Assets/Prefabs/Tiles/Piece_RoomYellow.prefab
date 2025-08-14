@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3125741626826214033}
   - component: {fileID: 2789841781236097985}
   - component: {fileID: 7913913065963548221}
+  - component: {fileID: 2705125697811408558}
   m_Layer: 0
   m_Name: Piece_RoomYellow
   m_TagString: Untagged
@@ -70,6 +71,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3, y: 3, z: 3}
   m_Center: {x: 1.5, y: 1.5, z: 0}
+--- !u!114 &2705125697811408558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832739495021704354}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 1, b: 0.022517681, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &3690759534195017353
 GameObject:
   m_ObjectHideFlags: 0
