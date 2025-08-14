@@ -224,4 +224,9 @@ public class GridManager : MonoBehaviour
         }
         return null;
     }
+
+    public int GetTilesLength()
+    {
+        return tiles.Length;
+    }
 }
