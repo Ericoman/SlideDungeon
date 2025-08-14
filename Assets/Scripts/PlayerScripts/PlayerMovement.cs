@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
                     GameManager.Instance.MoveCameraToLocation(GameManager.Instance.maincamera.transform, GameManager.Instance.endCamera.transform);
                     
                 }
-                else {
+                else if(GameManager.Instance.selectedTileable==null){
                     
                     canMove = true;
                     GameManager.Instance.ResetHighlight();

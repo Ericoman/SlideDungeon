@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     public Vector2Int initialTilePositionUI;
 
-    private Vector2Int TilePositionUI;
+    public Vector2Int TilePositionUI;
 
     public GridManager gm;
 
@@ -188,7 +188,7 @@ public class GameManager : MonoBehaviour
     public void SetNextTileable(float x, float y)
     {
 
-        int maxTries = gm.Width * gm.Height; // Nunca más iteraciones que tiles existen
+        int maxTries = 1; // Nunca más iteraciones que tiles existen
         int tries = 0;
         if (!movingHL)
         {
