@@ -32,5 +32,20 @@ namespace Rooms
             _currentContext.clearedOnce = true;
             return true;
         }
+
+        public RoomContext GetCurrentContext()
+        {
+            return _currentContext;
+        }
+
+        public void SetContext(RoomContext roomContext)
+        {
+            _currentContext = roomContext;
+        }
+
+        public RoomDataSO GetRoomDataSO()
+        {
+            return roomDataSO;
+        }
     }
 }
