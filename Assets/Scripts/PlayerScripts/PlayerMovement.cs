@@ -35,7 +35,8 @@ public class PlayerMovement : MonoBehaviour
                     canMove = false;
                     Debug.Log(GameManager.Instance.maincamera.transform.position + "  "+GameManager.Instance.endCamera.transform.position);
                     GameManager.Instance.MoveCameraToLocation(GameManager.Instance.maincamera.transform, GameManager.Instance.endCamera.transform);
-                    
+                    GameManager.Instance.ResetHighlight();
+                    GameManager.Instance.HighlightTileable();
                 }
                 else if(GameManager.Instance.selectedTileable==null){
                     
@@ -51,22 +52,21 @@ public class PlayerMovement : MonoBehaviour
         if (!GameManager.Instance.ShowingFirstmovement)
         {
             if (GameManager.Instance.puzzleMode)
-        {
-                if (_playerInput.actions["SelectTileable"].WasReleasedThisFrame())
-                {
-                    GameManager.Instance.SetSelectedTileable();
-                }
+            {
+                    if (_playerInput.actions["SelectTileable"].WasReleasedThisFrame())
+                    {
+                        GameManager.Instance.SetSelectedTileable();
+                    }
 
-                if (GameManager.Instance.selectedTileable == null)
-                {
+
                     MovePuzzle();
-                }
-            
-        }
-        else
-        {
-            MovePlayer();
-        }
+                    
+                
+            }
+            else
+            {
+                MovePlayer();
+            }
         }
         
             
@@ -74,10 +74,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void MovePuzzle()
     {
-        
-        GameManager.Instance.SetNextTileable(move.x, move.y);
-        
-        
+        if (move.sqrMagnitude != 0)
+        {
+            GameManager.Instance.SetNextTileable(move.x, move.y);
+        }
     }
     
     public void MovePlayer()

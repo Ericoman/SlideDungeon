@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using SavingSystem;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -45,6 +47,11 @@ public class GameManager : MonoBehaviour
 
     public bool ShowingFirstmovement = false;
 
+    public bool playTutorial = true;
+    
+    TileInstancer tileInstancer;
+    SavingSystemManager savingSystemManager;
+    
     private void Awake()
     {
         // Si ya hay una instancia y no somos nosotros, nos destruimos
@@ -63,6 +70,28 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        GameObject tInstancer = GameObject.FindGameObjectWithTag("TileInstancer");
+        if (tInstancer != null)
+        {
+            tileInstancer = tInstancer.GetComponent<TileInstancer>();
+        }
+        else
+        {
+            Debug.LogError("TileInstancer not found");
+        }
+        GameObject savingManager = GameObject.FindGameObjectWithTag("SavingSystemManager");
+        if (savingManager != null)
+        {
+            savingSystemManager = savingManager.GetComponent<SavingSystemManager>();
+        }
+        else
+        {
+            Debug.LogError("SavingSystemManager not found");
+        }
+    }
+
     private void Update()
     {
         if (puzzleMode)
@@ -79,15 +108,13 @@ public class GameManager : MonoBehaviour
             {
                 selectedTileable = currentTileable;
                 selectedTileable.GetComponent<Outline>().OutlineColor = Color.blue;
+                return;
             }
             
         }
-        else
-        {
-            selectedTileable.GetComponent<Outline>().OutlineColor = Color.green;
-            selectedTileable = null;
-            
-        }
+        selectedTileable.GetComponent<Outline>().OutlineColor = Color.green;
+        selectedTileable = null;
+
     }
 
 
@@ -115,17 +142,17 @@ public class GameManager : MonoBehaviour
         {
             float t = elapsed / moveDuration;
 
-            // Interpolación de posición
+            // Interpolaciï¿½n de posiciï¿½n
             maincamera.transform.position = Vector3.Lerp(startPos, endPos, t);
 
-            // Interpolación de rotación
+            // Interpolaciï¿½n de rotaciï¿½n
             maincamera.transform.rotation = Quaternion.Slerp(startRot, endRot, t);
 
             elapsed += Time.deltaTime;
             yield return null;
         }
         
-        // Asegurar posición y rotación final exactas
+        // Asegurar posiciï¿½n y rotaciï¿½n final exactas
         
         maincamera.transform.position = endPos;
         maincamera.transform.rotation = endRot;
@@ -167,7 +194,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetHighlight()
     {
-        if (gm.GetTile(TilePositionUI) != null)
+        if (gm.GetTile(TilePositionUI) != null && currentTileable != null)
         {
 
             //MeshRenderer[] renderers = currentTileable.GetComponentsInChildren<MeshRenderer>();
@@ -188,56 +215,80 @@ public class GameManager : MonoBehaviour
     public void SetNextTileable(float x, float y)
     {
 
-        int maxTries = 1; // Nunca más iteraciones que tiles existen
-        int tries = 0;
-        if (!movingHL)
+        if (selectedTileable == null)
         {
-
-            if (currentTileable != null)
+            int maxTries = gm.Width * gm.Height; // Nunca mï¿½s iteraciones que tiles existen
+            int tries = 0;
+            if (!movingHL)
             {
-                //MeshRenderer[] renderers = currentTileable.GetComponentsInChildren<MeshRenderer>();
 
-                //foreach (MeshRenderer renderer in renderers)
-                //{
-                //    renderer.material = savedMaterialTileable;
-                //}
-                currentTileable.GetComponent<Outline>().enabled = false;
+                if (currentTileable != null)
+                {
+                    //MeshRenderer[] renderers = currentTileable.GetComponentsInChildren<MeshRenderer>();
+
+                    //foreach (MeshRenderer renderer in renderers)
+                    //{
+                    //    renderer.material = savedMaterialTileable;
+                    //}
+                    currentTileable.GetComponent<Outline>().enabled = false;
+                }
+
+                while ((gm.GetTile(TilePositionUI) == currentTileable || gm.GetTile(TilePositionUI) == null)
+           && tries < maxTries)
+                {
+                    tries++;
+
+                    if (x > 0)
+                        TilePositionUI.x += 1;
+                    else if (x < 0)
+                        TilePositionUI.x -= 1;
+
+                    if (y > 0)
+                        TilePositionUI.y += 1;
+                    else if (y < 0)
+                        TilePositionUI.y -= 1;
+
+                    // Ajuste de lï¿½mites (wrap-around)
+                    if (TilePositionUI.x >= gm.Width)
+                        TilePositionUI.x = 0;
+                    else if (TilePositionUI.x < 0)
+                        TilePositionUI.x = gm.Width - 1;
+
+                    if (TilePositionUI.y >= gm.Height)
+                        TilePositionUI.y = 0;
+                    else if (TilePositionUI.y < 0)
+                        TilePositionUI.y = gm.Height - 1;
+                }
+
+
+
+                StartCoroutine(MoveHighlight());
             }
-
-            while ((gm.GetTile(TilePositionUI) == currentTileable || gm.GetTile(TilePositionUI) == null)
-       && tries < maxTries)
-            {
-                tries++;
-
-                if (x > 0)
-                    TilePositionUI.x += 1;
-                else if (x < 0)
-                    TilePositionUI.x -= 1;
-
-                if (y > 0)
-                    TilePositionUI.y += 1;
-                else if (y < 0)
-                    TilePositionUI.y -= 1;
-
-                // Ajuste de límites (wrap-around)
-                if (TilePositionUI.x >= gm.Width)
-                    TilePositionUI.x = 0;
-                else if (TilePositionUI.x < 0)
-                    TilePositionUI.x = gm.Width - 1;
-
-                if (TilePositionUI.y >= gm.Height)
-                    TilePositionUI.y = 0;
-                else if (TilePositionUI.y < 0)
-                    TilePositionUI.y = gm.Height - 1;
-            }
-
-
-
-            StartCoroutine(MoveHighlight());
         }
-        
+        else
+        {
+            if(movingHL || (x == 0 && y == 0)) return;
+            Vector2Int dir = new Vector2Int(Mathf.RoundToInt(x), Mathf.RoundToInt(y));
+
+            if (playTutorial)
+            {
+                ShowingFirstRoomMovement();
+                playTutorial = false;
+            }
+            Debug.LogWarning(x+ " " + y + " move "+ dir);
+            StartCoroutine(MoveTile(dir));
+            
+        }
     }
 
+    IEnumerator MoveTile(Vector2Int dir)
+    {
+        movingHL = true;
+        
+        tileInstancer.NewMoveTile(selectedTileable,dir);
+        yield return new WaitForSeconds(0.2f);
+        movingHL = false;
+    }
     IEnumerator MoveHighlight()
     {
         movingHL = true;
