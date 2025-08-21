@@ -74,7 +74,7 @@ public class MirrorTileManager : MonoBehaviour
             //ONLY TO TEST
             // tile.transform.localScale *= gridManager.CellSize;
             //
-            tileable = tile.GetComponent<Tileable>();
+            tileable = tile.GetComponentInChildren<Tileable>();
             tileable.SetInGrid(gridManager,generatedtile.GridPosition);
         }
         tileable.TileId = tileIndex;

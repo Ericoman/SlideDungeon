@@ -12,7 +12,7 @@ namespace Rooms.Conditions
         {
             if (PuzzlesToSolve < 0)
             {
-                if (context.puzzlesLeft == 0)
+                if (context.puzzlesLeft <= 0)
                 {
                     return true;
                 }

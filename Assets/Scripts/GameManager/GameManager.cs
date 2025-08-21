@@ -366,4 +366,14 @@ public class GameManager : MonoBehaviour
         maincamera.GetComponent<Camera>().enabled = true;
         cameraZoomOut.GetComponent<Camera>().enabled = false;
     }
+
+    public void RegisterRoom(Rooms.RoomManager room)
+    {
+        savingSystemManager.RegisterRoom(room);
+    }
+
+    public void UnregisterRoom(Rooms.RoomManager room)
+    {
+        savingSystemManager.UnregisterRoom(room);
+    }
 }

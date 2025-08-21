@@ -55,7 +55,7 @@ public class TileInstancer : MonoBehaviour
             }
             else
             {
-                Tileable newTile = InstantiateTileOnGrid(gridManager, tile.tile.position, tile.tileIndex).GetComponent<Tileable>();
+                Tileable newTile = InstantiateTileOnGrid(gridManager, tile.tile.position, tile.tileIndex).GetComponentInChildren<Tileable>();
                 Destroy(tile.tile.gameObject);
             }
         }
@@ -168,7 +168,7 @@ public class TileInstancer : MonoBehaviour
         {
             //Debug.Log(position);
             GameObject tile = Instantiate(tilePrefabs[tileIndex],position,Quaternion.identity);
-            Tileable tileable = tile.GetComponent<Tileable>();
+            Tileable tileable = tile.GetComponentInChildren<Tileable>();
             tileable.SetInGrid(gridManager,tileIndex);
             
             InstantiateTileEvent?.Invoke(this, tileIndex, tileable);
@@ -182,7 +182,7 @@ public class TileInstancer : MonoBehaviour
     {
         if (gridManager)
         {   
-            Tileable tileable = tile.GetComponent<Tileable>();
+            Tileable tileable = tile.GetComponentInChildren<Tileable>();
             tileable.SetInGrid(gridManager,tileIndex);
             
             InstantiateTileEvent?.Invoke(this, tileIndex, tileable);

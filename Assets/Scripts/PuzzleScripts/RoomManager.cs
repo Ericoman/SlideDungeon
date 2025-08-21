@@ -61,7 +61,7 @@ public class RoomManager : MonoBehaviour
 
         foreach (TeslaCoil coil in teslaCoils)
         {
-            if (!coil.isActive)
+            if (!coil.IsActive)
             {
                 return false; // If any coil is not active, return false
             }

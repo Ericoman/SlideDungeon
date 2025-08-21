@@ -17,6 +17,7 @@ public class HealthComponent : MonoBehaviour
     protected float damageCooldown = 1;
     protected bool _canTakeDamage = true;
 
+    public event Action OnDeath;
 
     void Start()
     {
@@ -33,6 +34,7 @@ public class HealthComponent : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            OnDeath?.Invoke();
             if (!doesRespawn)
             {
                 Destroy(gameObject);
@@ -67,12 +69,14 @@ public class HealthComponent : MonoBehaviour
 
         if (!doesRespawn)
         {
+            OnDeath?.Invoke();
             Destroy(gameObject);
         }
         else
         {
             if (currentHealth <= 0)
             {
+                OnDeath?.Invoke();
                 RespawnDeath();
             }
             else
@@ -98,4 +102,8 @@ public class HealthComponent : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void OnDestroy()
+    {
+        OnDeath = null;
+    }
 }

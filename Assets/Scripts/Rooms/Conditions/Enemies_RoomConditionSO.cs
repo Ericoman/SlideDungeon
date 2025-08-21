@@ -12,7 +12,7 @@ namespace Rooms.Conditions
         {
             if (EnemiesToKill < 0)
             {
-                if (context.enemiesLeft == 0)
+                if (context.enemiesLeft <= 0)
                 {
                     return true;
                 }

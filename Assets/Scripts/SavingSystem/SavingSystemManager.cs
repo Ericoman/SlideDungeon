@@ -13,7 +13,7 @@ namespace SavingSystem
     public class SavingSystemManager : MonoBehaviour
     {
         [SerializeField]
-        private Rooms.RoomManager[] rooms;
+        private List<Rooms.RoomManager> rooms;
         [SerializeField]
         private TileInstancer tileInstancer;
         [SerializeField]
@@ -178,6 +178,16 @@ namespace SavingSystem
             
             string oldestFile = files[firstValidFileIndex];
             return oldestFile;
+        }
+
+        public void RegisterRoom(Rooms.RoomManager room)
+        {
+            rooms.Add(room);
+        }
+
+        public void UnregisterRoom(Rooms.RoomManager room)
+        {
+            rooms.Remove(room);
         }
     }
 }
