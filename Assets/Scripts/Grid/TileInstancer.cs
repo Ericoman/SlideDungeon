@@ -200,8 +200,11 @@ public class TileInstancer : MonoBehaviour
         
         foreach (Tileable tileable in tiles)
         {
-            Vector2Int newGridPosition = tileable.GridPosition;
             tileable.RemoveFromGrid();
+        }
+        foreach (Tileable tileable in tiles)
+        {
+            Vector2Int newGridPosition = tileable.LastGridPosition;
             TileContext tileContext = tileContexts.FirstOrDefault(x=>x.tileId == tileable.TileId);
             if (tileContext != null && tileable.TileId == tileContext.tileId)
             {
