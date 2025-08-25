@@ -121,7 +121,7 @@ public class PatrolController : MonoBehaviour
 
             if(navMeshAgent.remainingDistance <= damageRadius) 
             {
-                Collider[] playerInRange = Physics.OverlapSphere(transform.position, viewRadius, playerMask);
+                Collider[] playerInRange = Physics.OverlapSphere(transform.position, damageRadius, playerMask);
                 if (playerInRange.Length != 0)
                 {
                     HealthComponent health = playerInRange[0].gameObject.GetComponentInChildren<HealthComponent>();
