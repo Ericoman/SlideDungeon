@@ -9,15 +9,10 @@ public class RoomManager : MonoBehaviour
     [Space(5)]
     [Header("Doors")]
     public GameObject[] roomDoors;
-    public float targetYPositionDoors = 10f; // desired y position
+    public float targetYRotationDoors = 90f; // desired Y rotation in degrees
     public float moveSpeedDoors = 2f; // Speed
 
     private bool isMoving = false;
-
-    void Start()
-    {
-        
-    }
 
     void Update()
     {
@@ -25,23 +20,22 @@ public class RoomManager : MonoBehaviour
         {
             foreach (GameObject puzzleDoor in roomDoors) 
             {
-                // Get the door's current position
-                Vector3 currentPosition = puzzleDoor.transform.position;
+                // Get current rotation
+                Quaternion currentRotation = puzzleDoor.transform.rotation;
 
-                // Lerp to smoothly move toward the target Y position
-                float newY = Mathf.Lerp(currentPosition.y, targetYPositionDoors, moveSpeedDoors * Time.deltaTime);
+                // Create target rotation
+                Quaternion targetRotation = Quaternion.Euler(currentRotation.eulerAngles.x, targetYRotationDoors, currentRotation.eulerAngles.z);
 
-                // Update the door's position with the new Y value
-                puzzleDoor.transform.position = new Vector3(currentPosition.x, newY, currentPosition.z);
+                // Lerp to rotate toward target rotation
+                puzzleDoor.transform.rotation = Quaternion.Lerp(currentRotation, targetRotation, moveSpeedDoors * Time.deltaTime);
 
-                // Stop moving if the door has reached the target position
-                if (Mathf.Abs(currentPosition.y - targetYPositionDoors) < 0.01f)
+                // Stop rotating if the door has reached the target rotation
+                if (Quaternion.Angle(currentRotation, targetRotation) < 0.1f)
                 {
-                    puzzleDoor.transform.position = new Vector3(currentPosition.x, targetYPositionDoors, currentPosition.z);
+                    puzzleDoor.transform.rotation = targetRotation;
                     isMoving = false;
 
-                    //TODO - AQUI SE ENCENDERIAN LAS ANTORCHAS; LUZ Y ESAS COSAS 
-
+                    //TODO - AQUI SE ENCENDERIAN LAS ANTORCHAS; LUZ Y ESAS COSAS
                 }
             }            
         }
