@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class BullController : MonoBehaviour
 {
-    //public Animator animator;
+    public Animator animator;
 
     //movement
     NavMeshAgent navMeshAgent;
@@ -22,6 +22,7 @@ public class BullController : MonoBehaviour
     public float damageRadius = 2;
 
     private bool _isWaiting = true;
+    private bool _isCharging = false;
     GameObject _punto = null;
 
 
@@ -33,25 +34,21 @@ public class BullController : MonoBehaviour
         StartCoroutine(CheckPlayerCoroutine());
     }
 
-    private IEnumerator CheckPlayerCoroutine() 
+    private IEnumerator CheckPlayerCoroutine()
     {
         while (true)
         {
             CheckPlayer();
 
-            if (!_isWaiting)
+            if (!_isWaiting && !_isCharging)
             {
+                animator.SetBool("animCharging", true);
                 StartCoroutine(Charge());
             }
+
             yield return new WaitForSeconds(0.1f);
         }
-
     }
-    /*void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, viewRadius);
-    }*/
 
     void CheckPlayer()
     {
@@ -97,53 +94,62 @@ public class BullController : MonoBehaviour
 
     }
 
-    private IEnumerator Charge() 
+    private IEnumerator Charge()
     {
+        _isCharging = true;
+
         if (_punto != null)
         {
             navMeshAgent.SetDestination(_punto.transform.position);
             navMeshAgent.isStopped = false;
             navMeshAgent.speed = speed;
 
-            float distancia = Vector3.Distance(gameObject.transform.position, _punto.transform.position);
-
-            if (distancia < 1)
+            // espera hasta que llegue al punto
+            while (Vector3.Distance(transform.position, _punto.transform.position) > 1f)
             {
-                navMeshAgent.isStopped = true;
-                navMeshAgent.speed = 0;
-
-
-                Collider[] playerInRange = Physics.OverlapSphere(transform.position, damageRadius, playerMask);
-                if (playerInRange.Length != 0)
-                {
-                    HealthComponent health = playerInRange[0].gameObject.GetComponentInChildren<HealthComponent>();
-                    health.ReceiveDamage(damage);
-                }
-
-                //StartCoroutine(WaitCharge());
-                yield return new WaitForSeconds(waitAfterCharge);
-
-                Destroy(_punto);
-                _isWaiting = true;
+                yield return null; // espera un frame
             }
+
+            // llego al punto
+            navMeshAgent.isStopped = true;
+            navMeshAgent.speed = 0;
+
+            // intentar dañar
+            Collider[] playerInRange = Physics.OverlapSphere(transform.position, damageRadius, playerMask);
+            if (playerInRange.Length != 0)
+            {
+                HealthComponent health = playerInRange[0].gameObject.GetComponentInChildren<HealthComponent>();
+                health.ReceiveDamage(damage);
+            }
+
+            //espera SIEMPRE después de la carga
+            animator.SetBool("animSpin", true);
+
+            yield return new WaitForSeconds(waitAfterCharge);
+            Destroy(_punto); 
+            yield return StartCoroutine(Rotate180());
+
+            animator.SetBool("animSpin", false);
+            animator.SetBool("animCharging", false);
+
         }
-        else 
-        {
-            _isWaiting = true;
-        }
+
+        _isWaiting = true;
+        _isCharging = false;
     }
 
-    private IEnumerator WaitCharge()
+    private IEnumerator Rotate180()
     {
-        //anim aturdido
-        yield return new WaitForSeconds(waitAfterCharge);
+        float rotated = 0f;
+        float rotationSpeed = 180f; // grados por segundo 
 
-        //anim idle
-
+        while (rotated < 180f)
+        {
+            float step = rotationSpeed * Time.deltaTime;
+            transform.Rotate(Vector3.up, step);
+            rotated += step;
+            yield return null;
+        }
     }
 
-    void Rotate() 
-    { 
-        
-    }
 }
