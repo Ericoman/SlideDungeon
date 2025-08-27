@@ -105,7 +105,7 @@ public class Tileable : MonoBehaviour
             transform.gameObject.layer = gridManager.gameObject.layer;
             foreach (Transform child in transform)
             {
-                child.gameObject.layer = gridManager.gameObject.layer;
+                if(child.gameObject.layer != LayerMask.NameToLayer("Interactable")) child.gameObject.layer = gridManager.gameObject.layer;
             }
             isInGrid = true;
         }
