@@ -41,6 +41,21 @@ public class Interactor : MonoBehaviour
 
     private void Update()
     {
+        //Close menu if oppen
+        if (_interactAction.WasReleasedThisFrame()) 
+        { 
+            GameObject messageUI = GameObject.FindGameObjectWithTag("MessageUI");
+            if (messageUI != null) 
+            {
+                Destroy(messageUI);
+                Time.timeScale = 1f;
+                return;
+            }
+        }
+        
+           
+
+
         if (_grabbedObject == null) //not grabbing
         {
             if (Physics.Raycast(_transform.position, transform.forward, out var hit, _interactionRadius, _interactableLayer))
