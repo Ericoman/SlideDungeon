@@ -4,7 +4,7 @@ public class Projectile : MonoBehaviour
 {
     public float speed = 10f;
     public float lifetime = 5f;
-    public int damage = 1;
+    private int damage = 1;
 
     void Start()
     {
@@ -14,6 +14,10 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
+    }
+    public void SetDamage(int newDamage) 
+    {
+        damage = newDamage;
     }
 
     void OnTriggerEnter(Collider other)

@@ -5,8 +5,10 @@ using System;
 
 public class PlayersHealthComponent : HealthComponent
 {
-    public TextMeshProUGUI heartsText;
-    public TextMeshProUGUI extraHeartsText;
+    //public TextMeshProUGUI heartsText;
+    //public TextMeshProUGUI extraHeartsText;
+
+    public HeartsManager heartsManagerUI;
 
     [SerializeField]
     protected int maxExtraHealth = 2;
@@ -22,8 +24,7 @@ public class PlayersHealthComponent : HealthComponent
         respawnPotition = gameObject.transform.position;
         _fallPosition = gameObject.transform.position;
 
-        if(extraHeartsText) extraHeartsText.enabled = false;
-        SetText();
+        if(heartsManagerUI) heartsManagerUI.SetFullHealth();
 
         StartCoroutine(FallPositionCoroutine());
 
@@ -63,7 +64,14 @@ public class PlayersHealthComponent : HealthComponent
         {
             if (!_canTakeDamage)
                 return false;
+
+            if (damage - currentExtraHealth > 0) 
+            { 
+                base.ReceiveDamage(damage - currentExtraHealth);
+                SetText();
+            }
             ReceiveExtraDamage(damage);
+
         }
        return true;
     }
@@ -75,6 +83,11 @@ public class PlayersHealthComponent : HealthComponent
         }
         else
         {
+
+            if (damage - currentExtraHealth > 0)
+            {
+                base.ReceiveDamage(damage - currentExtraHealth);
+            }
             ReceiveExtraDamage(damage);
             RespawnFall();
         }
@@ -101,27 +114,19 @@ public class PlayersHealthComponent : HealthComponent
     public void ReceiveExtraDamage(int damage)
     {
         currentExtraHealth -= damage;
+        if (currentExtraHealth < 0) currentExtraHealth = 0;
         SetTextExtra();
     }
 
     void SetText() 
     {
-        if(heartsText != null ) heartsText.text = $"{currentHealth}";
+        if (heartsManagerUI) 
+            heartsManagerUI.SetHearts(currentHealth);
     }
     void SetTextExtra() 
     {
-        if (extraHeartsText != null) 
-        {
-            if (currentExtraHealth == 0) 
-            { 
-                extraHeartsText.enabled = false;
-            }
-            else 
-            {
-                extraHeartsText.enabled = true;
-                extraHeartsText.text = $"{currentExtraHealth}";
-            }
-        }          
+        if (heartsManagerUI) 
+            heartsManagerUI.SetExtraHeart(currentExtraHealth);
     }
 
 }

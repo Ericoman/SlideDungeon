@@ -67,7 +67,12 @@ public class ShooterController : MonoBehaviour
     {
         if (projectilePrefab != null && shootPoint != null)
         {
-            Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
+            GameObject projectileObj = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
+            projectileObj.TryGetComponent<Projectile>(out Projectile projectile);
+            if (projectile) 
+            {
+                projectile.SetDamage(damage);
+            }
         }
     }
 
