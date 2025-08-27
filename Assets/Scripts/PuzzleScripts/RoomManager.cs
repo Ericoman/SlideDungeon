@@ -12,41 +12,29 @@ public class RoomManager : MonoBehaviour
     public float targetYRotationDoors = 90f; // desired Y rotation in degrees
     public float moveSpeedDoors = 2f; // Speed
 
-    private bool isMoving = false;
+    [Space(5)]
+    [Header("Torches")]
+    public GameObject[] roomTorches;
+
+
+    private bool _roomCompleted = false;
+    private bool _onceCompleted = false;
 
     void Update()
     {
-        if (isMoving)
+        if (!_roomCompleted && CheckedRequirements())
         {
-            foreach (GameObject puzzleDoor in roomDoors) 
+            if (!_onceCompleted) 
             {
-                // Get current rotation
-                Quaternion currentRotation = puzzleDoor.transform.rotation;
+                _onceCompleted = true;
+                TurnOnTorches();
+            }
 
-                // Create target rotation
-                Quaternion targetRotation = Quaternion.Euler(currentRotation.eulerAngles.x, targetYRotationDoors, currentRotation.eulerAngles.z);
-
-                // Lerp to rotate toward target rotation
-                puzzleDoor.transform.rotation = Quaternion.Lerp(currentRotation, targetRotation, moveSpeedDoors * Time.deltaTime);
-
-                // Stop rotating if the door has reached the target rotation
-                if (Quaternion.Angle(currentRotation, targetRotation) < 0.1f)
-                {
-                    puzzleDoor.transform.rotation = targetRotation;
-                    isMoving = false;
-
-                    //TODO - AQUI SE ENCENDERIAN LAS ANTORCHAS; LUZ Y ESAS COSAS
-                }
-            }            
-        }
-
-        if (IsRoomCmpleted() == true)
-        {
             MoveDoorToTarget();
         }
     }
 
-    public bool IsRoomCmpleted()
+    public bool CheckedRequirements()
     {
         if ((teslaCoils == null && patrolEnemies == null) || (teslaCoils.Length == 0 && patrolEnemies.Length == 0))
         {
@@ -74,6 +62,35 @@ public class RoomManager : MonoBehaviour
 
     public void MoveDoorToTarget()
     {
-        isMoving = true;
+        if (!_roomCompleted)
+        {
+            foreach (GameObject puzzleDoor in roomDoors)
+            {
+                // Get current rotation
+                Quaternion currentRotation = puzzleDoor.transform.rotation;
+
+                // Create target rotation
+                Quaternion targetRotation = Quaternion.Euler(currentRotation.eulerAngles.x, targetYRotationDoors, currentRotation.eulerAngles.z);
+
+                // Lerp to rotate toward target rotation
+                puzzleDoor.transform.rotation = Quaternion.Lerp(currentRotation, targetRotation, moveSpeedDoors * Time.deltaTime);
+
+                // Stop rotating if the door has reached the target rotation
+                if (Quaternion.Angle(currentRotation, targetRotation) < 0.1f)
+                {
+                    puzzleDoor.transform.rotation = targetRotation;
+                    _roomCompleted = true;
+                }
+            }
+        }
+    }
+
+    private void TurnOnTorches() 
+    { 
+        foreach(GameObject torch in roomTorches) 
+        {
+            GameObject fire = torch.transform.Find("Fire").gameObject;
+            if (fire) fire.SetActive(true);
+        }
     }
 }
