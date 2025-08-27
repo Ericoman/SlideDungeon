@@ -70,7 +70,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07a79b3af9254e3498c1131f50e5b3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
   thunderDetector: {fileID: 8430998831295324331}
   activeDuration: 5
 --- !u!54 &2749734677282097548
@@ -96,7 +95,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
