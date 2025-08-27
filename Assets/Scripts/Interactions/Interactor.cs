@@ -1,5 +1,6 @@
 using Assets.Devs.Julia.Scripts;
 using Assets.Scripts.Interactions;
+using System.ComponentModel;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class Interactor : MonoBehaviour
     private InputAction _interactAction;
     private Transform _transform;
 
+    private Outline _otlineLastSeen; 
     private GameObject _grabbedObject = null;
 
     private float _interactHeldTime = 0f;
@@ -36,6 +38,38 @@ public class Interactor : MonoBehaviour
         if (_canvas && grabbedObject != null) _canvas.gameObject.SetActive(false);
     }
 
+    public void SetOtline(RaycastHit hit, bool visible) 
+    {
+        if (visible) 
+        { 
+             //set UI 
+            if (_canvas) _canvas.gameObject.SetActive(true);
+
+            //set outline
+            Outline _aux = _otlineLastSeen;
+            _otlineLastSeen = hit.transform.GetComponent<Outline>() ??
+                                hit.transform.GetComponentInParent<Outline>() ??
+                                hit.transform.GetComponentInChildren<Outline>();
+            if (_otlineLastSeen)
+            {
+                _otlineLastSeen.enabled = true;
+                if (_aux && _aux.transform.root != _otlineLastSeen.transform.root)
+                {
+                    _aux.enabled = false;
+                }
+            }
+        }
+        else 
+        {
+            if (_canvas) _canvas.gameObject.SetActive(false);
+            if (_otlineLastSeen)
+            {
+                _otlineLastSeen.enabled = false;
+                _otlineLastSeen = null;
+            }
+        }
+    }
+
     ///////VERSION 2
     ////////////////
 
@@ -53,8 +87,6 @@ public class Interactor : MonoBehaviour
             }
         }
         
-           
-
 
         if (_grabbedObject == null) //not grabbing
         {
@@ -67,10 +99,9 @@ public class Interactor : MonoBehaviour
 
                 if (interactableObject != null || interactableHeldObject != null)
                 {
-                    if (_canvas) _canvas.gameObject.SetActive(true);
+                    SetOtline(hit, true);
 
                     //Diferenciate if holding or just press considerring witch acction is available
-
                     if (interactableHeldObject != null && _interactAction.IsPressed()) //HOLDING
                     {
                         _interactHeldTime += Time.deltaTime;
@@ -106,7 +137,7 @@ public class Interactor : MonoBehaviour
             }
             else
             {
-                if (_canvas) _canvas.gameObject.SetActive(false);
+                SetOtline(hit, false);
             }
         }
         else //grabing -> DROP
@@ -114,11 +145,8 @@ public class Interactor : MonoBehaviour
             if (_interactAction.WasReleasedThisFrame()) //try drop 
             {
                 bool isHitDrop = Physics.Raycast(_transform.position, transform.forward, out var hitDrop, _grabbedObject.transform.localScale.x + 1);
-                Debug.DrawRay(_transform.position, transform.forward * (_grabbedObject.transform.localScale.x + 1), Color.red, 2f, false);
-
                 //floor under
                 bool isFloor = Physics.Raycast(_grabbedObject.transform.position, Vector3.down, _maxDistanceToFloor);
-                Debug.DrawRay(_grabbedObject.transform.position, Vector3.down * _maxDistanceToFloor, Color.green, 2f, false);
 
 
                 if ((!isHitDrop || hitDrop.collider.gameObject == _grabbedObject) && isFloor) //can drop

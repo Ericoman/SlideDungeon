@@ -183,6 +183,7 @@ GameObject:
   - component: {fileID: 6739392415332081660}
   - component: {fileID: 6576566073008253895}
   - component: {fileID: 7348962238973079024}
+  - component: {fileID: 2233433304378471938}
   m_Layer: 9
   m_Name: TutorialBook
   m_TagString: Untagged
@@ -243,6 +244,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0.6, z: 0}
+--- !u!114 &2233433304378471938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3802034827379361167}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0.39607844, g: 0.8039216, b: 0.93333334, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7258891603744079775
 GameObject:
   m_ObjectHideFlags: 0

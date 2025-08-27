@@ -335,6 +335,7 @@ GameObject:
   - component: {fileID: 2975932740706713455}
   - component: {fileID: 8892921616909435919}
   - component: {fileID: 5431071989566011760}
+  - component: {fileID: 4926164230178354424}
   m_Layer: 9
   m_Name: SmokeMachine ;)
   m_TagString: Untagged
@@ -399,6 +400,24 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: -4.19, y: -3.35, z: 8.84}
+--- !u!114 &4926164230178354424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5420559639073309489}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0.39607844, g: 0.8039216, b: 0.93333334, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &6428281883509262211
 GameObject:
   m_ObjectHideFlags: 0
