@@ -21,17 +21,18 @@ public class PlayersHealthComponent : HealthComponent
     void Start()
     {
         currentHealth = maxHealth;
-        respawnPotition = gameObject.transform.position;
-        _fallPosition = gameObject.transform.position;
-
         if(heartsManagerUI) heartsManagerUI.SetFullHealth();
 
         StartCoroutine(FallPositionCoroutine());
-
     }
 
     private IEnumerator FallPositionCoroutine()
     {
+        yield return new WaitForSeconds(0.25f);
+
+        respawnPotition = gameObject.transform.position;
+        _fallPosition = gameObject.transform.position;
+
         while (true)
         {
             if (IsGrounded())
