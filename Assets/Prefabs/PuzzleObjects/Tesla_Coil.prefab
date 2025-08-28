@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6786724048309119703}
-  - component: {fileID: 6779707746143309870}
   - component: {fileID: 8762632428647461266}
   - component: {fileID: 2749734677282097548}
+  - component: {fileID: 341522362905243505}
   m_Layer: 0
   m_Name: Tesla_Coil
   m_TagString: Untagged
@@ -37,27 +37,6 @@ Transform:
   - {fileID: 1630540991415831839}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &6779707746143309870
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3160582655277046329}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.38
-  m_Center: {x: 0, y: 0.63, z: 0}
 --- !u!114 &8762632428647461266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,6 +78,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!136 &341522362905243505
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3160582655277046329}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.61
+  m_Height: 2.18
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8430998831295324331
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,8 +129,8 @@ Transform:
   m_GameObject: {fileID: 8430998831295324331}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.037, y: 0.923, z: 0.031}
-  m_LocalScale: {x: 0.13643904, y: 0.13643904, z: 0.13643904}
+  m_LocalPosition: {x: 0.02, y: 0.923, z: -0.001}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6786724048309119703}
@@ -233,7 +235,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8808965022465303797, guid: 0b3bc7b313eb61c46a727add8df439e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.017
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8808965022465303797, guid: 0b3bc7b313eb61c46a727add8df439e9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -241,7 +243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8808965022465303797, guid: 0b3bc7b313eb61c46a727add8df439e9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.033
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8808965022465303797, guid: 0b3bc7b313eb61c46a727add8df439e9, type: 3}
       propertyPath: m_LocalRotation.w
