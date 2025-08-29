@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 lastMovementDirection;
     public GameObject InteractPuzzle;
 
-    public bool canMove = true;
+    private bool canMove = true;
 
     private PlayerInput _playerInput;
 
@@ -102,9 +102,13 @@ public class PlayerMovement : MonoBehaviour
     }
 
     
+    public void SetCanMove(bool move) 
+    { 
+        canMove = move;
+    }
 
-    
-    
+
+
     private void OnTriggerEnter(Collider other)
     {
         InteractPuzzle.SetActive(true);

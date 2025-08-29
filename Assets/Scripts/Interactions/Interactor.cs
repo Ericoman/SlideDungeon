@@ -13,6 +13,7 @@ public class Interactor : MonoBehaviour
     [SerializeField] private LayerMask _interactableLayer;
     [SerializeField] private Canvas _canvas;
     [SerializeField] private float _maxDistanceToFloor = 2;
+    [SerializeField] private PlayerMovement playerMovement;
 
     private PlayerInput _playerInput;
     private InputAction _interactAction;
@@ -108,6 +109,7 @@ public class Interactor : MonoBehaviour
 
                         if (_interactHeldTime >= holdThreshold) //---> holding action 
                         {
+                            interactableHeldObject.InteractHeld(gameObject);
                             Debug.Log("Holding Interact");
                             if (_playerInput.actions["RotateRight"].WasReleasedThisFrame()) //right
                             {
@@ -131,7 +133,12 @@ public class Interactor : MonoBehaviour
                             interactableObject.Interact(gameObject);
                             Debug.Log("interactableObject reached");
                         }
-                        _interactHeldTime = 0f; 
+                        _interactHeldTime = 0f;
+
+                        if (interactableHeldObject != null) 
+                        {
+                            interactableHeldObject.InteractHeldRelease(gameObject);
+                        }
                     }
                 }
             }

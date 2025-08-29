@@ -8,6 +8,18 @@ public class RotateInteract : MonoBehaviour, IInteractableHeld
     [SerializeField] private RotationAxis axis = RotationAxis.Y;
     [SerializeField] private float step = 45f;
 
+    public void InteractHeld(GameObject interactor)
+    {
+        PlayerMovement playerMovement = interactor.GetComponent<PlayerMovement>();
+        if(playerMovement) playerMovement.SetCanMove(false);
+    }
+
+    public void InteractHeldRelease(GameObject interactor)
+    {
+        PlayerMovement playerMovement = interactor.GetComponent<PlayerMovement>();
+        if (playerMovement) playerMovement.SetCanMove(true);
+    }
+
     public void InteractHeldRight(GameObject interactor)
     {
         Rotate(-step);

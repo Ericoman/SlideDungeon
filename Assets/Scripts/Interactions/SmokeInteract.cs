@@ -15,11 +15,11 @@ public class SmokeInteract : MonoBehaviour, IInteractable
         if (interactor.tag == "Player")
         {
             PlayersHealthComponent playersHealth = interactor.gameObject.GetComponentInChildren<PlayersHealthComponent>();
-            playersHealth.ReceiveExtraHealth(healthRecived);
-
-            if (EffectToActivate) EffectToActivate.SetActive(true);
-            StartCoroutine(EndEffect());
-
+            if (playersHealth.ReceiveExtraHealth(healthRecived)) 
+            { 
+                if (EffectToActivate) EffectToActivate.SetActive(true);
+                StartCoroutine(EndEffect());
+            }
         }
     }
 

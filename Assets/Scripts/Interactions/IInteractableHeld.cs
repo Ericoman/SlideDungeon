@@ -14,6 +14,11 @@ namespace Assets.Scripts.Interactions
             Debug.Log("InteractHeld not implemented");
         }
 
+        void InteractHeldRelease(GameObject interactor)
+        {
+            Debug.Log("InteractHeldRelease not implemented");
+        }
+
         void InteractHeldRight(GameObject interactor)
         {
             Debug.Log("InteractHeldRight not implemented");

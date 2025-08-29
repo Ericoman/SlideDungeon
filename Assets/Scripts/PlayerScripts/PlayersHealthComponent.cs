@@ -107,10 +107,15 @@ public class PlayersHealthComponent : HealthComponent
     }
 
     //extra healht
-    public void ReceiveExtraHealth(int health)
+    public bool ReceiveExtraHealth(int health)
     {
+        if (currentExtraHealth >= maxExtraHealth) 
+        { 
+            return false;
+        } 
         currentExtraHealth = Math.Min(maxExtraHealth, currentExtraHealth + health);
         SetTextExtra();
+        return true;
     }
     public void ReceiveExtraDamage(int damage)
     {
