@@ -1,10 +1,14 @@
 using Assets.Devs.Julia.Scripts;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 public class SmokeInteract : MonoBehaviour, IInteractable
 {
     [SerializeField]
     private int healthRecived = 1;
+
+    public GameObject EffectToActivate;
 
     public void Interact(GameObject interactor)
     {
@@ -12,6 +16,16 @@ public class SmokeInteract : MonoBehaviour, IInteractable
         {
             PlayersHealthComponent playersHealth = interactor.gameObject.GetComponentInChildren<PlayersHealthComponent>();
             playersHealth.ReceiveExtraHealth(healthRecived);
+
+            if (EffectToActivate) EffectToActivate.SetActive(true);
+            StartCoroutine(EndEffect());
+
         }
+    }
+
+    private IEnumerator EndEffect()
+    {
+        yield return new WaitForSeconds(1);
+        if (EffectToActivate) EffectToActivate.SetActive(false);
     }
 }
