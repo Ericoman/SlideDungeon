@@ -202,7 +202,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c8cb4a5297a4f27408f7da128e0b8b88, type: 2}
+  - {fileID: 2100000, guid: b73b534de12c7194aba26bc46b7f1728, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2560,7 +2560,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 25
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -2639,7 +2639,7 @@ Transform:
   m_GameObject: {fileID: 568453846}
   serializedVersion: 2
   m_LocalRotation: {x: 0.70710576, y: -0, z: -0, w: 0.7071079}
-  m_LocalPosition: {x: 64, y: 212, z: 120}
+  m_LocalPosition: {x: 10, y: 212, z: 73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3407,7 +3407,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c8cb4a5297a4f27408f7da128e0b8b88, type: 2}
+  - {fileID: 2100000, guid: b73b534de12c7194aba26bc46b7f1728, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4518,7 +4518,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c8cb4a5297a4f27408f7da128e0b8b88, type: 2}
+  - {fileID: 2100000, guid: b73b534de12c7194aba26bc46b7f1728, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6113,7 +6113,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c8cb4a5297a4f27408f7da128e0b8b88, type: 2}
+  - {fileID: 2100000, guid: b73b534de12c7194aba26bc46b7f1728, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7257,7 +7257,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.7, y: -0.3, z: 68.5}
-  m_LocalScale: {x: 15.252806, y: 1.1845, z: 15.631845}
+  m_LocalScale: {x: 19.390892, y: 1.1845, z: 15.631845}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
