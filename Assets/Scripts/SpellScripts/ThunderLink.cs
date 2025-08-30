@@ -10,6 +10,7 @@ public class ThunderLink : MonoBehaviour
     private Coroutine sphere1MovementCoroutine;
     private Coroutine sphere2MovementCoroutine;
 
+    public bool isSphere1MovementComplete { get; private set; } // Flag for movement completion status
     
     public LineRenderer lineRenderer;
     //private BoxCollider lineCollider; // The collider along the line
@@ -37,13 +38,14 @@ public class ThunderLink : MonoBehaviour
     public void StartSphere1Movement(Transform target, Vector3 targetPoint, float speed)
     {
         StopSphere1Movement(); // Ensure the old coroutine is stopped
-        sphere1MovementCoroutine = StartCoroutine(MoveSphereToPoint(target, targetPoint, speed));
+        isSphere1MovementComplete = false; // Reset the movement completion flag
+        sphere1MovementCoroutine = StartCoroutine(MoveSphereToPoint(target, targetPoint, speed, onComplete: () => { isSphere1MovementComplete = true; }));
     }
 
     public void StartSphere2Movement(Transform target, Vector3 targetPoint, float speed)
     {
         StopSphere2Movement(); // Ensure the old coroutine is stopped
-        sphere2MovementCoroutine = StartCoroutine(MoveSphereToPoint(target, targetPoint, speed));
+        sphere2MovementCoroutine = StartCoroutine(MoveSphereToPoint(target, targetPoint, speed, onComplete: null));
     }
 
     public void StopSphere1Movement()
@@ -71,7 +73,8 @@ public class ThunderLink : MonoBehaviour
         StopSphere2Movement();
     }
 
-    private IEnumerator MoveSphereToPoint(Transform sphereTransform, Vector3 targetPoint, float moveSpeed)
+    private IEnumerator MoveSphereToPoint(Transform sphereTransform, Vector3 targetPoint, float moveSpeed,
+        Action onComplete)
     {
         while (sphereTransform != null && Vector3.Distance(sphereTransform.position, targetPoint) > 0.1f)
         {
@@ -84,6 +87,8 @@ public class ThunderLink : MonoBehaviour
             // Snap to target point
             sphereTransform.position = targetPoint;
         }
+        
+        onComplete?.Invoke(); // Invoke the callback if any
     }
 
     void OnDestroy()

@@ -514,7 +514,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8268433213911476575}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77d1b0b81e867e242ad652eabd2d618b, type: 3}
   m_Name: 
@@ -626,6 +626,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: a7cc0c52-fea8-4797-af90-e916d608ac7a
     m_ActionName: 'Player/RotateLeft[/Keyboard/leftArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4e480c77-4aa0-4adf-b7bd-07b3ed289adb
+    m_ActionName: 'Player/SelectTileable[/Keyboard/q]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -658,7 +662,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8268433213911476575}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77d1b0b81e867e242ad652eabd2d618b, type: 3}
   m_Name: 
