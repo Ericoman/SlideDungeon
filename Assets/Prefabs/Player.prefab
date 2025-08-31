@@ -504,9 +504,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910e14ffd6cab78408969870d8bcd386, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  initialMoveSpeed: 5
   InteractPuzzle: {fileID: 0}
-  canMove: 1
 --- !u!114 &3091067174608430516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,6 +523,7 @@ MonoBehaviour:
   castOrigin: {fileID: 7122171793212574458}
   raycastRange: 100
   sphereMoveSpeed: 10
+  maxAttachmentDistance: 20
   maxThunderLinks: 3
 --- !u!114 &6059582549293610337
 MonoBehaviour:
@@ -672,6 +672,7 @@ MonoBehaviour:
   castOrigin: {fileID: 7122171793212574458}
   raycastRange: 1000
   sphereMoveSpeed: 20
+  maxAttachmentDistance: 20
   maxThunderLinks: 3
 --- !u!54 &2672363916702475161
 Rigidbody:
@@ -790,6 +791,7 @@ MonoBehaviour:
     m_Bits: 512
   _canvas: {fileID: 0}
   _maxDistanceToFloor: 2
+  playerMovement: {fileID: 3521537669410011455}
   holdThreshold: 0.25
 --- !u!1001 &2897528583043473487
 PrefabInstance:

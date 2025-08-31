@@ -1,15 +1,21 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f; // Movement speed of the character
+    public float initialMoveSpeed = 5f; // Movement speed of the character
+    private float _moveSpeed; // Movement speed of the character
+
+
     private Vector2 move;
     private Vector3 lastMovementDirection;
     public GameObject InteractPuzzle;
 
-    private bool canMove = true;
+    private bool _canMove = true;
+    private bool _blockX = false;
+    private bool _blockZ = false;
 
     private PlayerInput _playerInput;
 
@@ -22,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     {
        
         _playerInput = GetComponent<PlayerInput>();
+        _moveSpeed = initialMoveSpeed;
     }
 
     private void Update()
@@ -30,17 +37,17 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!GameManager.Instance.movingCamera)
             {
-                if (canMove)
+                if (_canMove)
                 {
-                    canMove = false;
+                    _canMove = false;
                     Debug.Log(GameManager.Instance.maincamera.transform.position + "  "+GameManager.Instance.endCamera.transform.position);
                     GameManager.Instance.MoveCameraToLocation(GameManager.Instance.maincamera.transform, GameManager.Instance.endCamera.transform);
                     GameManager.Instance.ResetHighlight();
                     GameManager.Instance.HighlightTileable();
                 }
                 else if(GameManager.Instance.selectedTileable==null){
-                    
-                    canMove = true;
+
+                    _canMove = true;
                     GameManager.Instance.ResetHighlight();
                     GameManager.Instance.ResetMainCamera(GameManager.Instance.maincamera.transform, GameManager.Instance.savedCamPosition);
                 }
@@ -79,34 +86,62 @@ public class PlayerMovement : MonoBehaviour
             GameManager.Instance.SetNextTileable(move.x, move.y);
         }
     }
-    
+
     public void MovePlayer()
     {
+        if (_blockX) move.x = 0f;
+        if (_blockZ) move.y = 0f;
+
         Vector3 movement = new Vector3(move.x, 0f, move.y);
 
-        if (canMove)
+        if (_canMove)
         {
             if (movement != Vector3.zero)
             {
-                // Update the last movement direction
-                lastMovementDirection = movement.normalized;
+                // Not rotation if axis blocked       
+                if (!_blockX && !_blockZ)
+                {
+                    // Update the last movement direction
+                    lastMovementDirection = movement.normalized;
 
-                // Rotate the player to look in the direction of movement
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lastMovementDirection), Time.deltaTime * 10f);
+                    // Rotate the player to look in the direction of movement
+                    transform.rotation = Quaternion.Slerp(
+                        transform.rotation,
+                        Quaternion.LookRotation(lastMovementDirection),
+                        Time.deltaTime * 10f
+                    );
+                }
             }
 
-            // Translate player in the direction of movement
-            transform.Translate(movement * moveSpeed * Time.deltaTime, Space.World);
+            // Translate player en la dirección de movement
+            transform.Translate(movement * _moveSpeed * Time.deltaTime, Space.World);
         }
-        
     }
 
-    
+
     public void SetCanMove(bool move) 
     { 
-        canMove = move;
+        _canMove = move;
     }
-
+    public void SetBlockX(bool move) 
+    {
+        _blockX = move;
+    }
+    public void SetBlockZ(bool move)
+    {
+        _blockZ = move;
+    }
+    public void SetMoveSpeed(float speed) 
+    {
+        _moveSpeed = speed;
+    }
+    public void SetFreeMovement() 
+    {
+        _canMove = true;
+        _blockX = false;
+        _blockZ = false;
+        _moveSpeed = initialMoveSpeed;
+    }
 
 
     private void OnTriggerEnter(Collider other)

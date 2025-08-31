@@ -172,6 +172,8 @@ public class Interactor : MonoBehaviour
                     _grabbedObject.transform.position = hitDrop.transform.position;
                     _grabbedObject = null;
 
+                    playerMovement.SetFreeMovement();
+
                 }
             }
         }
