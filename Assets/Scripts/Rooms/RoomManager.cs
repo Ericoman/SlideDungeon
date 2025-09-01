@@ -137,5 +137,10 @@ namespace Rooms
         {
             return roomDataSO;
         }
+
+        public void SetRoomDataSO(RoomDataSO newRoomData)
+        {
+            roomDataSO = newRoomData;
+        }
     }
 }

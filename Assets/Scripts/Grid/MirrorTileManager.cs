@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Grid.DataObjects;
+using Rooms;
 using UnityEngine;
 
 public class MirrorTileManager : MonoBehaviour
@@ -14,6 +15,9 @@ public class MirrorTileManager : MonoBehaviour
     GameObject[] tilePrefabs;
     [SerializeField]
     OriginalTile[] originalTiles;
+    
+    [SerializeField]
+    RoomDataSO[] roomDatas;
     
     [Serializable]
     struct OriginalTile
@@ -79,6 +83,12 @@ public class MirrorTileManager : MonoBehaviour
             //
             tileable = tile.GetComponentInChildren<Tileable>();
             tileable.SetInGrid(gridManager,generatedtile.GridPosition);
+            
+            Rooms.RoomManager roomManager = tile.GetComponentInChildren<Rooms.RoomManager>();
+            if (roomManager != null && roomDatas.Length > tileIndex)
+            {
+                roomManager.SetRoomDataSO(roomDatas[tileIndex]);
+            }
         }
         tileable.TileId = tileIndex;
     }

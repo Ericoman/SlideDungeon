@@ -145,7 +145,7 @@ public class Interactor : MonoBehaviour
             else
             {
                 SetOtline(hit, false);
-                playerMovement.SetCanMove(true);
+                //Doesnt work with puzzle mode //playerMovement.SetCanMove(true);
             }
         }
         else //grabing -> DROP
