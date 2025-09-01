@@ -276,10 +276,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8e5fa80d121994cadcbb494cab76d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position1: {fileID: 2030983500380769465}
-  position2: {fileID: 1064171868321106817}
-  position3: {fileID: 3121252483539589565}
-  position4: {fileID: 5001224832344524726}
+  positions:
+  - {fileID: 2030983500380769465}
+  - {fileID: 1064171868321106817}
+  - {fileID: 3121252483539589565}
+  - {fileID: 5001224832344524726}
   playerSpeed: 3
 --- !u!65 &5755068272231055487
 BoxCollider:

@@ -5,7 +5,7 @@ using static RotateInteract;
 public class PushPullInteract : MonoBehaviour, IInteractableHeld
 {
 
-    public Transform position1, position2, position3, position4;
+    public Transform[] positions = new Transform[4];
     public float playerSpeed = 3f;
 
     public void InteractHeld(GameObject interactor)
@@ -41,15 +41,13 @@ public class PushPullInteract : MonoBehaviour, IInteractableHeld
 
     void SetPlayerTransform(GameObject interactor) 
     {
-        Vector3[] positions = { position1.position, position2.position, position3.position, position4.position };
-        Quaternion[] rotations = { position1.rotation, position2.rotation, position3.rotation, position4.rotation };
-
+     
         int indexPosition = 0;
-        float distanciaMinima = Vector3.Distance(interactor.transform.position, positions[0]);
+        float distanciaMinima = Vector3.Distance(interactor.transform.position, positions[0].position);
 
         for (int i = 1; i < positions.Length; i++)
         {
-            float distancia = Vector3.Distance(interactor.transform.position, positions[i]);
+            float distancia = Vector3.Distance(interactor.transform.position, positions[i].position);
             if (distancia < distanciaMinima)
             {
                 distanciaMinima = distancia;
@@ -58,8 +56,8 @@ public class PushPullInteract : MonoBehaviour, IInteractableHeld
         }
 
         //interactor.transform.position = positions[indexPosition];
-        interactor.transform.position = new Vector3(positions[indexPosition].x, interactor.transform.position.y, positions[indexPosition].z);
-        interactor.transform.rotation = rotations[indexPosition];
+        interactor.transform.position = new Vector3(positions[indexPosition].position.x, interactor.transform.position.y, positions[indexPosition].position.z);
+        interactor.transform.rotation = positions[indexPosition].rotation;
 
     }
 }
