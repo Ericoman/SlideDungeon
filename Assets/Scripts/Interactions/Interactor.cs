@@ -25,6 +25,8 @@ public class Interactor : MonoBehaviour
     private float _interactHeldTime = 0f;
     public float holdThreshold = 0.5f;
 
+    public Animator anim;
+
     private void Awake()
     {
         _transform = transform;
@@ -145,7 +147,7 @@ public class Interactor : MonoBehaviour
             else
             {
                 SetOtline(hit, false);
-                //Doesnt work with puzzle mode //playerMovement.SetCanMove(true);
+                playerMovement.SetCanMove(true);
             }
         }
         else //grabing -> DROP

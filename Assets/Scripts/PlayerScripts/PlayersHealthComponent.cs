@@ -18,6 +18,10 @@ public class PlayersHealthComponent : HealthComponent
     private float _checkDistance = 1; // Distance below object to check for ground
     private Vector3 _fallPosition;
 
+    public Animator anim;
+
+    
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -67,15 +71,21 @@ public class PlayersHealthComponent : HealthComponent
                 return false;
 
             if (damage - currentExtraHealth > 0) 
-            { 
+            {
+                anim.SetTrigger("Damage");
                 base.ReceiveDamage(damage - currentExtraHealth);
                 SetText();
             }
-            ReceiveExtraDamage(damage);
+            else
+            {
+                anim.SetTrigger("Die");
+            }
+                ReceiveExtraDamage(damage);
 
         }
        return true;
     }
+
     override public void ReceiveDamageByFall(int damage) 
     {
         if (currentExtraHealth == 0)
@@ -87,7 +97,12 @@ public class PlayersHealthComponent : HealthComponent
 
             if (damage - currentExtraHealth > 0)
             {
+                anim.SetTrigger("Damage");
                 base.ReceiveDamage(damage - currentExtraHealth);
+            }
+            else
+            {
+                anim.SetTrigger("Die");
             }
             ReceiveExtraDamage(damage);
             RespawnFall();

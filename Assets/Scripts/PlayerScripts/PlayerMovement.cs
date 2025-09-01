@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     private bool _blockX = false;
     private bool _blockZ = false;
 
+    public Animator anim;
+
     private PlayerInput _playerInput;
 
     public void OnMove(InputAction.CallbackContext context)
@@ -98,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (movement != Vector3.zero)
             {
+                anim.SetTrigger("Move");
                 // Not rotation if axis blocked       
                 if (!_blockX && !_blockZ)
                 {
@@ -112,9 +115,13 @@ public class PlayerMovement : MonoBehaviour
                     );
                 }
             }
+            else
+            {
+                anim.SetTrigger("Idle");
+            }
 
-            // Translate player en la dirección de movement
-            transform.Translate(movement * _moveSpeed * Time.deltaTime, Space.World);
+                // Translate player en la dirección de movement
+                transform.Translate(movement * _moveSpeed * Time.deltaTime, Space.World);
         }
     }
 
