@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 107422753816476708}
   - component: {fileID: 211159631641502509}
   - component: {fileID: 2186048854186057579}
+  - component: {fileID: 339018328511876470}
   m_Layer: 11
   m_Name: ShooterEnemy
   m_TagString: Untagged
@@ -81,7 +82,7 @@ Rigidbody:
   m_ImplicitCom: 0
   m_ImplicitTensor: 0
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -127,6 +128,21 @@ MonoBehaviour:
   projectilePrefab: {fileID: 7493796544200936264, guid: 991ecd2485f702c45a3ac1ade980a447, type: 3}
   shootPoint: {fileID: 3713723437281330915}
   shootInterval: 2
+--- !u!114 &339018328511876470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142041359879127412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3729262051a2f74eb7e54f4a4ccd535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 2
+  doesRespawn: 0
+  damageCooldown: 1
 --- !u!1 &1214333831131552550
 GameObject:
   m_ObjectHideFlags: 0

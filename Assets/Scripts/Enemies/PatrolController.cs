@@ -58,7 +58,6 @@ public class PatrolController : MonoBehaviour
     void Update()
     {
         CheckPlayer();
-        animator.SetBool("animPatrolling", _isPatrol);
 
 
         if (_isPatrol)
@@ -78,6 +77,7 @@ public class PatrolController : MonoBehaviour
         if(playerInRange.Length == 0) 
         {
             _isPatrol = true;
+            animator.SetBool("animPatrolling", _isPatrol);
         }
         else 
         { 
@@ -91,6 +91,7 @@ public class PatrolController : MonoBehaviour
                 if (dstToPlayer > viewRadius) //fuera de radio
                 {
                     _isPatrol = true;
+                    animator.SetBool("animPatrolling", _isPatrol);
 
                 }
                 else if (Vector3.Angle(transform.forward, dirToPlayer) < viewangle / 2)
@@ -98,11 +99,13 @@ public class PatrolController : MonoBehaviour
                     if (!Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleMasck)) //No obstacles
                     {
                         _isPatrol = false;
+                        animator.SetBool("animPatrolling", _isPatrol);
                         _playerPosition = player.transform.position;
                     }
                     else
                     {
                         _isPatrol = true;
+                        animator.SetBool("animPatrolling", _isPatrol);
                     }
                 }
             }
