@@ -64615,7 +64615,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2365629104749162413, guid: 064f793853f36c6468b69913da047e11, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.84
+      value: 5.55
       objectReference: {fileID: 0}
     - target: {fileID: 2365629104749162413, guid: 064f793853f36c6468b69913da047e11, type: 3}
       propertyPath: m_LocalPosition.y
@@ -67473,7 +67473,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2365629104749162413, guid: 064f793853f36c6468b69913da047e11, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.38
+      value: 11.68
       objectReference: {fileID: 0}
     - target: {fileID: 2365629104749162413, guid: 064f793853f36c6468b69913da047e11, type: 3}
       propertyPath: m_LocalPosition.y
@@ -68624,6 +68624,10 @@ PrefabInstance:
     - target: {fileID: 3160582655277046329, guid: a70ce26beb01b2841a2bd70ed880e099, type: 3}
       propertyPath: m_Name
       value: Tesla_Coil (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3160582655277046329, guid: a70ce26beb01b2841a2bd70ed880e099, type: 3}
+      propertyPath: m_TagString
+      value: TeslaCoil
       objectReference: {fileID: 0}
     - target: {fileID: 6786724048309119703, guid: a70ce26beb01b2841a2bd70ed880e099, type: 3}
       propertyPath: m_LocalPosition.x
@@ -71526,6 +71530,10 @@ PrefabInstance:
     - target: {fileID: 3160582655277046329, guid: a70ce26beb01b2841a2bd70ed880e099, type: 3}
       propertyPath: m_Name
       value: Tesla_Coil
+      objectReference: {fileID: 0}
+    - target: {fileID: 3160582655277046329, guid: a70ce26beb01b2841a2bd70ed880e099, type: 3}
+      propertyPath: m_TagString
+      value: TeslaCoil
       objectReference: {fileID: 0}
     - target: {fileID: 6786724048309119703, guid: a70ce26beb01b2841a2bd70ed880e099, type: 3}
       propertyPath: m_LocalScale.x
