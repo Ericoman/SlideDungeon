@@ -93,50 +93,71 @@ public class BullController : MonoBehaviour
         }
 
     }
-
+  
     private IEnumerator Charge()
     {
         _isCharging = true;
 
         if (_punto != null)
         {
-            navMeshAgent.SetDestination(_punto.transform.position);
-            navMeshAgent.isStopped = false;
-            navMeshAgent.speed = speed;
+            // Mira hacia el punto al iniciar la carga
+            Vector3 lookDir = (_punto.transform.position - transform.position).normalized;
+            lookDir.y = 0; // opcional, para evitar inclinaciones
+            transform.rotation = Quaternion.LookRotation(lookDir);
 
-            // espera hasta que llegue al punto
-            while (Vector3.Distance(transform.position, _punto.transform.position) > 1f)
-            {
-                yield return null; // espera un frame
-            }
+            // Ahora la dirección de carga es SIEMPRE hacia adelante
+            Vector3 direction = transform.forward;
 
-            // llego al punto
             navMeshAgent.isStopped = true;
-            navMeshAgent.speed = 0;
+            navMeshAgent.updateRotation = false;
 
-            // intentar dañar
-            Collider[] playerInRange = Physics.OverlapSphere(transform.position, damageRadius, playerMask);
-            if (playerInRange.Length != 0)
+            bool hasHit = false;
+            float chargeTime = 3f;
+            float timer = 0f;
+
+            while (!hasHit && timer < chargeTime)
             {
-                HealthComponent health = playerInRange[0].gameObject.GetComponentInChildren<HealthComponent>();
-                health.ReceiveDamage(damage);
+                navMeshAgent.Move(direction * speed * Time.deltaTime);
+
+                // detectar al jugador
+                Collider[] playerInRange = Physics.OverlapSphere(transform.position, damageRadius, playerMask);
+                if (playerInRange.Length != 0)
+                {
+                    hasHit = true;
+
+                    HealthComponent health = playerInRange[0].gameObject.GetComponentInChildren<HealthComponent>();
+                    health.ReceiveDamage(damage);
+                }
+
+                // raycast para colisión
+                if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 1f))
+                {
+                    hasHit = true;   
+                }
+
+                timer += Time.deltaTime;
+                yield return null;
             }
 
-            //espera SIEMPRE después de la carga
+            // fin de la carga
+            navMeshAgent.isStopped = true;
             animator.SetBool("animSpin", true);
 
             yield return new WaitForSeconds(waitAfterCharge);
-            Destroy(_punto); 
+            Destroy(_punto);
             yield return StartCoroutine(Rotate180());
 
             animator.SetBool("animSpin", false);
             animator.SetBool("animCharging", false);
+            yield return new WaitForSeconds(waitAfterCharge);
 
         }
 
         _isWaiting = true;
         _isCharging = false;
     }
+
+
 
     private IEnumerator Rotate180()
     {

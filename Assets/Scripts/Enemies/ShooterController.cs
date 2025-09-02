@@ -61,6 +61,10 @@ public class ShooterController : MonoBehaviour
             Shoot();
             _shootTimer = shootInterval;
         }
+        else 
+        {
+            animator.SetBool("animShoot", false);
+        }
     }
 
     void Shoot()
@@ -73,6 +77,8 @@ public class ShooterController : MonoBehaviour
             {
                 projectile.SetDamage(damage);
             }
+            //animShoot
+            animator.SetBool("animShoot", true);
         }
     }
 
