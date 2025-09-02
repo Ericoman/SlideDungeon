@@ -127,6 +127,8 @@ public class Interactor : MonoBehaviour
                     else if (_interactAction.WasPressedThisFrame()) //INITIAL PRESS
                     {
                         _interactHeldTime = 0f;
+                        //if(interactableObject != null && anim) anim.SetTrigger("Interact");
+                        //else if(interactableHeldObject != null && anim) anim.SetTrigger("Mirror");
                     }
                     else if (_interactAction.WasReleasedThisFrame()) //RELEASE PRESS
                     {
@@ -147,7 +149,7 @@ public class Interactor : MonoBehaviour
             else
             {
                 SetOtline(hit, false);
-                playerMovement.SetCanMove(true);
+                //Doesnt work with puzzle mode //playerMovement.SetCanMove(true);
             }
         }
         else //grabing -> DROP
