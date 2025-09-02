@@ -18,7 +18,6 @@ public class Tileable : MonoBehaviour
 
     private int originalLayer;
     private bool isInGrid = false;
-    //private Vector2Int gridPosition = new Vector2Int(-1,-1);
     private Vector2Int lastGridPosition = new Vector2Int(-1,-1);
     public Vector2Int GridPosition
     {
@@ -64,11 +63,14 @@ public class Tileable : MonoBehaviour
         lastGridPosition = GridPosition;
         GridPosition = new Vector2Int(-1,-1);
         transform.parent = null;
-        transform.gameObject.layer = originalLayer;
-        foreach (Transform child in transform)
-        {
-            child.gameObject.layer = originalLayer;
-        }
+        
+        //Removed since we are not using mouse raycasts anymore
+        // transform.gameObject.layer = originalLayer;
+        // foreach (Transform child in transform)
+        // {
+        //     child.gameObject.layer = originalLayer;
+        // }
+        
         isInGrid = false;
     }
 
@@ -102,11 +104,14 @@ public class Tileable : MonoBehaviour
         {
             transform.parent = gridManager.transform;
             transform.localRotation = Quaternion.identity;
-            transform.gameObject.layer = gridManager.gameObject.layer;
-            foreach (Transform child in transform)
-            {
-                if(child.gameObject.layer != LayerMask.NameToLayer("Interactable")) child.gameObject.layer = gridManager.gameObject.layer;
-            }
+            
+            //Removed since we are not using mouse raycasts anymore
+            // transform.gameObject.layer = gridManager.gameObject.layer;
+            // foreach (Transform child in transform)
+            // {
+            //     if(child.gameObject.layer != LayerMask.NameToLayer("Interactable")) child.gameObject.layer = gridManager.gameObject.layer;
+            // }
+            
             isInGrid = true;
         }
         else

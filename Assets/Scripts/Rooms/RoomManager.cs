@@ -112,6 +112,8 @@ namespace Rooms
         }
         public bool IsCompleted()
         {
+            if (_currentContext.clearedOnce) return true;
+            
             for (int i = 0; i < roomDataSO.conditions.Length; ++i)
             {
                 if (!roomDataSO.conditions[i].IsCompleted(_currentContext))
@@ -141,6 +143,7 @@ namespace Rooms
         public void SetRoomDataSO(RoomDataSO newRoomData)
         {
             roomDataSO = newRoomData;
+            _currentContext.roomId = roomDataSO.id;
         }
     }
 }
