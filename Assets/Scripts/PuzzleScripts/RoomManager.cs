@@ -4,6 +4,7 @@ public class RoomManager : MonoBehaviour
 {
     [Header("Requirements for room completion")]
     public PatrolController[] patrolEnemies;
+    public ShooterController[] shooterEnemies;
     public TeslaCoil[] teslaCoils;
 
     [Space(5)]
@@ -56,6 +57,15 @@ public class RoomManager : MonoBehaviour
                 return false; // enemy still alive
             }
         }
+
+        foreach (ShooterController enemy in shooterEnemies)
+        {
+            if (enemy != null)
+            {
+                return false; // enemy still alive
+            }
+        }
+
 
         return true; // All Tesla Coils are active
     }
