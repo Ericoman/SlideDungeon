@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.VFX;
 [RequireComponent(typeof(LineRenderer))]
 public class ThunderLink : MonoBehaviour
 {
@@ -14,7 +15,13 @@ public class ThunderLink : MonoBehaviour
     
     public LineRenderer lineRenderer;
     //private BoxCollider lineCollider; // The collider along the line
-    
+
+     [Header("VFX Graph")]
+    public VisualEffect vfx; 
+    public string pos1Property = "pos1"; 
+    public string pos2Property = "pos2"; 
+    public string pos3Property = "pos3"; 
+    public string pos4Property = "pos4"; 
     void Start()
     {
         // Get the LineRenderer component attached to this GameObject
@@ -107,6 +114,24 @@ public class ThunderLink : MonoBehaviour
             lineRenderer.SetPosition(0, sphere1Position); // Set start position
             lineRenderer.SetPosition(1, sphere2Position); // Set end position
             
+            // Medium possitions
+            Vector3 midPoint = (sphere1Position + sphere2Position) * 0.5f;
+            Vector3 direction1 = (sphere2Position - sphere1Position).normalized;
+
+            // Calculate Offsets
+            Vector3 offset = Vector3.Cross(direction1, Vector3.up) * UnityEngine.Random.Range(-0.5f, 0.5f);
+
+            Vector3 pos2 = Vector3.Lerp(sphere1Position, midPoint, 0.5f) + offset;
+            Vector3 pos3 = Vector3.Lerp(midPoint, sphere2Position, 0.5f) - offset;
+
+             if (vfx != null)
+            {
+                vfx.SetVector3(pos1Property, sphere1Position);
+                vfx.SetVector3(pos2Property, pos2);
+                vfx.SetVector3(pos3Property, pos3);
+                vfx.SetVector3(pos4Property, sphere2Position);
+            }
+
             // Perform a raycast between sphere1 and sphere2
             RaycastHit hit;
             Vector3 direction = sphere2Position - sphere1Position; // Direction from sphere1 to sphere2
