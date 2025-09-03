@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class TriggerEndGame : MonoBehaviour
 {
-    [SerializeField] private int WaitTime = 2;
+    [SerializeField] private float WaitTime = 2;
     [SerializeField] private int EndSceneID = 2;
 
     void OnTriggerEnter(Collider other)
