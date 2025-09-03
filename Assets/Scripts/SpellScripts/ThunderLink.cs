@@ -126,10 +126,14 @@ public class ThunderLink : MonoBehaviour
 
              if (vfx != null)
             {
-                vfx.SetVector3(pos1Property, sphere1Position);
-                vfx.SetVector3(pos2Property, pos2);
-                vfx.SetVector3(pos3Property, pos3);
-                vfx.SetVector3(pos4Property, sphere2Position);
+                if (vfx.HasVector3(pos1Property))
+                    vfx.SetVector3(pos1Property, sphere1Position);
+                if (vfx.HasVector3(pos2Property))
+                    vfx.SetVector3(pos2Property, pos2);
+                if (vfx.HasVector3(pos3Property))
+                    vfx.SetVector3(pos3Property, pos3);
+                if (vfx.HasVector3(pos4Property))
+                    vfx.SetVector3(pos4Property, sphere2Position);
             }
 
             // Perform a raycast between sphere1 and sphere2
