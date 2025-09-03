@@ -17,7 +17,7 @@ public class PlayersHealthComponent : HealthComponent
     public float updateFallPositionCooldown = 2;
     private float _checkDistance = 1; // Distance below object to check for ground
     private Vector3 _fallPosition;
-
+    public PlayerMovement playermove;
     public Animator anim;
 
     
@@ -72,18 +72,23 @@ public class PlayersHealthComponent : HealthComponent
 
             if (damage - currentExtraHealth > 0) 
             {
-                anim.SetTrigger("Damage");
+                
                 base.ReceiveDamage(damage - currentExtraHealth);
                 SetText();
             }
-            else
-            {
-                anim.SetTrigger("Die");
-            }
-                ReceiveExtraDamage(damage);
+            
+            ReceiveExtraDamage(damage);
+            
 
         }
-       return true;
+
+        if (currentHealth > 0)
+        {
+            anim.SetTrigger("Damage");
+        }
+        
+
+            return true;
     }
 
     override public void ReceiveDamageByFall(int damage) 
@@ -97,23 +102,34 @@ public class PlayersHealthComponent : HealthComponent
 
             if (damage - currentExtraHealth > 0)
             {
-                anim.SetTrigger("Damage");
+                
                 base.ReceiveDamage(damage - currentExtraHealth);
             }
-            else
-            {
-                anim.SetTrigger("Die");
-            }
+            
             ReceiveExtraDamage(damage);
+            
             RespawnFall();
         }
     }
 
+    override protected void DieAnimation()
+    {
+        anim.SetTrigger("Die");
+        base.DieAnimation();
+        playermove.SetCanMove(false);
+
+        
+    }
+
+    
+
     //healthComponent respawn
     override protected void RespawnDeath()
     {
+        anim.SetTrigger("Spawn");
         base.RespawnDeath();
         SetText();
+        playermove.SetCanMove(true);
     }
     override protected void RespawnFall()
     {

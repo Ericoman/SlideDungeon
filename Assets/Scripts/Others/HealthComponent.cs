@@ -41,13 +41,28 @@ public class HealthComponent : MonoBehaviour
             }
             else
             {
-                RespawnDeath();
+                DieAnimation();
+                
             }
         }
 
         // Start cooldown coroutine
         StartCoroutine(DamageCooldownCoroutine());
         return true;
+    }
+
+    virtual protected void DieAnimation()
+    {
+        StartCoroutine(DieCoroutine());
+       
+    }
+
+    IEnumerator DieCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+        RespawnDeath();
+        
+
     }
 
     private IEnumerator DamageCooldownCoroutine()
@@ -77,6 +92,7 @@ public class HealthComponent : MonoBehaviour
             if (currentHealth <= 0)
             {
                 OnDeath?.Invoke();
+
                 RespawnDeath();
             }
             else

@@ -131,8 +131,10 @@ public class PatrolController : MonoBehaviour
                     if (health.ReceiveDamage(damage)) 
                     {
                       animator.SetBool("animBite", true);
+                        
                       StartCoroutine(EndAnimBite());
                     }
+                    Stop();
                 }
             }
         }
@@ -168,12 +170,16 @@ public class PatrolController : MonoBehaviour
     {
         navMeshAgent.isStopped = false;
         navMeshAgent.speed = speed;
+        navMeshAgent.updatePosition = true;
+        navMeshAgent.updateRotation = true;
     }
 
     void Stop()
     {
         navMeshAgent.isStopped = true;
         navMeshAgent.speed = 0;
+        navMeshAgent.updatePosition = false;
+        navMeshAgent.updateRotation = false;
     }
 
     void NextPoint()
@@ -186,5 +192,6 @@ public class PatrolController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         animator.SetBool("animBite", false);
+        Move(speedRun);
     }
 }

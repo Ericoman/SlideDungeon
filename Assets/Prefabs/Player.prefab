@@ -710,7 +710,8 @@ MonoBehaviour:
   heartsManagerUI: {fileID: 0}
   maxExtraHealth: 2
   updateFallPositionCooldown: 2
-  anim: {fileID: 0}
+  playermove: {fileID: 3521537669410011455}
+  anim: {fileID: 5380269878334113000}
 --- !u!114 &762430749438281890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -779,7 +780,7 @@ MonoBehaviour:
   _maxDistanceToFloor: 2
   playerMovement: {fileID: 3521537669410011455}
   holdThreshold: 0.25
-  anim: {fileID: 0}
+  anim: {fileID: 5380269878334113000}
 --- !u!1001 &2897528583043473487
 PrefabInstance:
   m_ObjectHideFlags: 0
