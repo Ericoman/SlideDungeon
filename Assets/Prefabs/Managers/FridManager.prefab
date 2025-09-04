@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3904362585647309167}
   - component: {fileID: 8491170107135839123}
+  - component: {fileID: 6436819806684871668}
   m_Layer: 0
   m_Name: FridManager
   m_TagString: GridManager
@@ -49,3 +50,24 @@ MonoBehaviour:
   cellSize: 1
   backgroundTilePrefab: {fileID: 832739495021704354, guid: b54a2be87bc602f40adeb0ad8f3ebc4b, type: 3}
   gridColor: {r: 1, g: 0, b: 1, a: 1}
+--- !u!65 &6436819806684871668
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3919127064597467264}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 13, y: 16.5, z: 3}
+  m_Center: {x: 6.1, y: 7.31, z: 0}

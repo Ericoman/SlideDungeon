@@ -190,44 +190,26 @@ public class Interactor : MonoBehaviour
 
                     _grabbedObject.transform.position = hitDrop.transform.position;
                     _grabbedObject = null;
+                    _heldObject = null;
 
                     playerMovement.SetFreeMovement();
 
                 }
             }
-           /*else 
+
+            if (!Physics.Raycast(_transform.position, transform.forward, out var hit, _interactionRadius, _interactableLayer))
             {
-                if (_grabbedObject != null)
+                if (_heldObject != null)
                 {
-                    playerMovement.SetFreeMovement();
+                    _grabbedObject.transform.SetParent(null);
                     _grabbedObject = null;
                     _heldObject = null;
+
+                    playerMovement.SetFreeMovement();
+
                 }
-            }*/
+            } 
         }
-
-        /*
-        if (Physics.Raycast(_transform.position, transform.forward, out var hit, _interactionRadius, _interactableLayer))
-        {
-            if (hit.transform.TryGetComponent(out IInteractable interactableObject))
-            {
-
-                Debug.Log("interaction in reach");
-                if (_canvas) _canvas.gameObject.SetActive(true);
-
-
-                if (_playerInput.actions["Interact"].WasReleasedThisFrame())
-                {
-                    interactableObject.Interact(gameObject);
-                    Debug.Log("interactableObject reached");
-                }
-
-            }
-        }
-        else
-        {
-            if(_canvas) _canvas.gameObject.SetActive(false);
-        }*/
     }
 
     ///////VERSION 1

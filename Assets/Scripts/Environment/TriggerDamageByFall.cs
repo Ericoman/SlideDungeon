@@ -7,10 +7,17 @@ public class TriggerDamageByFall : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        HealthComponent health = other.GetComponentInChildren<HealthComponent>();
-        if (health)
-        {
-            health.ReceiveDamageByFall(damageProduced);
+        if (other.tag == "Player")
+        { 
+            HealthComponent health = other.GetComponentInChildren<HealthComponent>();
+            if (health)
+            {
+                health.ReceiveDamageByFall(damageProduced);
+            }
         }
+        else //if not player destroy
+        {
+            Destroy(other.gameObject, 0.5f);
+        }   
     }
 }
