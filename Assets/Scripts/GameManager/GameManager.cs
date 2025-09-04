@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
             if (currentTileable != null)
             {
                 selectedTileable = currentTileable;
-                selectedTileable.GetComponent<Outline>().OutlineColor = Color.blue;
+                selectedTileable.GetComponent<Outline>().OutlineColor = selectedTileable.CanBeMoved ? Color.blue: Color.red;
                 return;
             }
             
@@ -270,7 +270,7 @@ public class GameManager : MonoBehaviour
             if(movingHL || (x == 0 && y == 0)) return;
             Vector2Int dir = new Vector2Int(Mathf.RoundToInt(x), Mathf.RoundToInt(y));
 
-            if (playTutorial)
+            if (selectedTileable.CanBeMoved && playTutorial)
             {
                 ShowingFirstRoomMovement();
                 playTutorial = false;
@@ -375,5 +375,10 @@ public class GameManager : MonoBehaviour
     public void UnregisterRoom(Rooms.RoomManager room)
     {
         savingSystemManager.UnregisterRoom(room);
+    }
+
+    public void SaveState()
+    {
+        savingSystemManager.Save();
     }
 }

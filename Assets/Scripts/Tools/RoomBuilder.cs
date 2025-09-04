@@ -1,4 +1,5 @@
 using System;
+using Rooms;
 using UnityEngine;
 
 namespace Tools
@@ -11,6 +12,7 @@ namespace Tools
         public bool bUseCollidersForWallBounds = true;
         public GameObject floorUnitPrefab;
         public bool bUseCollidersForFloorBounds = true;
+        public GameObject roomTriggerPrefab;
 
         
         public float wallHeight = 2f;
@@ -22,11 +24,13 @@ namespace Tools
         private GameObject _wallsContainer;
         private GameObject _floorContainer;
         private GameObject _customElementsContainer;
+        private GameObject _roomTrigger;
         
         private const string WALLS_PARENT_NAME = "Walls";
         private const string WALL_PARENT_NAME = "Wall";
         private const string FLOOR_PARENT_NAME = "Floor";
         private const string CUSTOM_ELEMENTS_PARENT_NAME = "Custom Elements";
+        private const string ROOM_TRIGGER_NAME = "Room Trigger";
         
         Bounds wallTileBounds;
         Bounds floorTileBounds;
@@ -37,6 +41,7 @@ namespace Tools
             _wallsContainer = transform.Find(WALLS_PARENT_NAME)?.gameObject;
             _floorContainer = transform.Find(FLOOR_PARENT_NAME)?.gameObject;
             _customElementsContainer = transform.Find(CUSTOM_ELEMENTS_PARENT_NAME)?.gameObject;
+            _roomTrigger = transform.Find(ROOM_TRIGGER_NAME)?.gameObject;
             
         }
 
@@ -270,6 +275,37 @@ namespace Tools
                 _customElementsContainer.transform.SetParent(transform);
                 _customElementsContainer.transform.localPosition = Vector3.zero;
                 _customElementsContainer.name = CUSTOM_ELEMENTS_PARENT_NAME;
+            }
+        }
+
+        public void GenerateRoomTrigger()
+        {
+            if (roomTriggerPrefab != null)
+            {
+                transform.SetPositionAndRotation(default,default);
+                if (_roomTrigger != null)
+                {
+                    DestroyImmediate(_roomTrigger);
+                }
+                _roomTrigger = Instantiate(roomTriggerPrefab, transform);
+                _roomTrigger.name = ROOM_TRIGGER_NAME;
+                
+                BoxCollider roomTriggerCollider = _roomTrigger.GetComponent<BoxCollider>();
+                roomTriggerCollider.isTrigger = true;
+                Bounds roomBounds = GetBounds(transform, true);
+                
+                roomTriggerCollider.size = roomBounds.size;
+                roomTriggerCollider.center = roomBounds.center;
+                
+                PlayerRoomChanger playerRoomChanger = _roomTrigger.GetComponent<PlayerRoomChanger>();
+                if (playerRoomChanger != null)
+                {
+                    playerRoomChanger.SetRoomTransform(transform);
+                }
+            }
+            else
+            {
+                Debug.LogAssertion("No RoomTrigger prefab assigned");
             }
         }
     }

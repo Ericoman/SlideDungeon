@@ -74,6 +74,15 @@ public class MirrorTileManager : MonoBehaviour
         if (originalTilesDictionary.TryGetValue(tileIndex, out tileable))
         {
             tileable.SetInGrid(gridManager,generatedtile.GridPosition);
+            Rooms.RoomManager roomManager = tileable.GetComponentInChildren<Rooms.RoomManager>();
+            if (roomManager != null)
+            {
+                roomManager.RoomCompleted += generatedtile.EnableMovement;
+                if (roomManager.IsCompleted())
+                {
+                    generatedtile.EnableMovement();
+                }
+            }
         }
         else
         {
@@ -87,6 +96,7 @@ public class MirrorTileManager : MonoBehaviour
             Rooms.RoomManager roomManager = tile.GetComponentInChildren<Rooms.RoomManager>();
             if (roomManager != null && roomDatas.Length > tileIndex)
             {
+                roomManager.RoomCompleted += generatedtile.EnableMovement;
                 roomManager.SetRoomDataSO(roomDatas[tileIndex]);
             }
         }

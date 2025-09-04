@@ -124,6 +124,8 @@ public class TileInstancer : MonoBehaviour
     }
     public void NewMoveTile(Tileable tile, Vector2Int direction)
     {
+        if (!tile.CanBeMoved) return;
+        
         tile.RemoveFromGrid();
         Vector2Int oldGridPosition = tile.LastGridPosition;
 

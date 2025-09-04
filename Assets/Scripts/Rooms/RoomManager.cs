@@ -24,6 +24,8 @@ namespace Rooms
         private RoomContext _currentContext;
 
         private Coroutine _moveDoorCoroutine;
+
+        public event Action RoomCompleted;
         private void Awake()
         {
             _currentContext = new RoomContext();
@@ -73,9 +75,9 @@ namespace Rooms
 
         private void Update()
         {
-            if (IsCompleted() && _moveDoorCoroutine == null)
+            if (!_currentContext.clearedOnce && IsCompleted())
             {
-                _moveDoorCoroutine = StartCoroutine(MoveDoor_CO());
+                CompleteRoom();
             }
         }
         
@@ -112,7 +114,10 @@ namespace Rooms
         }
         public bool IsCompleted()
         {
-            if (_currentContext.clearedOnce) return true;
+            if (_currentContext.clearedOnce || roomDataSO.conditions == null)
+            {
+                return true;
+            }
             
             for (int i = 0; i < roomDataSO.conditions.Length; ++i)
             {
@@ -121,8 +126,17 @@ namespace Rooms
                     return false;
                 }
             }
-            _currentContext.clearedOnce = true;
             return true;
+        }
+
+        private void CompleteRoom()
+        {
+            _currentContext.clearedOnce = true;
+            if (_moveDoorCoroutine == null)
+            {
+                _moveDoorCoroutine = StartCoroutine(MoveDoor_CO());
+            }
+            RoomCompleted?.Invoke();
         }
 
         public RoomContext GetCurrentContext()
@@ -133,6 +147,10 @@ namespace Rooms
         public void SetContext(RoomContext roomContext)
         {
             _currentContext = roomContext;
+            if (IsCompleted())
+            {
+                CompleteRoom();
+            }
         }
 
         public RoomDataSO GetRoomDataSO()

@@ -30,12 +30,14 @@ public class Tileable : MonoBehaviour
     
     private TileContext _tileContext;
     public TileContext TileContext => _tileContext;
-
     public int TileId
     {
         get => TileContext.tileId;
         set => TileContext.tileId = value;
     }
+
+    public bool CanBeMoved => _canBeMoved;
+    private bool _canBeMoved;
 
     private void Awake()
     {
@@ -167,5 +169,10 @@ public class Tileable : MonoBehaviour
     public void SetContext(TileContext context)
     {
         _tileContext = context;
+    }
+
+    public void EnableMovement()
+    {
+        _canBeMoved = true;
     }
 }

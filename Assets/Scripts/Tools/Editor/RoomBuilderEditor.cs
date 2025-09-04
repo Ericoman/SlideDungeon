@@ -13,6 +13,19 @@ namespace Tools.Editor
             RoomBuilder builder = (RoomBuilder)target;
             Color originalColor = GUI.backgroundColor;
 
+            GUI.backgroundColor = Color.blue;
+            if (GUILayout.Button("Generate RoomTrigger"))
+            {
+                builder.GenerateRoomTrigger();
+
+                // Mark scene dirty so you can save changes
+                if (!Application.isPlaying)
+                {
+                    UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(builder.gameObject.scene);
+                }
+            }
+            GUI.backgroundColor = originalColor;
+            
             GUI.backgroundColor = Color.green;
             if (GUILayout.Button("Generate Walls and Floor"))
             {
