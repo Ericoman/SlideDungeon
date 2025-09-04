@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 lastMovementDirection;
     public GameObject InteractPuzzle;
 
+    private bool _puzzleInteract = false;
+    private bool _isPuzzleMode = false;
+
     private bool _canMove = true;
     private bool _blockX = false;
     private bool _blockZ = false;
@@ -35,8 +38,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (_playerInput.actions["InteractPuzzle"].WasReleasedThisFrame())
+        if (_puzzleInteract) //_playerInput.actions["InteractPuzzle"].WasReleasedThisFrame()
         {
+            _puzzleInteract = false;
             if (!GameManager.Instance.movingCamera)
             {
                 if (_canMove)
@@ -125,6 +129,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void PuzzleInteract()
+    {
+        _puzzleInteract = true;
+        _isPuzzleMode = !_isPuzzleMode;
+    }
+    public bool GetPuzzleMode() 
+    { 
+        return _isPuzzleMode;
+    }
 
     public void SetCanMove(bool move) 
     { 
