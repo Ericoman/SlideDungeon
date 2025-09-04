@@ -21,6 +21,7 @@ public class Interactor : MonoBehaviour
 
     private Outline _otlineLastSeen; 
     private GameObject _grabbedObject = null;
+    private IInteractableHeld _heldObject = null;
 
     private float _interactHeldTime = 0f;
     public float holdThreshold = 0.5f;
@@ -78,9 +79,10 @@ public class Interactor : MonoBehaviour
 
     private void Update()
     {
-        //Close menu if oppen
+        //EXCEPTIONS - exit not normal game modes
         if (_interactAction.WasReleasedThisFrame()) 
-        { 
+        {
+            //Close menu if oppen
             GameObject messageUI = GameObject.FindGameObjectWithTag("MessageUI");
             if (messageUI != null) 
             {
@@ -88,7 +90,14 @@ public class Interactor : MonoBehaviour
                 Time.timeScale = 1f;
                 return;
             }
+
+            //Exit Puzzle mode
+            if (playerMovement.GetPuzzleMode())
+            {
+                playerMovement.PuzzleInteract();
+            }
         }
+        
         
 
         if (_grabbedObject == null) //not grabbing
@@ -111,6 +120,7 @@ public class Interactor : MonoBehaviour
 
                         if (_interactHeldTime >= holdThreshold) //---> holding action 
                         {
+                            _heldObject = interactableHeldObject;
                             interactableHeldObject.InteractHeld(gameObject);
                             Debug.Log("Holding Interact");
                             if (_playerInput.actions["RotateRight"].WasReleasedThisFrame()) //right
@@ -141,6 +151,7 @@ public class Interactor : MonoBehaviour
                         if (interactableHeldObject != null) 
                         {
                             interactableHeldObject.InteractHeldRelease(gameObject);
+                            _heldObject = null;
                         }
                     }
                 }
@@ -148,8 +159,11 @@ public class Interactor : MonoBehaviour
             else
             {
                 SetOtline(hit, false);
-                //We cannot do this every frame because it interfieres with puzzle mode, it is not necessary either
-                //playerMovement.SetCanMove(true);
+                if (_heldObject != null) 
+                {
+                    playerMovement.SetCanMove(true);
+                    _heldObject = null;
+                }
             }
         }
         else //grabing -> DROP
@@ -181,6 +195,15 @@ public class Interactor : MonoBehaviour
 
                 }
             }
+           /*else 
+            {
+                if (_grabbedObject != null)
+                {
+                    playerMovement.SetFreeMovement();
+                    _grabbedObject = null;
+                    _heldObject = null;
+                }
+            }*/
         }
 
         /*
