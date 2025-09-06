@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Rooms;
 using UnityEditor;
@@ -61,7 +62,23 @@ namespace SavingSystem
             savedData.rooms = roomContexts;
 
             savedData.tiles = tileInstancer.GetTileContexts().ToList();
-            
+
+            SaveAsync(savedData).ContinueWith(t =>
+            {
+                if (t.IsFaulted)
+                {
+                    Debug.LogError(t.Exception);
+                }
+                else
+                {
+                    Debug.Log("Game saved succesfully");
+                }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+
+        }
+
+        private async Task SaveAsync(SavedData savedData)
+        {
             JsonSerializer serializer = new JsonSerializer();
             serializer.NullValueHandling = NullValueHandling.Include;
             
@@ -69,64 +86,58 @@ namespace SavingSystem
 
             if (encrypt)
             {
-                byte[] plainBytes;
-                using (var ms = new MemoryStream())
-                using (StreamWriter sw = new StreamWriter(ms,Encoding.UTF8))
-                using (JsonWriter writer = new JsonTextWriter(sw))
+                byte[] cipherBytes = await Task.Run(() =>
                 {
-                    serializer.Serialize(writer, savedData);
-                    writer.Flush();
-                    sw.Flush();
-                    plainBytes = ms.ToArray();
-                }
+                    byte[] plainBytes;
+                    using (var ms = new MemoryStream())
+                    using (StreamWriter sw = new StreamWriter(ms, Encoding.UTF8))
+                    using (JsonWriter writer = new JsonTextWriter(sw))
+                    {
+                        serializer.Serialize(writer, savedData);
+                        writer.Flush();
+                        sw.Flush();
+                        plainBytes = ms.ToArray();
+                    }
 
-                byte[] cipherBytes = EncryptionUtils.Encrypt(plainBytes);
-                cipherBytes = EncryptionUtils.Compress(cipherBytes);
+                    byte[] encryptedBytes = EncryptionUtils.Encrypt(plainBytes);
+                    return EncryptionUtils.Compress(encryptedBytes);
+                });
                 
-                File.WriteAllBytes(filePath, cipherBytes);
+                await File.WriteAllBytesAsync(filePath, cipherBytes);
             }
             else
             {
-                using (StreamWriter sw = new StreamWriter(filePath))
-                using (JsonWriter writer = new JsonTextWriter(sw))
+                await Task.Run(() =>
                 {
-                    serializer.Serialize(writer, savedData);
-                }
-            }
-
+                    using (StreamWriter sw = new StreamWriter(filePath))
+                    using (JsonWriter writer = new JsonTextWriter(sw))
+                    {
+                        serializer.Serialize(writer, savedData);
+                    }
+                });
+            } 
         }
 
         public void Load()
         {
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.NullValueHandling = NullValueHandling.Include;
-
-            SavedData savedData = null;
             string filePath = GetMostRecentSaveFilePath();
-            
 
-            if (encrypt)
+            LoadAsync(filePath,LoadDataInGame).ContinueWith(t =>
             {
-                byte[] plainBytes = File.ReadAllBytes(filePath);
-                plainBytes = EncryptionUtils.Decompress(plainBytes);
-                plainBytes = EncryptionUtils.Decrypt(plainBytes);
-                
-                using (var ms = new MemoryStream(plainBytes))
-                using (var sr = new StreamReader(ms, Encoding.UTF8))
-                using (var reader = new JsonTextReader(sr))
+                if (t.IsFaulted)
                 {
-                    savedData = serializer.Deserialize<SavedData>(reader);
+                    Debug.LogError(t.Exception);
                 }
-            }
-            else
-            {
-                using (var sr = new StreamReader(filePath))
-                using (var reader = new JsonTextReader(sr))
+                else
                 {
-                    savedData = serializer.Deserialize<SavedData>(reader);
+                    Debug.Log("Game loaded succesfully");
                 }
-            }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
             
+        }
+
+        private void LoadDataInGame(SavedData savedData)
+        {
             GameManager.Instance.playTutorial = savedData.playTutorial;
 
             foreach (RoomContext roomContext in savedData.rooms)
@@ -141,6 +152,42 @@ namespace SavingSystem
             tileInstancer.SetTilecontexts(savedData.tiles.ToArray());
             
             _newGame = false;
+        }
+        private async Task LoadAsync(string filePath,Action<SavedData> onLoaded = null)
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.NullValueHandling = NullValueHandling.Include;
+
+            SavedData savedData = null;
+                
+            if (encrypt)
+            {
+                await Task.Run(() =>
+                {
+                    byte[] plainBytes = File.ReadAllBytes(filePath);
+                    plainBytes = EncryptionUtils.Decompress(plainBytes);
+                    plainBytes = EncryptionUtils.Decrypt(plainBytes);
+                    
+                    using (var ms = new MemoryStream(plainBytes))
+                    using (var sr = new StreamReader(ms, Encoding.UTF8))
+                    using (var reader = new JsonTextReader(sr))
+                    {
+                        savedData = serializer.Deserialize<SavedData>(reader);
+                    }
+                });
+            }
+            else
+            {
+                await Task.Run(() =>
+                {
+                    using (var sr = new StreamReader(filePath))
+                    using (var reader = new JsonTextReader(sr))
+                    {
+                        savedData = serializer.Deserialize<SavedData>(reader);
+                    }
+                });
+            }
+            onLoaded?.Invoke(savedData);
         }
 
         private string GetMostRecentSaveFilePath()
@@ -179,6 +226,7 @@ namespace SavingSystem
             string oldestFile = files[firstValidFileIndex];
             return oldestFile;
         }
+
 
         public void RegisterRoom(Rooms.RoomManager room)
         {

@@ -1,16 +1,22 @@
+using GlobalControllers;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void PlayGame()
+    public void ContinueGame()
     {
-        SceneManager.LoadScene(1);
+        SceneController.Instance.StartGame();
+    }
+
+    public void NewGame()
+    {
+        SceneController.Instance.StartGame(true);
     }
 
     public void QuitGame()
     {
-        Application.Quit();
+        SceneController.Instance.QuitGame();
     }
 }

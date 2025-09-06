@@ -381,4 +381,9 @@ public class GameManager : MonoBehaviour
     {
         savingSystemManager.Save();
     }
+
+    public void LoadLastState()
+    {
+        savingSystemManager.Load();
+    }
 }
