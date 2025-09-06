@@ -1,10 +1,13 @@
 using GlobalControllers;
+using UI;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField]
+    private ShowablePanel settingsPanel;
     public void ContinueGame()
     {
         SceneController.Instance.StartGame();
@@ -18,5 +21,10 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         SceneController.Instance.QuitGame();
+    }
+
+    public void ShowSettings()
+    {
+        settingsPanel.Show(true);
     }
 }
