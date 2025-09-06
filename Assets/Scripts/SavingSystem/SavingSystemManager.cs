@@ -28,7 +28,8 @@ namespace SavingSystem
         private const string BASE_FILENAME = "save";
         private const string SAVE_FILES_DIRECTORY = "Saves";
         private const string SAVE_FILE_EXTENSION = "mfs";
-        
+
+#if UNITY_EDITOR
         [MenuItem("Tools/InstantSave")]
         public static void InstantSave()
         {
@@ -41,6 +42,7 @@ namespace SavingSystem
             SavingSystemManager manager = FindFirstObjectByType<SavingSystemManager>();
             manager.Load();
         }
+#endif
         public void Save()
         {
             if (maxFiles <= 0)

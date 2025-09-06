@@ -44,6 +44,24 @@ public class GridManager : MonoBehaviour
     {
         DrawGrid();
     }
+    private void DrawGrid()
+    {
+        Gizmos.color = gridColor;
+
+        for (int x = 0; x <= width; x++)
+        {
+            Vector3 start = new Vector3(x * cellSize, 0, 0);
+            Vector3 end = new Vector3(x * cellSize,0, height * cellSize);
+            Gizmos.DrawLine(start + transform.position, end + transform.position);
+        }
+
+        for (int z = 0; z <= height; z++)
+        {
+            Vector3 start = new Vector3(0, 0, z * cellSize);
+            Vector3 end = new Vector3(width * cellSize,0, z * cellSize);
+            Gizmos.DrawLine(start + transform.position, end + transform.position);
+        }
+    }
 #endif
     private void Update()
     {
@@ -87,24 +105,6 @@ public class GridManager : MonoBehaviour
                     }
                 }
             }
-        }
-    }
-    private void DrawGrid()
-    {
-        Gizmos.color = gridColor;
-
-        for (int x = 0; x <= width; x++)
-        {
-            Vector3 start = new Vector3(x * cellSize, 0, 0);
-            Vector3 end = new Vector3(x * cellSize,0, height * cellSize);
-            Gizmos.DrawLine(start + transform.position, end + transform.position);
-        }
-
-        for (int z = 0; z <= height; z++)
-        {
-            Vector3 start = new Vector3(0, 0, z * cellSize);
-            Vector3 end = new Vector3(width * cellSize,0, z * cellSize);
-            Gizmos.DrawLine(start + transform.position, end + transform.position);
         }
     }
 

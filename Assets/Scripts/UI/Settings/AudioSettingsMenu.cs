@@ -73,10 +73,9 @@ namespace UI.Settings
             _soundFXLevel = PlayerPrefs.GetFloat("SoundFXVolume", soundFXVolumeSlider.maxValue);
             soundFXVolumeSlider.value = _soundFXLevel;
             _bMute = false;
-            if (bool.TryParse(PlayerPrefs.GetString("Mute"), out _bMute))
-            {
-                muteToggle.isOn = _bMute;
-            }
+            bool.TryParse(PlayerPrefs.GetString("Mute"), out _bMute);
+            
+            muteToggle.isOn = _bMute;
         }
 
         public void Save()

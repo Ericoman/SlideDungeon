@@ -1,30 +1,30 @@
 using GlobalControllers;
-using UI;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+namespace UI
 {
-    [SerializeField]
-    private ShowablePanel settingsPanel;
-    public void ContinueGame()
+    public class MainMenu : MonoBehaviour
     {
-        SceneController.Instance.StartGame();
-    }
+        [SerializeField]
+        private ShowablePanel settingsPanel;
+        public void ContinueGame()
+        {
+            SceneController.Instance.StartGame();
+        }
 
-    public void NewGame()
-    {
-        SceneController.Instance.StartGame(true);
-    }
+        public void NewGame()
+        {
+            SceneController.Instance.StartGame(true);
+        }
 
-    public void QuitGame()
-    {
-        SceneController.Instance.QuitGame();
-    }
+        public void QuitGame()
+        {
+            SceneController.Instance.QuitGame();
+        }
 
-    public void ShowSettings()
-    {
-        settingsPanel.Show(true);
+        public void ShowSettings()
+        {
+            settingsPanel.Show(true);
+        }
     }
 }
