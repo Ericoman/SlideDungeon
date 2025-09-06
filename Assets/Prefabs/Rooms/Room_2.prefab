@@ -27307,6 +27307,7 @@ MonoBehaviour:
   bUseCollidersForWallBounds: 1
   floorUnitPrefab: {fileID: 7773864237654892555, guid: 9bb2c213fb6c93a489607fdfdb870990, type: 3}
   bUseCollidersForFloorBounds: 1
+  roomTriggerPrefab: {fileID: 0}
   wallHeight: 1
   floorHeight: 1
   cellSize: 16
@@ -30237,6 +30238,10 @@ PrefabInstance:
     - target: {fileID: 3853142818954630455, guid: 8b50bb7debef49d4e8c1ecf6b50b1386, type: 3}
       propertyPath: m_Name
       value: SM_Modular_Wall_B_Closed_Out Variant (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3853142818954630455, guid: 8b50bb7debef49d4e8c1ecf6b50b1386, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4481869249900646285, guid: 8b50bb7debef49d4e8c1ecf6b50b1386, type: 3}
       propertyPath: m_LocalScale.y
@@ -34234,6 +34239,10 @@ PrefabInstance:
     - target: {fileID: 3853142818954630455, guid: 8b50bb7debef49d4e8c1ecf6b50b1386, type: 3}
       propertyPath: m_Name
       value: SM_Modular_Wall_B_Closed_Out Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3853142818954630455, guid: 8b50bb7debef49d4e8c1ecf6b50b1386, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4481869249900646285, guid: 8b50bb7debef49d4e8c1ecf6b50b1386, type: 3}
       propertyPath: m_LocalScale.y
