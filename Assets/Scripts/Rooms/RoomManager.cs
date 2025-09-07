@@ -10,16 +10,23 @@ namespace Rooms
         private RoomDataSO roomDataSO;
         
         [Header("Requirements for room completion")]
-        public PatrolController[] patrolEnemies;
+        public GameObject[] enemies;
         public TeslaCoilPuzzleManager[] teslaCoils;
         
-        [Header("Room Entities")]
+        [Space(5)]
+        [Header("Doors")]
         [SerializeField]
         private GameObject[] roomDoors;
         [SerializeField]
         private float targetYPositionDoors = 10f; // desired y position
         [SerializeField]
+        private float targetYRotationDoors = 90f; // desired Y rotation in degrees
+        [SerializeField]
         private float moveSpeedDoors = 2f; // Speed
+        
+        [Space(5)]
+        [Header("Torches")]
+        public TorchComponent[] roomTorches;
         
         private RoomContext _currentContext;
 
@@ -29,13 +36,13 @@ namespace Rooms
         private void Awake()
         {
             _currentContext = new RoomContext();
-            _currentContext.Initialize(roomDataSO.id,patrolEnemies.Length,teslaCoils.Length,false);
+            _currentContext.Initialize(roomDataSO.id,enemies.Length,teslaCoils.Length,false);
         }
 
         private void Start()
         {
             GameManager.Instance.RegisterRoom(this);
-            foreach (PatrolController enemy in patrolEnemies)
+            foreach (GameObject enemy in enemies)
             {
                 HealthComponent healthComponent = enemy.GetComponent<HealthComponent>();
                 healthComponent.OnDeath += OnEnemyDied;
@@ -49,7 +56,7 @@ namespace Rooms
 
         private void OnDestroy()
         {
-            foreach (PatrolController enemy in patrolEnemies)
+            foreach (GameObject enemy in enemies)
             {
                 HealthComponent healthComponent = enemy.GetComponent<HealthComponent>();
                 healthComponent.OnDeath -= OnEnemyDied;
@@ -81,12 +88,26 @@ namespace Rooms
             }
         }
         
-        private IEnumerator MoveDoor_CO()
+        private IEnumerator MoveDoor_CO(bool bUsePosition = false, bool bUseRotation = true)
+        {
+            if (bUsePosition)
+            {
+                yield return StartCoroutine(MoveDoorPosition_CO());
+            }
+
+            if (bUseRotation)
+            {
+                yield return StartCoroutine(MoveDoorRotation_CO());
+            }
+            _moveDoorCoroutine = null;
+        }
+
+        private IEnumerator MoveDoorPosition_CO()
         {
             bool isMoving = true;
             while (isMoving)
             {
-                foreach (GameObject puzzleDoor in roomDoors) 
+                foreach (GameObject puzzleDoor in roomDoors)
                 {
                     // Get the door's current position
                     Vector3 currentPosition = puzzleDoor.transform.position;
@@ -100,17 +121,48 @@ namespace Rooms
                     // Stop moving if the door has reached the target position
                     if (Mathf.Abs(currentPosition.y - targetYPositionDoors) < 0.01f)
                     {
-                        puzzleDoor.transform.position = new Vector3(currentPosition.x, targetYPositionDoors, currentPosition.z);
+                        puzzleDoor.transform.position =
+                            new Vector3(currentPosition.x, targetYPositionDoors, currentPosition.z);
                         isMoving = false;
-
-                        //TODO - AQUI SE ENCENDERIAN LAS ANTORCHAS; LUZ Y ESAS COSAS 
-
                     }
                 }
 
                 yield return null;
             }
-            _moveDoorCoroutine = null;
+        }
+        private IEnumerator MoveDoorRotation_CO()
+        {
+            bool isMoving = true;
+            while (isMoving)
+            {
+                foreach (GameObject puzzleDoor in roomDoors)
+                {
+                    // Get current rotation
+                    Quaternion currentRotation = puzzleDoor.transform.rotation;
+
+                    // Create target rotation
+                    Quaternion targetRotation = Quaternion.Euler(currentRotation.eulerAngles.x, targetYRotationDoors, currentRotation.eulerAngles.z);
+
+                    // Lerp to rotate toward target rotation
+                    puzzleDoor.transform.rotation = Quaternion.Lerp(currentRotation, targetRotation, moveSpeedDoors * Time.deltaTime);
+
+                    // Stop rotating if the door has reached the target rotation
+                    if (Quaternion.Angle(currentRotation, targetRotation) < 0.1f)
+                    {
+                        puzzleDoor.transform.rotation = targetRotation;
+                        isMoving = false;
+                    }
+                }
+
+                yield return null;
+            }
+        }
+        private void TurnOnTorches() 
+        { 
+            foreach(TorchComponent torch in roomTorches) 
+            {
+                torch.LightFire(true);
+            }
         }
         public bool IsCompleted()
         {
@@ -136,6 +188,7 @@ namespace Rooms
             {
                 _moveDoorCoroutine = StartCoroutine(MoveDoor_CO());
             }
+            TurnOnTorches();
             RoomCompleted?.Invoke();
         }
 

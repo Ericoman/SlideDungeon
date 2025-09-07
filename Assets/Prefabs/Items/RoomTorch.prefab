@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2365629104749162413}
+  - component: {fileID: 1992232975580435961}
   m_Layer: 0
   m_Name: RoomTorch
   m_TagString: Untagged
@@ -33,6 +34,19 @@ Transform:
   - {fileID: 2778751881380077284}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1992232975580435961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7629277906275306337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05d6753ce2e0a684e9d7bc239f114c08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fire: {fileID: 2778751881380077288}
 --- !u!1001 &6514587839629551074
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -159,5 +173,10 @@ PrefabInstance:
 --- !u!4 &2778751881380077284 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4792680382119220227, guid: 2ad6fbf178c8f7045a4e744907b80606, type: 3}
+  m_PrefabInstance: {fileID: 7211135427957787367}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2778751881380077288 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4792680382119220239, guid: 2ad6fbf178c8f7045a4e744907b80606, type: 3}
   m_PrefabInstance: {fileID: 7211135427957787367}
   m_PrefabAsset: {fileID: 0}
