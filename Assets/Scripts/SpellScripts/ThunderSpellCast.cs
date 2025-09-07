@@ -23,6 +23,8 @@ public class ThunderSpellCast : SpellBase
 
     private Transform originalSphere2Parent;
     
+    private TeslaCoil currentAttachedCoil; // Store reference to the currently attached coil, if any
+    
     private Vector3 GetPlayerAdjustedForward()
     {
         // Correct the player's forward direction by rotating the local forward (Z-axis) to match logical forward
@@ -138,6 +140,12 @@ public class ThunderSpellCast : SpellBase
             Debug.LogWarning("ThunderSpellCast: FirstCast already in progress.");
             return;
         }
+        
+        // Unsubscribe from the old ThunderLink (if any)
+        if (currentThunderLink != null)
+        {
+            currentThunderLink.OnDestructionRequested -= HandleDestructionRequested;
+        }
 
         isCasting = true; // Start the casting lock
 
@@ -152,6 +160,11 @@ public class ThunderSpellCast : SpellBase
         // Instantiate the ThunderLink prefab
         GameObject thunderLinkInstance = Instantiate(thunderLinkPrefab, transform.position, Quaternion.identity);
 
+        ThunderLink thunderLink = thunderLinkInstance.GetComponent<ThunderLink>();
+        if (thunderLink != null)
+        {
+            thunderLink.Initialize(this); // Pass ThunderSpellCast instance
+        }
         // Get the ThunderLink script on the prefab
         currentThunderLink = thunderLinkInstance.GetComponent<ThunderLink>();
         if (currentThunderLink == null)
@@ -160,6 +173,9 @@ public class ThunderSpellCast : SpellBase
             isCasting = false; // Release the lock
             return;
         }
+        
+        // Subscribe to the destruction event
+        currentThunderLink.OnDestructionRequested += HandleDestructionRequested;
 
         // Move sphere1 (first sphere) to the origin
         if (currentThunderLink.sphere1 != null)
@@ -180,7 +196,7 @@ public class ThunderSpellCast : SpellBase
 
                     // Move sphere1 to the point and destroy afterward
                     currentThunderLink.StartSphere1Movement(currentThunderLink.sphere1.transform, hitInfo.point, sphereMoveSpeed);
-                    currentThunderLink.StartCoroutine(DestroyWhenReached(currentThunderLink.sphere1.transform, hitInfo.point, currentThunderLink.gameObject));
+                    //currentThunderLink.StartCoroutine(DestroyWhenReached(currentThunderLink.sphere1.transform, hitInfo.point, currentThunderLink.gameObject, currentThunderLink.sphere2 != null ? currentThunderLink.sphere2.gameObject : null));
                 }
                 else
                 {
@@ -204,7 +220,7 @@ public class ThunderSpellCast : SpellBase
 
                         // Move sphere1 to the hit point and destroy it afterward
                         currentThunderLink.StartSphere1Movement(currentThunderLink.sphere1.transform, hitInfo.point, sphereMoveSpeed);
-                        currentThunderLink.StartCoroutine(DestroyWhenReached(currentThunderLink.sphere1.transform, hitInfo.point, currentThunderLink.gameObject));
+                        currentThunderLink.StartCoroutine(DestroyWhenReached(currentThunderLink.sphere1.transform, hitInfo.point, currentThunderLink.gameObject, currentThunderLink.sphere2 != null ? currentThunderLink.sphere2.gameObject : null));
                     }
                 }
             }
@@ -219,7 +235,7 @@ public class ThunderSpellCast : SpellBase
                 currentThunderLink.StartSphere1Movement(currentThunderLink.sphere1.transform, endPoint, sphereMoveSpeed);
 
                 // Schedule destruction of ThunderLink after reaching the endpoint
-                currentThunderLink.StartCoroutine(DestroyWhenReached(currentThunderLink.sphere1.transform, endPoint, currentThunderLink.gameObject));
+                currentThunderLink.StartCoroutine(DestroyWhenReached(currentThunderLink.sphere1.transform, endPoint, currentThunderLink.gameObject, currentThunderLink.sphere2 != null ? currentThunderLink.sphere2.gameObject : null));
             }
         }
     
@@ -239,9 +255,27 @@ public class ThunderSpellCast : SpellBase
 
     private void SecondCast()
     {
+        if (currentThunderLink != null)
+        {
+            // Unsubscribe from the destruction event
+            currentThunderLink.OnDestructionRequested -= HandleDestructionRequested;
+
+            // Destroy the ThunderLink
+            //Destroy(currentThunderLink.gameObject);
+            //currentThunderLink = null;
+        }
+        
         if (currentThunderLink == null || currentThunderLink.sphere2 == null)
         {
-            Debug.LogError("ThunderSpellCast: Second cast failed. ThunderLink or sphere2 is not properly initialized!");
+            if (currentThunderLink == null)
+            {
+                Debug.LogError("ThunderSpellCast: Second cast failed. 'currentThunderLink' is null!");
+            }
+            else if (currentThunderLink.sphere2 == null)
+            {
+                Debug.LogError("ThunderSpellCast: Second cast failed. 'currentThunderLink.sphere2' is null!");
+            }
+
             return;
         }
         
@@ -278,6 +312,23 @@ public class ThunderSpellCast : SpellBase
         */
         // -- END BACKUP --
         
+        
+        // If `sphere2` exists, destroy it explicitly
+        if (currentThunderLink.sphere2 != null)
+        {
+            if (currentAttachedCoil != null)
+            {
+                Debug.Log($"ThunderSpellCast: Detaching sphere2 from Tesla Coil '{currentAttachedCoil.name}' before destroying it.");
+                currentAttachedCoil.SetActiveWithSphere(null); // Clear TeslaCoil's reference
+                currentAttachedCoil = null; // Clear the ThunderSpellCast reference
+            }
+            Destroy(currentThunderLink.sphere2.gameObject);
+            Debug.Log("ThunderSpellCast: Destroyed sphere2.");
+        }
+        else
+        {
+            Debug.LogWarning("ThunderSpellCast: sphere2 was already null, skipping destruction.");
+        }
         // DESTROY ThunderLink object
         Destroy(currentThunderLink.gameObject);
         Debug.Log("ThunderSpellCast: Destroyed current ThunderLink.");
@@ -320,7 +371,7 @@ public class ThunderSpellCast : SpellBase
         sphereTransform.position = targetPoint;
     }*/
     
-    private IEnumerator DestroyWhenReached(Transform sphereTransform, Vector3 targetPoint, GameObject objectToDestroy)
+    private IEnumerator DestroyWhenReached(Transform sphereTransform, Vector3 targetPoint, GameObject objectToDestroy, GameObject sphere2 = null)
     {
         while (sphereTransform != null && Vector3.Distance(sphereTransform.position, targetPoint) > 0.1f)
         {
@@ -330,6 +381,14 @@ public class ThunderSpellCast : SpellBase
         // Destroy the object after movement is complete
         Destroy(objectToDestroy);
         Debug.Log("ThunderSpellCast: ThunderLink destroyed after reaching the endpoint.");
+        
+        // Destroy sphere2 if provided
+        if (sphere2 != null)
+        {
+            Destroy(sphere2);
+            Debug.Log("ThunderSpellCast: sphere2 also destroyed after reaching the endpoint.");
+        }
+        
         isFirstCast = true; // Reset to allow the first cast logic to run again
         isCasting = false; // Release the lock
     }
@@ -358,11 +417,62 @@ public class ThunderSpellCast : SpellBase
                 Debug.LogWarning($"ThunderSpellCast: Sphere moved out of range (distance: {currentDistance}, max allowed: {maxAttachmentDistance}). Destroying the link.");
 
                 // Trigger destruction when out of range
-                currentThunderLink.StartCoroutine(DestroyWhenReached(attachedSphere, attachedSphere.position, currentThunderLink.gameObject));
+                currentThunderLink.StartCoroutine(DestroyWhenReached(attachedSphere, attachedSphere.position, currentThunderLink.gameObject, currentThunderLink.sphere2 != null ? currentThunderLink.sphere2.gameObject : null));
                 yield break; // Stop monitoring after destruction
             }
 
             yield return new WaitForSeconds(0.1f); // Check distance periodically (every 0.1 second)
         }
+    }
+    
+    private void HandleDestructionRequested(GameObject sphere1, GameObject sphere2, Vector3 position)
+    {
+        StartCoroutine(DestroyWhenReached(sphere1.transform, position, currentThunderLink.gameObject, currentThunderLink.sphere2 != null ? currentThunderLink.sphere2.gameObject : null));
+    }
+    
+    private void OnDestroy()
+    {
+        if (currentThunderLink != null)
+        {
+            currentThunderLink.OnDestructionRequested -= HandleDestructionRequested;
+        }
+    }
+    
+    public void OnSphere2TriggerEnter(Collider other)
+    {
+        if (other.CompareTag("TeslaCoil"))
+        {
+            // Attach sphere2 to the Tesla Coil if it’s not attached yet
+            TeslaCoil teslaCoil = other.GetComponent<TeslaCoil>();
+
+            if (teslaCoil != null && currentThunderLink != null && currentThunderLink.sphere2 != null && teslaCoil.IsActive == false)
+            {
+                AttachSphere2ToTeslaCoil(teslaCoil, currentThunderLink.sphere2);
+            }
+        }
+    }
+
+    private void AttachSphere2ToTeslaCoil(TeslaCoil coil, GameObject sphere2)
+    {
+        if (currentAttachedCoil == coil)
+        {
+            Debug.LogWarning("ThunderSpellCast: sphere2 is already attached to the Tesla Coil.");
+            return;
+        }
+
+        // Detach previous Tesla Coil, if any
+        if (currentAttachedCoil != null)
+        {
+            Debug.Log($"ThunderSpellCast: Detaching from Coil {currentAttachedCoil.name}");
+        }
+
+        // Update the reference and parent sphere2 to the Tesla Coil
+        currentAttachedCoil = coil;
+        sphere2.transform.SetParent(coil.transform, true);
+        sphere2.transform.position = coil.transform.position + new Vector3(0, 0.5f, 0);
+        Debug.Log($"ThunderSpellCast: sphere2 is now attached to Tesla Coil '{coil.name}'.");
+        
+        // Activate the Tesla Coil
+        coil.SetActiveWithSphere(sphere2);
     }
 }

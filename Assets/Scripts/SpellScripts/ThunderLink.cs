@@ -7,9 +7,13 @@ public class ThunderLink : MonoBehaviour
 {
     public GameObject sphere1; // Reference to the first sphere
     public GameObject sphere2; // Reference to the second sphere
+    
+    
 
     private Coroutine sphere1MovementCoroutine;
     private Coroutine sphere2MovementCoroutine;
+    
+    public event Action<GameObject, GameObject, Vector3> OnDestructionRequested;
 
     public bool isSphere1MovementComplete { get; private set; } // Flag for movement completion status
     
@@ -22,6 +26,13 @@ public class ThunderLink : MonoBehaviour
     public string pos2Property = "pos2"; 
     public string pos3Property = "pos3"; 
     public string pos4Property = "pos4"; 
+    
+    private ThunderSpellCast linkedSpellCast;
+
+    public void Initialize(ThunderSpellCast spellCast)
+    {
+        linkedSpellCast = spellCast;
+    }
     void Start()
     {
         // Get the LineRenderer component attached to this GameObject
@@ -40,6 +51,25 @@ public class ThunderLink : MonoBehaviour
         // Create a new BoxCollider and attach it to this GameObject
         //lineCollider = gameObject.AddComponent<BoxCollider>();
         //lineCollider.isTrigger = true; // Optional: Make it a trigger collider
+        
+        if (sphere2 != null)
+        {
+            if (sphere2.GetComponent<Collider>() == null)
+            {
+                SphereCollider collider = sphere2.AddComponent<SphereCollider>();
+                collider.isTrigger = true;
+                collider.radius = 0.5f;
+            }
+
+            if (linkedSpellCast == null)
+            {
+                Debug.LogError("ThunderLink: linkedSpellCast is not set. Did you forget to call Initialize?");
+                return;
+            }
+
+            TriggerRelay relay = sphere2.AddComponent<TriggerRelay>();
+            relay.Setup(linkedSpellCast.OnSphere2TriggerEnter);
+        }
     }
 
     public void StartSphere1Movement(Transform target, Vector3 targetPoint, float speed)
@@ -149,6 +179,16 @@ public class ThunderLink : MonoBehaviour
                 {
                     // Destroy the enemy object
                     Destroy(hit.collider.gameObject);
+                }
+                
+                // Ignore collisions with TeslaCoils and the Player
+                if (hit.collider.CompareTag("Obstacle"))
+                {
+                    Debug.Log($"ThunderLink: Raycast hit {hit.collider.name}. Destroying ThunderLink.");
+
+                    // Destroy the ThunderLink and spheres
+                    OnDestructionRequested?.Invoke(sphere1, sphere2, sphere1Position);
+                    return; // Stop further processing
                 }
                 
                 // Check if we hit an iceberg

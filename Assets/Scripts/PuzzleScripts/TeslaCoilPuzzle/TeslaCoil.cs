@@ -20,27 +20,28 @@ public class TeslaCoil : MonoBehaviour
     
     public GameObject thunderDetector;
     
+    public float checkInterval = 0.2f; // Interval for checking child objects
+    
     public float activeDuration = 5f;
 
+    // Cached reference to `sphere2`
+    private GameObject sphere2;
     public event Action<bool> Activated;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         thunderDetector.SetActive(false);
+        
+        // Begin periodic child check
+        StartCoroutine(CheckForChildSphere());
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (IsActive)
-        {
-            thunderDetector.SetActive(true);
-        }
-        else
-        {
-            thunderDetector.SetActive(false);
-        }
+        // Update thunder detector visibility based on IsActive
+        thunderDetector.SetActive(IsActive);
         
     }
 
@@ -56,6 +57,11 @@ public class TeslaCoil : MonoBehaviour
         {
             Activate();
         }
+        else if (other.gameObject.name == "ThunderSphere_2") // Optional: Check specifically for sphere2
+        {
+            sphere2 = other.gameObject;
+            IsActive = true; // Stay active as sphere2 is present
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -68,9 +74,9 @@ public class TeslaCoil : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("ThunderLink"))
+        if (other.gameObject.name == "sphere2")
         {
-            Activate();
+            sphere2 = null; // Reset reference to sphere2
         }
     }
 
@@ -78,11 +84,65 @@ public class TeslaCoil : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
 
-        // Only deactivate if it is still active
-        if (IsActive)
+        // Deactivate only if no `sphere2` is attached
+        if (!IsSphere2Attached())
         {
             IsActive = false;
         }
     }
     
+    private IEnumerator CheckForChildSphere()
+    {
+        while (true)
+        {
+            // Determine if sphere2 exists as a child
+            if (IsSphere2Attached())
+            {
+                IsActive = true;
+            }
+            else
+            {
+                // Clear references if sphere2 no longer exists
+                Debug.Log("TeslaCoil: sphere2 is no longer attached or has been destroyed.");
+                sphere2 = null; 
+                IsActive = false;
+            }
+
+            yield return new WaitForSeconds(checkInterval); // Re-check periodically
+        }
+    }
+
+    private bool IsSphere2Attached()
+    {
+        if (sphere2 == null) return false;
+
+        // Ensure sphere2 is a direct or indirect child of this TeslaCoil
+        return sphere2.transform.IsChildOf(transform);
+    }
+    
+    public void SetActiveWithSphere(GameObject sphere)
+    {
+        if (sphere2 == sphere)
+        {
+            Debug.LogWarning("TeslaCoil: This sphere2 is already attached.");
+            return;
+        }
+        
+        // Handle detachment if sphere is null
+        if (sphere == null)
+        {
+            Debug.Log("TeslaCoil: Detaching sphere2 and deactivating Tesla Coil.");
+            sphere2 = null;
+            IsActive = false;
+            return;
+        }
+
+        // Set the reference to the new sphere2
+        sphere2 = sphere;
+
+        // Keep the Tesla Coil active while sphere2 is attached
+        IsActive = true;
+
+        Debug.Log($"TeslaCoil: Activated with sphere2 '{sphere.name}'.");
+    }
 }

@@ -1573,6 +1573,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e15003f09c2ccec4a905792d1dcef785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tilePrefabs: []
+  _defaultTiles: []
+  gridManager: {fileID: 924687550}
 --- !u!4 &310073387
 Transform:
   m_ObjectHideFlags: 0
@@ -7619,6 +7622,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54a04ac9c2f687a49bf7d352c6850613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridManager: {fileID: 924687550}
+  mirroredTileInstancer: {fileID: 310073386}
+  tilePrefabs: []
+  originalTiles: []
 --- !u!4 &1442055095
 Transform:
   m_ObjectHideFlags: 0
