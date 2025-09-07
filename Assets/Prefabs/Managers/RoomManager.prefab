@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7531272285848273849}
-  - component: {fileID: 3846387430774949220}
+  - component: {fileID: 8565920850985863729}
   m_Layer: 0
   m_Name: RoomManager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3846387430774949220
+--- !u!114 &8565920850985863729
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,11 +41,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2893760538228490831}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0a5e6f5043f2bb4294eb6fd333b1a5c, type: 3}
+  m_Script: {fileID: 11500000, guid: abf5202a7d92f994d83be021652e7e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolEnemies: []
+  roomDataSO: {fileID: 0}
+  enemies: []
   teslaCoils: []
   roomDoors: []
   targetYPositionDoors: 10
+  targetYRotationDoors: 90
   moveSpeedDoors: 2
+  roomTorches: []
