@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Rooms
@@ -215,6 +217,46 @@ namespace Rooms
         {
             roomDataSO = newRoomData;
             _currentContext.roomId = roomDataSO.id;
+        }
+
+        public void SetValuesFromOldRoomManager(global::RoomManager oldRoomManager)
+        {
+            targetYRotationDoors = oldRoomManager.targetYRotationDoors;
+            moveSpeedDoors = oldRoomManager.moveSpeedDoors;
+            
+            roomDoors = oldRoomManager.roomDoors;
+
+            if (oldRoomManager.teslaCoils.Length > 0)
+            {
+                TeslaCoilPuzzleManager teslaCoilPuzzleManager = new GameObject("TeslaCoilPuzzleManager").AddComponent<TeslaCoilPuzzleManager>();
+                
+                teslaCoilPuzzleManager.transform.SetParent(oldRoomManager.teslaCoils[0].transform.parent);
+                teslaCoilPuzzleManager.teslaCoils = oldRoomManager.teslaCoils;
+                teslaCoils = new []{teslaCoilPuzzleManager};
+            }
+            
+            List<GameObject> oldRoomManagerEnemies = new List<GameObject>();
+            foreach (PatrolController patrol in oldRoomManager.patrolEnemies)
+            {
+                oldRoomManagerEnemies.Add(patrol.gameObject);
+            }
+
+            foreach (ShooterController shooter in oldRoomManager.shooterEnemies)
+            {
+                oldRoomManagerEnemies.Add(shooter.gameObject);
+            }
+            enemies = oldRoomManagerEnemies.ToArray();
+            
+            List<TorchComponent> torchComponents = new List<TorchComponent>();
+            foreach (GameObject torch in oldRoomManager.roomTorches)
+            {
+                TorchComponent torchComponent = torch.GetComponent<TorchComponent>();
+                if (torchComponent != null)
+                {
+                    torchComponents.Add(torchComponent);
+                }
+            }
+            roomTorches = torchComponents.ToArray();
         }
     }
 }
