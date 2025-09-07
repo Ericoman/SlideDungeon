@@ -216,7 +216,10 @@ namespace Rooms
         public void SetRoomDataSO(RoomDataSO newRoomData)
         {
             roomDataSO = newRoomData;
-            _currentContext.roomId = roomDataSO.id;
+            if (_currentContext != null)
+            {
+                _currentContext.roomId = roomDataSO.id;
+            }
         }
 
         public void SetValuesFromOldRoomManager(global::RoomManager oldRoomManager)

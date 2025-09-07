@@ -42,22 +42,25 @@ namespace Tools.Editor
             PropertyField prefabListField = new PropertyField(prefabArrayProp, "Prefabs");
             prefabListField.Bind(serializedObject); // bind serialized object to UI
             
+            TextField folderField = new TextField("ScriptableObjects Path") { value = "Assets/ScriptableObjects/Rooms/" };
+            
             // Button
             Button changeButton = new Button(() =>
             {
-                UpdateRoomManagers();
+                UpdateRoomManagers(folderField.value);
             })
             {
                 text = "Update RoomManagers"
             };
 
             // Add to root
+            rootVisualElement.Add(folderField);
             rootVisualElement.Add(prefabListField);
             
             rootVisualElement.Add(changeButton);
         }
 
-        private void UpdateRoomManagers()
+        private void UpdateRoomManagers(string scriptableObjectsFolderPath)
         {
             foreach (var prefab in roomPrefabs)
             {
@@ -66,12 +69,13 @@ namespace Tools.Editor
                 string path = AssetDatabase.GetAssetPath(prefab);
                 GameObject prefabContents = PrefabUtility.LoadPrefabContents(path);
 
-                if (prefabContents.GetComponent<Rooms.RoomManager>() == null)
+                Rooms.RoomManager newRoomManager = prefabContents.GetComponentInChildren<Rooms.RoomManager>();
+                if (newRoomManager == null)
                 {
                     RoomManager oldRoomManager = prefabContents.GetComponentInChildren<RoomManager>();
                     if (oldRoomManager != null)
                     {
-                        Rooms.RoomManager newRoomManager = oldRoomManager.gameObject.AddComponent<Rooms.RoomManager>();
+                        newRoomManager = oldRoomManager.gameObject.AddComponent<Rooms.RoomManager>();
                         newRoomManager.SetValuesFromOldRoomManager(oldRoomManager);
                         if (PrefabUtility.IsPartOfPrefabInstance(oldRoomManager.gameObject))
                         {
@@ -84,6 +88,21 @@ namespace Tools.Editor
                         prefabContents.AddComponent<Rooms.RoomManager>();
                     }
                     Debug.Log($"Updated Room Manager on {prefab.name}");
+                }
+                if (AssetDatabase.IsValidFolder(scriptableObjectsFolderPath))
+                {
+                    string[] temp = prefabContents.gameObject.name.Split('_');
+                    if (temp.Length >= 2)
+                    {
+                        string roomNumber = temp[1];
+                        string soPath = $"{scriptableObjectsFolderPath}/RoomData_{roomNumber}.asset";
+
+                        RoomDataSO existingAsset = AssetDatabase.LoadAssetAtPath<RoomDataSO>(soPath);
+                        if (existingAsset != null)
+                        {
+                            newRoomManager.SetRoomDataSO(existingAsset);
+                        }
+                    }
                 }
 
                 PrefabUtility.SaveAsPrefabAsset(prefabContents, path);
