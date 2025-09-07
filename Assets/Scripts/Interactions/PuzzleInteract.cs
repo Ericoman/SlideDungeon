@@ -1,8 +1,11 @@
 using Assets.Devs.Julia.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PuzzleInteract : MonoBehaviour, IInteractable
 {
+    [SerializeField] 
+    private MeshRenderer outlineMeshRenderer;
     public void Interact(GameObject interactor)
     {
         if (interactor.tag == "Player")
@@ -11,6 +14,7 @@ public class PuzzleInteract : MonoBehaviour, IInteractable
             if (playerMovement)
             {
                 playerMovement.PuzzleInteract();
+                outlineMeshRenderer.enabled = !playerMovement.GetPuzzleMode();
             }
         }
     }

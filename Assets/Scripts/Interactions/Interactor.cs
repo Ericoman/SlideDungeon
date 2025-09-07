@@ -92,10 +92,10 @@ public class Interactor : MonoBehaviour
             }
 
             //Exit Puzzle mode
-            if (playerMovement.GetPuzzleMode())
-            {
-                playerMovement.PuzzleInteract();
-            }
+            // if (playerMovement.GetPuzzleMode())
+            // {
+            //     playerMovement.PuzzleInteract();
+            // }
         }
         
         
