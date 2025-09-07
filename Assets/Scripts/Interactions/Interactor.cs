@@ -90,12 +90,6 @@ public class Interactor : MonoBehaviour
                 Time.timeScale = 1f;
                 return;
             }
-
-            //Exit Puzzle mode
-            // if (playerMovement.GetPuzzleMode())
-            // {
-            //     playerMovement.PuzzleInteract();
-            // }
         }
         
         
