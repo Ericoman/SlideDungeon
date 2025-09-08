@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thunderDetector: {fileID: 8430998831295324331}
+  checkInterval: 0.2
   activeDuration: 5
 --- !u!54 &2749734677282097548
 Rigidbody:
@@ -309,6 +310,10 @@ PrefabInstance:
     - target: {fileID: -2368588808499891235, guid: 5e3a467073f4aec42994a5529dc75e58, type: 3}
       propertyPath: m_Convex
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2368588808499891235, guid: 5e3a467073f4aec42994a5529dc75e58, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3628860149943976417, guid: 5e3a467073f4aec42994a5529dc75e58, type: 3}
       propertyPath: m_RootOrder

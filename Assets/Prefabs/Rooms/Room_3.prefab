@@ -31312,6 +31312,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Props_MetalGrid_WithGate
       objectReference: {fileID: 0}
+    - target: {fileID: 1446320360602789892, guid: 5e98d8fe33893b74294211fd8bdda71b, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1446320360602789892, guid: 5e98d8fe33893b74294211fd8bdda71b, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 2258990726695400126, guid: 5e98d8fe33893b74294211fd8bdda71b, type: 3}
       propertyPath: m_LocalScale.y
       value: 1
@@ -32867,32 +32875,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 118774533666839801}
     m_Modifications:
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.1571999
-      objectReference: {fileID: 0}
-    - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.4999996
-      objectReference: {fileID: 0}
-    - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.76
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.7400029
+      value: 3.44
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.80999136
+      value: -0.81
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7200317
+      value: 0.93678766
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.6939413
+      value: -0.3498985
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalRotation.y
@@ -32904,7 +32904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 2.114
+      value: -40.962
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -35784,6 +35784,14 @@ PrefabInstance:
     - target: {fileID: 1446320360602789892, guid: 5e98d8fe33893b74294211fd8bdda71b, type: 3}
       propertyPath: m_Name
       value: SM_Props_MetalGrid_WithGate (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1446320360602789892, guid: 5e98d8fe33893b74294211fd8bdda71b, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1446320360602789892, guid: 5e98d8fe33893b74294211fd8bdda71b, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 2258990726695400126, guid: 5e98d8fe33893b74294211fd8bdda71b, type: 3}
       propertyPath: m_LocalScale.y

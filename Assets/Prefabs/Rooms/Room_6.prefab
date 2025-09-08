@@ -32216,9 +32216,17 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -3968581344132714083, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
       propertyPath: m_Name
       value: SM_Props_Chest_Black
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -32227,6 +32235,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3167016977961107637}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7384634346325397173}
   m_SourcePrefab: {fileID: 100100000, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
 --- !u!4 &1501566706865157986 stripped
 Transform:
@@ -32252,6 +32263,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messageUIPrefab: {fileID: 6303870084342460274, guid: be587348199b16642881f0489eff21e5, type: 3}
   messageText: 'A little party never killed nobody. They said. '
+--- !u!64 &7384634346325397173
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2278102718531792344}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7316095562926585122, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
 --- !u!1001 &1441119041805087660
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39026,11 +39059,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6739392415332081660, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.870001
+      value: 11.87
       objectReference: {fileID: 0}
     - target: {fileID: 6739392415332081660, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.45696545
+      value: -0.51
       objectReference: {fileID: 0}
     - target: {fileID: 6739392415332081660, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
       propertyPath: m_LocalRotation.w

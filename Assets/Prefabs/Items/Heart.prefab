@@ -27,15 +27,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7646633895592656422}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.26239318, y: -0, z: -0, w: 0.9649611}
+  m_LocalRotation: {x: 0.4511969, y: -0, z: -0, w: 0.8924244}
   m_LocalPosition: {x: -7.7641, y: 5.9974, z: 138.21}
-  m_LocalScale: {x: 1, y: 1.1572, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7519770949397724227}
   - {fileID: 4861291567279624666}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 30.424, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 53.641, y: 0, z: 0}
 --- !u!114 &3499293859254994624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,6 +143,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3799409587135602587, guid: f2062b94174684a46a9626dc33fd73a1, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3799409587135602587, guid: f2062b94174684a46a9626dc33fd73a1, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3799409587135602587, guid: f2062b94174684a46a9626dc33fd73a1, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6430769235376163533, guid: f2062b94174684a46a9626dc33fd73a1, type: 3}
       propertyPath: m_Name
       value: FX Glow Red
@@ -167,15 +179,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 497881909427753763, guid: cdde8f4a5af32754986eb0bdc11a746d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.8462986
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 497881909427753763, guid: cdde8f4a5af32754986eb0bdc11a746d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.86868936
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 497881909427753763, guid: cdde8f4a5af32754986eb0bdc11a746d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.6237
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 497881909427753763, guid: cdde8f4a5af32754986eb0bdc11a746d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -191,23 +203,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 497881909427753763, guid: cdde8f4a5af32754986eb0bdc11a746d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9241443
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 497881909427753763, guid: cdde8f4a5af32754986eb0bdc11a746d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.38204378
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 497881909427753763, guid: cdde8f4a5af32754986eb0bdc11a746d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 497881909427753763, guid: cdde8f4a5af32754986eb0bdc11a746d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 497881909427753763, guid: cdde8f4a5af32754986eb0bdc11a746d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 44.921
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 497881909427753763, guid: cdde8f4a5af32754986eb0bdc11a746d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
