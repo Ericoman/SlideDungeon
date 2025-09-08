@@ -9715,6 +9715,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8211405045275734990}
+  - {fileID: 2045303869760887754}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2850333102334160622
@@ -30290,7 +30291,6 @@ Transform:
   - {fileID: 5218112836655152727}
   - {fileID: 4756275357540806887}
   - {fileID: 4403078684732599467}
-  - {fileID: 1501566706865157986}
   - {fileID: 2543002585226215296}
   - {fileID: 1388775015698140786}
   - {fileID: 6366529591284040229}
@@ -32152,139 +32152,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 60620c344ae6c5040be03ae3cd8f7a66, type: 3}
   m_PrefabInstance: {fileID: 1201237591200557725}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1395020271210811529
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 8211405045275734990}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.5000001
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.4999999
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 14.67
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 12.78
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.19
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.00096457993
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.00015776948
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.707059
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.7071539
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 89.912
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 180.156
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -3968581344132714083, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      propertyPath: m_Name
-      value: SM_Props_Chest_Black
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3167016977961107637}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7384634346325397173}
-  m_SourcePrefab: {fileID: 100100000, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
---- !u!4 &1501566706865157986 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-  m_PrefabInstance: {fileID: 1395020271210811529}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2278102718531792344 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
-  m_PrefabInstance: {fileID: 1395020271210811529}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3167016977961107637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2278102718531792344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07f6fc8ddf85340459ea39ec5d146f65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  messageUIPrefab: {fileID: 6303870084342460274, guid: be587348199b16642881f0489eff21e5, type: 3}
-  messageText: 'A little party never killed nobody. They said. '
---- !u!64 &7384634346325397173
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2278102718531792344}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -7316095562926585122, guid: 46d289f97db2aa74f903ed9f13e0e38e, type: 3}
 --- !u!1001 &1441119041805087660
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34858,6 +34725,76 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3372507327407969572, guid: 7fd83ae211400cf489f836645c66d29a, type: 3}
   m_PrefabInstance: {fileID: 3957317736119684444}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4006467691354736896
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7228472548077394267}
+    m_Modifications:
+    - target: {fileID: 2355493139170674800, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: m_Name
+      value: Interactive_Chest
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169324860326482634, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.4999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169324860326482634, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169324860326482634, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.13590479
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169324860326482634, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 12.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169324860326482634, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.00079759955
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169324860326482634, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00075143995
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169324860326482634, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.99999946
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169324860326482634, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.00006787051
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169324860326482634, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 179.992
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169324860326482634, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -0.09100342
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169324860326482634, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 180.086
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290402491265572703, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: messageText
+      value: 'A little party never killed nobody. They said. '
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+--- !u!4 &2045303869760887754 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3169324860326482634, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+  m_PrefabInstance: {fileID: 4006467691354736896}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4112435822166636891
 PrefabInstance:
@@ -39051,7 +38988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6576566073008253895, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
       propertyPath: messageText
-      value: What if you try this blue fungal potion? What could go wrong?
+      value: What if you try this Blue Fungal Potion? What could go wrong?
       objectReference: {fileID: 0}
     - target: {fileID: 6739392415332081660, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
       propertyPath: m_LocalPosition.x

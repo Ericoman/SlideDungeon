@@ -42739,6 +42739,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Props_MetalGrid (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 448128787359076723, guid: 7c6308b73f7c7134097ffebe52b99d62, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 448128787359076723, guid: 7c6308b73f7c7134097ffebe52b99d62, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 969332125110782921, guid: 7c6308b73f7c7134097ffebe52b99d62, type: 3}
       propertyPath: m_LocalScale.y
       value: 1
@@ -42936,11 +42944,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.9260077
+      value: 7.93
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.11733723
+      value: -0.53
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -43534,6 +43542,14 @@ PrefabInstance:
     - target: {fileID: 448128787359076723, guid: 7c6308b73f7c7134097ffebe52b99d62, type: 3}
       propertyPath: m_Name
       value: SM_Props_MetalGrid (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 448128787359076723, guid: 7c6308b73f7c7134097ffebe52b99d62, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 448128787359076723, guid: 7c6308b73f7c7134097ffebe52b99d62, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 969332125110782921, guid: 7c6308b73f7c7134097ffebe52b99d62, type: 3}
       propertyPath: m_LocalScale.y
@@ -45015,7 +45031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.11733723
+      value: -0.49
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -46291,39 +46307,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.7036315
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.11733794
+      value: -0.64
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.86787117
+      value: 0.6712025
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.49678922
+      value: -0.38421082
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.31493202
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.55017006
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 30.424
+      value: -9.743
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 59.082
       objectReference: {fileID: 0}
     - target: {fileID: 2450848789509036915, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -84.212
       objectReference: {fileID: 0}
     - target: {fileID: 7646633895592656422, guid: 438c92c09c6eb714e93bd8be4542a0b4, type: 3}
       propertyPath: m_Name
@@ -46678,7 +46694,7 @@ PrefabInstance:
     - target: {fileID: 6576566073008253895, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
       propertyPath: messageText
       value: 'Maybe if you stop thinking everything separately, you could connect
-        this two. Also, beware of this big one, it''s unkillable. '
+        this Two. Also, beware of this Big One, it''s unkillable. '
       objectReference: {fileID: 0}
     - target: {fileID: 6739392415332081660, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -46686,11 +46702,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6739392415332081660, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.010001
+      value: 14.72
       objectReference: {fileID: 0}
     - target: {fileID: 6739392415332081660, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.3599558
+      value: -0.51
       objectReference: {fileID: 0}
     - target: {fileID: 6739392415332081660, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -47153,6 +47169,14 @@ PrefabInstance:
     - target: {fileID: 448128787359076723, guid: 7c6308b73f7c7134097ffebe52b99d62, type: 3}
       propertyPath: m_Name
       value: SM_Props_MetalGrid (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 448128787359076723, guid: 7c6308b73f7c7134097ffebe52b99d62, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 448128787359076723, guid: 7c6308b73f7c7134097ffebe52b99d62, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 969332125110782921, guid: 7c6308b73f7c7134097ffebe52b99d62, type: 3}
       propertyPath: m_LocalScale.y

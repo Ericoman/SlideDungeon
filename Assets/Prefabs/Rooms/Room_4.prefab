@@ -42749,6 +42749,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Props_Cage_A_WithSkeletons
       objectReference: {fileID: 0}
+    - target: {fileID: 1215360622493457375, guid: 85859b99704283146a82b26c1e7a6e91, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1215360622493457375, guid: 85859b99704283146a82b26c1e7a6e91, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 1987781373372924261, guid: 85859b99704283146a82b26c1e7a6e91, type: 3}
       propertyPath: m_LocalScale.y
       value: 1
@@ -47097,7 +47105,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6576566073008253895, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
       propertyPath: messageText
-      value: Mirror mirror on the floor. Who is gonna light me on so far away?
+      value: Mirror mirror on the floor. Who is gonna light me if you are so far
+        away?
       objectReference: {fileID: 0}
     - target: {fileID: 6739392415332081660, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
       propertyPath: m_LocalScale.x

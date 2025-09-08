@@ -64549,6 +64549,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180.093
       objectReference: {fileID: 0}
+    - target: {fileID: 4290402491265572703, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: messageText
+      value: Instead of looking for gold, maybe you should try to get out of this
+        dungeon.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303729105041818068, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303729105041818068, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: outlineWidth
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303729105041818068, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: outlineColor.b
+      value: 0.39607844
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303729105041818068, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: outlineColor.g
+      value: 0.79607844
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303729105041818068, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: outlineColor.r
+      value: 0.93333334
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -75142,13 +75167,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4526753662622322783}
     m_Modifications:
+    - target: {fileID: 2233433304378471938, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2233433304378471938, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
+      propertyPath: outlineWidth
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3802034827379361167, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
       propertyPath: m_Name
       value: TutorialBook
       objectReference: {fileID: 0}
     - target: {fileID: 6576566073008253895, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
       propertyPath: messageText
-      value: Use the lightning bolt to connect the two towers.
+      value: 'Press Space to throw a Lightning Bolt. Easy? Now try to connect the
+        two towers. '
       objectReference: {fileID: 0}
     - target: {fileID: 6739392415332081660, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
       propertyPath: m_LocalPosition.x
