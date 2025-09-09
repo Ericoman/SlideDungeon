@@ -23,6 +23,11 @@ public class TeslaCoil : MonoBehaviour
     public float checkInterval = 0.2f; // Interval for checking child objects
     
     public float activeDuration = 5f;
+    
+    private bool isHitByRaycast = false;
+    private float raycastActiveTimeout = 1f;
+    
+    private Coroutine raycastDeactivationCoroutine;
 
     // Cached reference to `sphere2`
     private GameObject sphere2;
@@ -144,5 +149,34 @@ public class TeslaCoil : MonoBehaviour
         IsActive = true;
 
         Debug.Log($"TeslaCoil: Activated with sphere2 '{sphere.name}'.");
+    }
+    
+    public void ActivateByRaycast()
+    {
+        isHitByRaycast = true; // Set raycast hit flag
+        if (!IsActive)
+        {
+            IsActive = true; // Activate the coil if not already active
+        }
+
+        // Restart the raycast timeout coroutine to extend active state
+        if (raycastDeactivationCoroutine != null)
+        {
+            StopCoroutine(raycastDeactivationCoroutine);
+        }
+
+        raycastDeactivationCoroutine = StartCoroutine(RaycastDeactivationTimeout());
+    }
+
+    private IEnumerator RaycastDeactivationTimeout()
+    {
+        yield return new WaitForSeconds(raycastActiveTimeout);
+        isHitByRaycast = false;
+
+        // Deactivate if `sphere2` is not attached
+        if (!IsSphere2Attached())
+        {
+            IsActive = false;
+        }
     }
 }

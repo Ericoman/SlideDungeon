@@ -17,6 +17,7 @@ public class ThunderSpellCast : SpellBase
     private bool isCasting = false; // Lock to prevent multiple casts
     
     public float maxAttachmentDistance = 20f; // Maximum distance allowed for attachment
+    private bool isSphere2Attached = false; // Tracks whether sphere2 is attached to a TeslaCoil or MirrorReflection
 
     private Queue<GameObject> thunderLinkQueue = new Queue<GameObject>(); // Store instantiated prefabs
     public int maxThunderLinks = 3; // Maximum number of ThunderLinks to store in the queue
@@ -24,7 +25,7 @@ public class ThunderSpellCast : SpellBase
     private Transform originalSphere2Parent;
     
     private TeslaCoil currentAttachedCoil; // Store reference to the currently attached coil, if any
-    
+    private MirrorReflection currentMirrorReflection; // Store reference to the currently attached mirror reflection, if any
     private Vector3 GetPlayerAdjustedForward()
     {
         // Correct the player's forward direction by rotating the local forward (Z-axis) to match logical forward
@@ -322,6 +323,13 @@ public class ThunderSpellCast : SpellBase
                 currentAttachedCoil.SetActiveWithSphere(null); // Clear TeslaCoil's reference
                 currentAttachedCoil = null; // Clear the ThunderSpellCast reference
             }
+
+            if (currentMirrorReflection != null)
+            {
+                Debug.Log($"ThunderSpellCast: Detaching sphere2 from Mirror '{currentMirrorReflection.name}' before destroying it.");
+                currentMirrorReflection.SetActiveWithSphere(null); // Clear Mirror's reference
+                currentMirrorReflection = null; // Clear the ThunderSpellCast reference
+            }
             Destroy(currentThunderLink.sphere2.gameObject);
             Debug.Log("ThunderSpellCast: Destroyed sphere2.");
         }
@@ -337,6 +345,8 @@ public class ThunderSpellCast : SpellBase
         isFirstCast = true; // Reset to allow the first cast logic to run again
         currentThunderLink = null; // Clear the reference to the current ThunderLink
         isCasting = false; // Release the lock
+        // Reset state when destroying sphere2 or the ThunderLink
+        isSphere2Attached = false;
     }
     
     /*private void ManagePrefabQueue(GameObject thunderLinkInstance)
@@ -377,6 +387,9 @@ public class ThunderSpellCast : SpellBase
         {
             yield return null; // Wait until the sphere reaches the target
         }
+        
+        // Reset any attachment flags
+        isSphere2Attached = false;
 
         // Destroy the object after movement is complete
         Destroy(objectToDestroy);
@@ -409,6 +422,12 @@ public class ThunderSpellCast : SpellBase
     {
         while (attachedSphere != null)
         {
+            if (isSphere2Attached)
+            {
+                yield return new WaitForSeconds(0.1f); // Check distance periodically (every 0.1 second)
+                continue; // Skip the rest of the logic if sphere2 is attached
+            }
+            
             float currentDistance = Vector3.Distance(castOrigin.position, attachedSphere.position);
 
             // Check if the sphere has exceeded the maxAttachmentDistance
@@ -450,6 +469,17 @@ public class ThunderSpellCast : SpellBase
                 AttachSphere2ToTeslaCoil(teslaCoil, currentThunderLink.sphere2);
             }
         }
+
+        if (other.CompareTag("Mirror"))
+        {
+            MirrorReflection mirror = other.GetComponent<MirrorReflection>();
+
+            if (mirror != null && currentThunderLink != null && currentThunderLink.sphere2 != null &&
+                mirror.IsActive == false)
+            {
+                AttachSphere2ToMirror(mirror, currentThunderLink.sphere2);
+            }
+        }
     }
 
     private void AttachSphere2ToTeslaCoil(TeslaCoil coil, GameObject sphere2)
@@ -474,5 +504,30 @@ public class ThunderSpellCast : SpellBase
         
         // Activate the Tesla Coil
         coil.SetActiveWithSphere(sphere2);
+        // Mark sphere2 as attached
+        isSphere2Attached = true;
+    }
+
+    private void AttachSphere2ToMirror(MirrorReflection mirror, GameObject sphere2)
+    {
+        if (currentMirrorReflection == mirror)
+        {
+            Debug.LogWarning("ThunderSpellCast: sphere2 is already attached to the Mirror.");
+            return;
+        }
+        // Detach previous Mirror, if any
+        if (currentMirrorReflection != null)
+        {
+            Debug.Log($"ThunderSpellCast: Detaching from Mirror {currentAttachedCoil.name}");
+        }
+        
+        currentMirrorReflection = mirror;
+        sphere2.transform.SetParent(mirror.transform, true);
+        sphere2.transform.position = mirror.transform.position + new Vector3(0, 0.5f, 0);
+        Debug.Log($"ThunderSpellCast: sphere2 is now attached to Mirror '{mirror.name}'.");
+        // Activate the Mirror
+        mirror.SetActiveWithSphere(sphere2);
+        // Mark sphere2 as attached
+        isSphere2Attached = true;
     }
 }
