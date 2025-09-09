@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+
     public float initialMoveSpeed = 5f; // Movement speed of the character
     private float _moveSpeed; // Movement speed of the character
 
@@ -23,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
     public Animator anim;
 
     private PlayerInput _playerInput;
+
+    public Vector2 MoveInput => move;           // propiedad pública de solo lectura
+    public float CurrentMoveSpeed => _moveSpeed;
 
     public void OnMove(InputAction.CallbackContext context)
     {

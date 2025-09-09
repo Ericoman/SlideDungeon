@@ -1,10 +1,13 @@
+using System;
 using UnityEngine;
 using UnityEngine.VFX;
 public class DustTrailController : MonoBehaviour
 {
     [Header("References")]
-    public VisualEffect dustVFX; // arrastra aquí tu VFX Graph en el inspector
-    public float minSpeedToSpawn = 0.1f; // velocidad mínima para que aparezca polvo
+    public PlayerMovement player;   // referencia a tu script PlayerMovement
+    public VisualEffect dustVFX;    // arrastra aquí tu VFX Graph
+    public float minSpeedToSpawn = 0.1f;
+    public float spawnMultiplier = 10f;
 
 
     void Start()
@@ -12,27 +15,28 @@ public class DustTrailController : MonoBehaviour
         
         if (dustVFX != null)
         {
-            dustVFX.Stop(); // empieza apagado
+            dustVFX.Play();
         }
     }
 
     void Update()
     {
-        if (dustVFX == null ) return;
+        if (dustVFX == null || player == null) return;
 
-        float speed = GetComponent<Rigidbody>().linearVelocity.magnitude;
+        // obtenemos la magnitud de movimiento (velocidad "real")
+        Vector3 move = new Vector3(player.MoveInput.x, 0f, player.MoveInput.y);
+        float speed = move.magnitude * player.CurrentMoveSpeed;
 
         if (speed > minSpeedToSpawn)
         {
-            if (!dustVFX.isActiveAndEnabled)
-                dustVFX.Play();
             
-            dustVFX.SetFloat("SpawnRate", speed * 5f); 
+            
+            dustVFX.SetFloat("SpawnRate",  spawnMultiplier);
         }
         else
         {
-            if (dustVFX.isActiveAndEnabled)
-                dustVFX.Stop();
+
+            dustVFX.SetFloat("SpawnRate", 0f);
         }
     }
 }

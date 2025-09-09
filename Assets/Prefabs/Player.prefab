@@ -1033,8 +1033,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e69390cfd4d5cf48bed8cf643598c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 3521537669410011455}
   dustVFX: {fileID: 8150740494049796313}
   minSpeedToSpawn: 0.1
+  spawnMultiplier: 10
 --- !u!1001 &2897528583043473487
 PrefabInstance:
   m_ObjectHideFlags: 0

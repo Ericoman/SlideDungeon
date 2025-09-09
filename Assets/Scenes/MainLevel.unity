@@ -8315,6 +8315,18 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6136207169283790675, guid: 75b95fd3b70d3424e9eceef75a835520, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6136207169283790675, guid: 75b95fd3b70d3424e9eceef75a835520, type: 3}
+      propertyPath: minSpeedToSpawn
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6136207169283790675, guid: 75b95fd3b70d3424e9eceef75a835520, type: 3}
+      propertyPath: spawnMultiplier
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8268433213911476575, guid: 75b95fd3b70d3424e9eceef75a835520, type: 3}
       propertyPath: m_Name
       value: Player
