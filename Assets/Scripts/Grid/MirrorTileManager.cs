@@ -92,7 +92,7 @@ public class MirrorTileManager : MonoBehaviour
             //
             tileable = tile.GetComponentInChildren<Tileable>();
             tileable.SetInGrid(gridManager,generatedtile.GridPosition);
-            
+            tile = tileable.gameObject; //VERY IMPORTANT for rooms with roombuilder and tileable  inside a parent object
             Rooms.RoomManager roomManager = tile.GetComponentInChildren<Rooms.RoomManager>();
             if (roomManager != null && roomDatas.Length > tileIndex)
             {

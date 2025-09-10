@@ -5391,6 +5391,99 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7540414643266764013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1545875229125204511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1595002038617323852}
+  - component: {fileID: 8242856484205034429}
+  - component: {fileID: 4728713111901869987}
+  - component: {fileID: 2955501523025348471}
+  - component: {fileID: 5922570750982860498}
+  m_Layer: 0
+  m_Name: Room Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1595002038617323852
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545875229125204511}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4194281992877254927}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8242856484205034429
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545875229125204511}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 17.123915, y: 16.912638, z: 6.000182}
+  m_Center: {x: 8.061957, y: 7.956319, z: 0.006181717}
+--- !u!114 &4728713111901869987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545875229125204511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80295bc631fe8f4483f6e4aaee1e76d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2955501523025348471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545875229125204511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 623076652cc5cdc49b02c1c72b8a617d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  room: {fileID: 4194281992877254927}
+--- !u!114 &5922570750982860498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545875229125204511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c76e391d26492b54594762a20da771d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1561398563958603125
 GameObject:
   m_ObjectHideFlags: 0
@@ -27269,7 +27362,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8346852662070536850}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.70710576, y: -0, z: -0, w: 0.70710784}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -27325,6 +27418,7 @@ Transform:
   - {fileID: 5045811524231959599}
   - {fileID: 8714656805156820658}
   - {fileID: 3599131275749125391}
+  - {fileID: 1595002038617323852}
   m_Father: {fileID: 3347891716477996666}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &1661848022581637584
@@ -27358,7 +27452,7 @@ MonoBehaviour:
   bUseCollidersForWallBounds: 1
   floorUnitPrefab: {fileID: 7773864237654892555, guid: 9bb2c213fb6c93a489607fdfdb870990, type: 3}
   bUseCollidersForFloorBounds: 1
-  roomTriggerPrefab: {fileID: 0}
+  roomTriggerPrefab: {fileID: 1162816186224600754, guid: 23c9e1f9f03544348b8555b39fcfc6fa, type: 3}
   wallHeight: 1
   floorHeight: 1
   cellSize: 16
