@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour
     public bool ShowingFirstmovement = false;
 
     public bool playTutorial = true;
+
+    public GameObject puzzleView;
     
     TileInstancer tileInstancer;
     SavingSystemManager savingSystemManager;
@@ -72,6 +74,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        ShowPuzzleView(false);
+        
         GameObject tInstancer = GameObject.FindGameObjectWithTag("TileInstancer");
         if (tInstancer != null)
         {
@@ -272,7 +276,7 @@ public class GameManager : MonoBehaviour
 
             if (selectedTileable.CanBeMoved && playTutorial)
             {
-                ShowingFirstRoomMovement();
+                //ShowingFirstRoomMovement(); //Replaced by puzzleView
                 playTutorial = false;
             }
             Debug.LogWarning(x+ " " + y + " move "+ dir);
@@ -351,6 +355,10 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void ShowPuzzleView(bool show)
+    {
+        puzzleView.SetActive(show);
+    }
     public void ShowingFirstRoomMovement()
     {
         StartCoroutine(ShowingFirstRoomMovementCoroutine());

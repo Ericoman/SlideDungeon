@@ -55,12 +55,14 @@ public class PlayerMovement : MonoBehaviour
                     GameManager.Instance.MoveCameraToLocation(GameManager.Instance.maincamera.transform, GameManager.Instance.endCamera.transform);
                     GameManager.Instance.ResetHighlight();
                     GameManager.Instance.HighlightTileable();
+                    GameManager.Instance.ShowPuzzleView(true);
                 }
                 else if(GameManager.Instance.selectedTileable==null){
 
                     _canMove = true;
                     GameManager.Instance.ResetHighlight();
                     GameManager.Instance.ResetMainCamera(GameManager.Instance.maincamera.transform, GameManager.Instance.savedCamPosition);
+                    GameManager.Instance.ShowPuzzleView(false);
                 }
             }
 
