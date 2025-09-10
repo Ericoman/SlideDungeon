@@ -7,8 +7,8 @@ public class ThunderLink : MonoBehaviour
 {
     public GameObject sphere1; // Reference to the first sphere
     public GameObject sphere2; // Reference to the second sphere
-    
-    
+
+    public Collider sphere1DamageCollider;
 
     private Coroutine sphere1MovementCoroutine;
     private Coroutine sphere2MovementCoroutine;
@@ -177,8 +177,12 @@ public class ThunderLink : MonoBehaviour
                 // Check if the object hit has the "Enemy" tag
                 if (hit.collider.CompareTag("Enemy"))
                 {
-                    // Destroy the enemy object
-                    Destroy(hit.collider.gameObject);
+                    HealthComponent health = hit.collider.GetComponent<HealthComponent>();
+                     if (health != null)
+                     {
+                         health.ReceiveDamage(1);
+                     }
+                    
                 }
                 
                 // Ignore collisions with TeslaCoils and the Player
@@ -269,7 +273,22 @@ public class ThunderLink : MonoBehaviour
             //UpdateLineCollider(sphere1Position, sphere2Position);
         }
     }
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            Debug.Log($"Enemy {other.gameObject.name} entered the sphere1DamageCollider!");
+        
+            // You can fetch or invoke an enemy damage handler
+            HealthComponent health = other.GetComponent<HealthComponent>();
+            if (health != null)
+            {
+                health.ReceiveDamage(1); // Apply damage to the enemy
+            }
+        }
+    }
+
     /*private void UpdateLineCollider(Vector3 startPoint, Vector3 endPoint)
     {
         // Position the collider at the midpoint of the line
