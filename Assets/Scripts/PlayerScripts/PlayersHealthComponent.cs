@@ -20,7 +20,7 @@ public class PlayersHealthComponent : HealthComponent
     public PlayerMovement playermove;
     public Animator anim;
 
-    
+    public event System.Action OnDamageTaken;
 
     void Start()
     {
@@ -85,6 +85,7 @@ public class PlayersHealthComponent : HealthComponent
         if (currentHealth > 0)
         {
             anim.SetTrigger("Damage");
+            OnDamageTaken?.Invoke();
         }
         
 
