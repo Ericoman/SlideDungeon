@@ -1134,7 +1134,7 @@ MonoBehaviour:
     m_Bits: 512
   _obstacleLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1025
   _canvas: {fileID: 0}
   _maxDistanceToFloor: 2
   playerMovement: {fileID: 3521537669410011455}
@@ -1171,11 +1171,14 @@ MonoBehaviour:
   health: {fileID: 1114356677823533789}
   hitVFX: {fileID: 7620894897077565665}
   spawnPoint: {fileID: 7458926157439586581}
+  visualRoot: {fileID: 0}
   renderers:
   - {fileID: 2068921211443378875}
   - {fileID: 1722795102088150994}
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.1
+  scaleUpFactor: 1.2
+  scaleDuration: 0.15
   cooldown: 0.2
 --- !u!1001 &2897528583043473487
 PrefabInstance:

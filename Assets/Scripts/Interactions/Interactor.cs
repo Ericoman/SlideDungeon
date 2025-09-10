@@ -97,9 +97,14 @@ public class Interactor : MonoBehaviour
 
         if (_grabbedObject == null) //not grabbing
         {
-            if (Physics.Raycast(_transform.position, transform.forward, out var hit, _interactionRadius, _interactableLayer))
+            if (Physics.Raycast(_transform.position, transform.forward, out var hit, _interactionRadius, _interactableLayer | _obstacleLayer))
             {
-                if (Physics.Raycast(transform.position, transform.forward, _interactionRadius, _obstacleLayer)) return; //obstacle
+                int objectLayerMask = 1 << hit.transform.gameObject.layer;
+                if ((_obstacleLayer.value & objectLayerMask) != 0)
+                {
+                    SetOtline(hit, false);
+                    return;
+                }
 
                 IInteractable interactableObject = null;
                 hit.transform.TryGetComponent(out interactableObject);
