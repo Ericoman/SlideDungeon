@@ -9,7 +9,7 @@ public class TriggerUpdateRespawn : MonoBehaviour
             HealthComponent health = other.GetComponentInChildren<HealthComponent>();
             if (health)
             {
-                health.SetRespawnPosition(gameObject.transform.position);
+                health.SetRespawnPosition(other.transform.position);
             }
         } 
     }
