@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 1969281024228908594}
   - component: {fileID: 3241344048775811479}
   - component: {fileID: 801471910386541917}
-  m_Layer: 0
+  - component: {fileID: 3092758398009556917}
+  - component: {fileID: 8245691412282403646}
+  m_Layer: 10
   m_Name: SM_Modular_Wall_E_Corner_In_Straight_End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,6 +88,48 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3092758398009556917
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161816574926292104}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.4065282, y: 3.0189853, z: 0.3148539}
+  m_Center: {x: 0.9908383, y: 1.4843225, z: 0.033189766}
+--- !u!65 &8245691412282403646
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161816574926292104}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.34411433, y: 3.0189967, z: 2.1868875}
+  m_Center: {x: 2.0220413, y: 1.4843167, z: -0.9028267}
 --- !u!1 &2071706826351528823
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,7 +141,7 @@ GameObject:
   - component: {fileID: 1696729842363339213}
   - component: {fileID: 2316017168460815976}
   - component: {fileID: 558677328037735074}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SM_Modular_Ground_2x2_Wall_E_Corner_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,9 +225,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2865136554415644191}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall_Corner_Inf_R
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2797595069975680913}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall_Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,18 +40,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2797595069975680913}
     m_Modifications:
-    - target: {fileID: -3976892162493594047, guid: a0e75fdb23572d342b4ab5642f572ae9, type: 3}
-      propertyPath: m_Size.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: -3976892162493594047, guid: a0e75fdb23572d342b4ab5642f572ae9, type: 3}
-      propertyPath: m_Size.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -3976892162493594047, guid: a0e75fdb23572d342b4ab5642f572ae9, type: 3}
-      propertyPath: m_Size.z
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 5765216685146814195, guid: a0e75fdb23572d342b4ab5642f572ae9, type: 3}
       propertyPath: m_Name
       value: SM_Modular_Wall_A Variant
