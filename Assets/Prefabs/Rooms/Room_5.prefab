@@ -8763,7 +8763,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2274457602699626446}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.70710576, y: -0, z: -0, w: 0.70710784}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8830,6 +8830,7 @@ Transform:
   - {fileID: 2547271674948626483}
   - {fileID: 8024019722838974435}
   - {fileID: 8683406526950729299}
+  - {fileID: 8908460122855376964}
   m_Father: {fileID: 8409310027218964143}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &3377861803988375052
@@ -8863,7 +8864,7 @@ MonoBehaviour:
   bUseCollidersForWallBounds: 1
   floorUnitPrefab: {fileID: 7773864237654892555, guid: 9bb2c213fb6c93a489607fdfdb870990, type: 3}
   bUseCollidersForFloorBounds: 1
-  roomTriggerPrefab: {fileID: 0}
+  roomTriggerPrefab: {fileID: 1162816186224600754, guid: 23c9e1f9f03544348b8555b39fcfc6fa, type: 3}
   wallHeight: 1
   floorHeight: 1
   cellSize: 16
@@ -41613,6 +41614,99 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 3, z: 0.2}
   m_Center: {x: 0.89451796, y: 1.4843186, z: 0.074998826}
+--- !u!1 &8987536360782295241
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8908460122855376964}
+  - component: {fileID: 8337606139037832604}
+  - component: {fileID: 1156923658056091778}
+  - component: {fileID: 3190412435832300693}
+  - component: {fileID: 1555154389782771525}
+  m_Layer: 0
+  m_Name: Room Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8908460122855376964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8987536360782295241}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4063836872367246207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8337606139037832604
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8987536360782295241}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 17.1239, y: 16.912636, z: 6.258572}
+  m_Center: {x: 8.06195, y: 7.956318, z: -0.10301328}
+--- !u!114 &1156923658056091778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8987536360782295241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80295bc631fe8f4483f6e4aaee1e76d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3190412435832300693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8987536360782295241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 623076652cc5cdc49b02c1c72b8a617d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  room: {fileID: 4063836872367246207}
+--- !u!114 &1555154389782771525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8987536360782295241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c76e391d26492b54594762a20da771d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8999935644373832789
 GameObject:
   m_ObjectHideFlags: 0

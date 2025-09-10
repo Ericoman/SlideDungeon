@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7850512883099315333}
   - component: {fileID: 3683830132442996724}
   - component: {fileID: 2436851368770324691}
+  - component: {fileID: 4850456078090009105}
   m_Layer: 0
   m_Name: RoomTrigger
   m_TagString: Untagged
@@ -80,3 +81,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   room: {fileID: 0}
+--- !u!114 &4850456078090009105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162816186224600754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c76e391d26492b54594762a20da771d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

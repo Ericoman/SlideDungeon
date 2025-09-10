@@ -3898,7 +3898,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 520334230737203108}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.70710576, y: -0, z: -0, w: 0.70710784}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3930,6 +3930,7 @@ Transform:
   - {fileID: 1025200575874608313}
   - {fileID: 5033530396362911490}
   - {fileID: 8958810875258786563}
+  - {fileID: 2034015394390973733}
   m_Father: {fileID: 1437977387561350451}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &13896813591928845
@@ -3948,7 +3949,7 @@ MonoBehaviour:
   bUseCollidersForWallBounds: 1
   floorUnitPrefab: {fileID: 7773864237654892555, guid: 9bb2c213fb6c93a489607fdfdb870990, type: 3}
   bUseCollidersForFloorBounds: 1
-  roomTriggerPrefab: {fileID: 0}
+  roomTriggerPrefab: {fileID: 1162816186224600754, guid: 23c9e1f9f03544348b8555b39fcfc6fa, type: 3}
   wallHeight: 1
   floorHeight: 1
   cellSize: 16
@@ -59530,6 +59531,99 @@ Transform:
   - {fileID: 2739714448847455372}
   m_Father: {fileID: 3540236817476394890}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8283268232852323165
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2034015394390973733}
+  - component: {fileID: 2944024263092513389}
+  - component: {fileID: 6162943693193028482}
+  - component: {fileID: 1232668037673652352}
+  - component: {fileID: 8289682078828424510}
+  m_Layer: 0
+  m_Name: Room Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2034015394390973733
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8283268232852323165}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4526753662622322783}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2944024263092513389
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8283268232852323165}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 17.035915, y: 32.700005, z: 6.2648764}
+  m_Center: {x: 8.017958, y: 15.850002, z: -0.08628249}
+--- !u!114 &6162943693193028482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8283268232852323165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80295bc631fe8f4483f6e4aaee1e76d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1232668037673652352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8283268232852323165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 623076652cc5cdc49b02c1c72b8a617d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  room: {fileID: 4526753662622322783}
+--- !u!114 &8289682078828424510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8283268232852323165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c76e391d26492b54594762a20da771d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8298677639891520384
 GameObject:
   m_ObjectHideFlags: 0
