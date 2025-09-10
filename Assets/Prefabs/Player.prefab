@@ -1016,6 +1016,9 @@ MonoBehaviour:
   _interactableLayer:
     serializedVersion: 2
     m_Bits: 512
+  _obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1
   _canvas: {fileID: 0}
   _maxDistanceToFloor: 2
   playerMovement: {fileID: 3521537669410011455}

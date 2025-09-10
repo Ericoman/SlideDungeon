@@ -11,6 +11,7 @@ public class Interactor : MonoBehaviour
 {
     [SerializeField] private float _interactionRadius = 1.5f;
     [SerializeField] private LayerMask _interactableLayer;
+    [SerializeField] private LayerMask _obstacleLayer;
     [SerializeField] private Canvas _canvas;
     [SerializeField] private float _maxDistanceToFloor = 2;
     [SerializeField] private PlayerMovement playerMovement;
@@ -98,6 +99,8 @@ public class Interactor : MonoBehaviour
         {
             if (Physics.Raycast(_transform.position, transform.forward, out var hit, _interactionRadius, _interactableLayer))
             {
+                if (Physics.Raycast(transform.position, transform.forward, _interactionRadius, _obstacleLayer)) return; //obstacle
+
                 IInteractable interactableObject = null;
                 hit.transform.TryGetComponent(out interactableObject);
                 IInteractableHeld interactableHeldObject = null;
@@ -169,8 +172,18 @@ public class Interactor : MonoBehaviour
                 bool isFloor = Physics.Raycast(_grabbedObject.transform.position, Vector3.down, _maxDistanceToFloor);
 
 
-                if ((!isHitDrop || hitDrop.collider.gameObject == _grabbedObject) && isFloor) //can drop
+                if ((!isHitDrop || hitDrop.collider.gameObject == _grabbedObject) && (isFloor || (!isFloor && _heldObject != null))) //can drop
                 {
+                    if (!isFloor && _heldObject != null)
+                    {
+                        Rigidbody rigidbody = _grabbedObject.GetComponent<Rigidbody>();
+                        if (rigidbody)
+                        {
+                            rigidbody.isKinematic = false;
+                        }
+                    }
+
+
                     // Detach from parent
                     _grabbedObject.transform.SetParent(null);
 
