@@ -5,6 +5,7 @@ using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
 using UnityEngine.UIElements;
 
 public class Interactor : MonoBehaviour
@@ -188,6 +189,9 @@ public class Interactor : MonoBehaviour
                         }
                     }
 
+
+                    GameObject boxArea = transform.Find("BoxArea").gameObject;
+                    if (boxArea) boxArea.SetActive(false);
 
                     // Detach from parent
                     _grabbedObject.transform.SetParent(null);
