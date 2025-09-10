@@ -20,6 +20,7 @@ public class PushPullInteract : MonoBehaviour, IInteractableHeld
                 interactorComponent.SetGrabbedObject(gameObject);
                 gameObject.transform.SetParent(interactor.transform);
             }
+
             PlayerMovement playerMovement = interactor.GetComponent<PlayerMovement>();
             if (playerMovement) 
             {
@@ -36,6 +37,9 @@ public class PushPullInteract : MonoBehaviour, IInteractableHeld
                 }
                 playerMovement.SetMoveSpeed(playerSpeed);
             }
+
+            GameObject boxArea = interactor.transform.Find("BoxArea").gameObject;
+            if (boxArea) boxArea.SetActive(true);
         }
     }
 
