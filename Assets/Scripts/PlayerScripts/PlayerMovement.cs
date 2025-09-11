@@ -52,17 +52,14 @@ public class PlayerMovement : MonoBehaviour
                 {
                     _canMove = false;
                     Debug.Log(GameManager.Instance.maincamera.transform.position + "  "+GameManager.Instance.endCamera.transform.position);
-                    GameManager.Instance.MoveCameraToLocation(GameManager.Instance.maincamera.transform, GameManager.Instance.endCamera.transform);
+                    GameManager.Instance.ActivatePuzzleMode(true);
                     GameManager.Instance.ResetHighlight();
                     GameManager.Instance.HighlightTileable();
-                    GameManager.Instance.ShowPuzzleView(true);
                 }
-                else if(GameManager.Instance.selectedTileable==null){
-
+                else{
                     _canMove = true;
                     GameManager.Instance.ResetHighlight();
-                    GameManager.Instance.ResetMainCamera(GameManager.Instance.maincamera.transform, GameManager.Instance.savedCamPosition);
-                    GameManager.Instance.ShowPuzzleView(false);
+                    GameManager.Instance.ActivatePuzzleMode(false);
                 }
             }
 
@@ -168,27 +165,6 @@ public class PlayerMovement : MonoBehaviour
         _blockX = false;
         _blockZ = false;
         _moveSpeed = initialMoveSpeed;
-    }
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        InteractPuzzle.SetActive(true);
-        //if (other.gameObject.tag == "EndTriggerVolume")
-        //{
-        //    GameManager.Instance.EnableCameraEnd();
-        //}
-    }
-    
-    
-
-    private void OnTriggerExit(Collider other)
-    {
-        InteractPuzzle.SetActive(false);
-        //if (other.gameObject.tag == "EndTriggerVolume")
-        //{
-        //    GameManager.Instance.DisableCameraEnd();
-        //}
     }
 
 }

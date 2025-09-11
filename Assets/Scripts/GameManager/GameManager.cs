@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour
 
     public Vector3 savedCamPosition;
     public Quaternion savedCamRotation;
+    
+    private Vector3 originalEndCamPosition;
+    private Quaternion originalEndCamRotation;
 
     public Material m_highlight;
 
@@ -74,6 +77,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        originalEndCamPosition = endCamera.transform.localPosition;
+        originalEndCamRotation = endCamera.transform.localRotation;
         ShowPuzzleView(false);
         
         GameObject tInstancer = GameObject.FindGameObjectWithTag("TileInstancer");
@@ -96,14 +101,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (puzzleMode)
-        {
-
-        }
-    }
-
     public void SetSelectedTileable()
     {
         if (selectedTileable == null)
@@ -121,23 +118,59 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void ActivatePuzzleMode(bool activate)
+    {
+        if (activate)
+        {
+            MoveCameraToLocation(maincamera,maincamera.transform,endCamera.transform);
+            SwitchCameras(maincamera,endCamera);
+        }
+        else
+        {
+            if (selectedTileable != null)
+            {
+                SetSelectedTileable();
+            }
+            MoveCameraToLocation(endCamera,endCamera.transform,maincamera.transform);
+            SwitchCameras(endCamera,maincamera);
+            StartCoroutine(ResetEndCamera());
+        }
+        puzzleMode = activate;
+        ShowPuzzleView(activate);
+    }
 
-    public void MoveCameraToLocation(Transform start, Transform destination)
+    private IEnumerator ResetEndCamera()
+    {
+        yield return new WaitUntil(() => !movingCamera);
+        endCamera.transform.localPosition = originalEndCamPosition;
+        endCamera.transform.localRotation = originalEndCamRotation;
+    }
+    private void SwitchCameras(Camera cameraToHide, Camera cameraToShow)
+    {
+        StartCoroutine(SwitchCameras_CO(cameraToHide, cameraToShow));
+    }
+
+    private IEnumerator SwitchCameras_CO(Camera cameraToHide, Camera cameraToShow)
+    {
+        yield return new WaitUntil(() => !movingCamera);
+        cameraToHide.enabled = false;
+        cameraToShow.enabled = true;
+    }
+    public void MoveCameraToLocation(Camera cameraToMove,Transform start, Transform destination)
     {
         StopAllCoroutines();
-        movingCamera = true;
-        savedCamPosition = maincamera.transform.position;
-        savedCamRotation = maincamera.transform.rotation;
+        
+
         if (currentMoveCoroutine != null)
             StopCoroutine(currentMoveCoroutine);
 
-        currentMoveCoroutine = StartCoroutine(MoveCameraCoroutine(start.position, start.rotation, destination.position, destination.rotation));
-        movingCamera = false;
-        puzzleMode = true;
+        currentMoveCoroutine = StartCoroutine(MoveCameraCoroutine(cameraToMove,start.position, start.rotation, destination.position, destination.rotation));
+        
     }
 
-    IEnumerator MoveCameraCoroutine(Vector3 startPos, Quaternion startRot, Vector3 endPos, Quaternion endRot)
+    IEnumerator MoveCameraCoroutine(Camera cameraToMove, Vector3 startPos, Quaternion startRot, Vector3 endPos, Quaternion endRot)
     {
+        movingCamera = true;
         float elapsed = 0f;
 
         
@@ -147,10 +180,10 @@ public class GameManager : MonoBehaviour
             float t = elapsed / moveDuration;
 
             // Interpolaci�n de posici�n
-            maincamera.transform.position = Vector3.Lerp(startPos, endPos, t);
+            cameraToMove.transform.position = Vector3.Lerp(startPos, endPos, t);
 
             // Interpolaci�n de rotaci�n
-            maincamera.transform.rotation = Quaternion.Slerp(startRot, endRot, t);
+            cameraToMove.transform.rotation = Quaternion.Slerp(startRot, endRot, t);
 
             elapsed += Time.deltaTime;
             yield return null;
@@ -158,26 +191,27 @@ public class GameManager : MonoBehaviour
         
         // Asegurar posici�n y rotaci�n final exactas
         
-        maincamera.transform.position = endPos;
-        maincamera.transform.rotation = endRot;
+        cameraToMove.transform.position = endPos;
+        cameraToMove.transform.rotation = endRot;
         //HighlightTileable();
-
+        movingCamera = false;
     }
 
     public void ResetMainCamera(Transform start, Vector3 destination)
     {
-        GameManager.Instance.movingCamera = true;
-        GameManager.Instance.puzzleMode = false;
+        movingCamera = true;
+        puzzleMode = false;
         if (currentMoveCoroutine != null)
             StopCoroutine(currentMoveCoroutine);
 
         currentMoveCoroutine = StartCoroutine(MoveCameraCoroutine(
+            maincamera,
             maincamera.transform.position,
             maincamera.transform.rotation,
             savedCamPosition,
             savedCamRotation
         ));
-        GameManager.Instance.movingCamera = false;
+        movingCamera = false;
     }
 
     public void HighlightTileable()
