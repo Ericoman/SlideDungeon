@@ -19,5 +19,6 @@ public class DoorInteract : MonoBehaviour, IInteractable
             transform.Translate(Vector3.right * -_movementRange); // Mueve en X
             _isClosed = true;
         }
+        
     }
 }

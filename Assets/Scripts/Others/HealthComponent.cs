@@ -20,6 +20,8 @@ public class HealthComponent : MonoBehaviour
     public event Action OnDeath;
 
     public event System.Action OnDamageTaken;
+
+
     void Start()
     {
         currentHealth = maxHealth;

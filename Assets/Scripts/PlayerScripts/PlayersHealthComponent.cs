@@ -20,6 +20,10 @@ public class PlayersHealthComponent : HealthComponent
     public PlayerMovement playermove;
     public Animator anim;
 
+    public AudioClip damageSound;
+    public AudioClip dieSound;
+    public AudioClip healSound;
+
     public event System.Action OnDamageTaken;
 
     void Start()
@@ -56,6 +60,10 @@ public class PlayersHealthComponent : HealthComponent
     override public void ReceiveHealth(int health)
     {
         base.ReceiveHealth(health);
+        if (GetComponent<AudioComponent>() && healSound!=null)
+        {
+            GetComponent<AudioComponent>().PlaySound(healSound);
+        }
         SetText();
     }
     override public bool ReceiveDamage(int damage)
@@ -85,12 +93,18 @@ public class PlayersHealthComponent : HealthComponent
         if (currentHealth > 0)
         {
             anim.SetTrigger("Damage");
+            if (GetComponent<AudioComponent>() && damageSound!=null)
+            {
+                GetComponent<AudioComponent>().PlaySound(damageSound);
+            }
             OnDamageTaken?.Invoke();
         }
         
 
             return true;
     }
+
+    
 
     override public void ReceiveDamageByFall(int damage) 
     {
@@ -116,6 +130,10 @@ public class PlayersHealthComponent : HealthComponent
     override protected void DieAnimation()
     {
         anim.SetTrigger("Die");
+        if (GetComponent<AudioComponent>() && dieSound != null)
+        {
+            GetComponent<AudioComponent>().PlaySound(dieSound);
+        }
         base.DieAnimation();
         playermove.SetCanMove(false);
 

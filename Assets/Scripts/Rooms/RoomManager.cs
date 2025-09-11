@@ -107,6 +107,7 @@ namespace Rooms
         private IEnumerator MoveDoorPosition_CO()
         {
             bool isMoving = true;
+            
             while (isMoving)
             {
                 foreach (GameObject puzzleDoor in roomDoors)
@@ -135,6 +136,10 @@ namespace Rooms
         private IEnumerator MoveDoorRotation_CO()
         {
             bool isMoving = true;
+            if (GetComponent<AudioComponent>())
+            {
+                GetComponent<AudioComponent>().Play();
+            }
             while (isMoving)
             {
                 foreach (GameObject puzzleDoor in roomDoors)
