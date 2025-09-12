@@ -72,7 +72,11 @@ public class ShooterController : MonoBehaviour
             if (projectile) 
             {
                 projectile.SetDamage(damage);
-            } 
+            }
+            if (GetComponent<AudioComponent>() )
+            {
+                GetComponent<AudioComponent>().Play();
+            }
             animator.SetTrigger("animShoot");
         }
     }

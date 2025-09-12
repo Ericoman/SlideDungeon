@@ -68,9 +68,21 @@ public class PlayersHealthComponent : HealthComponent
     }
     override public bool ReceiveDamage(int damage)
     {
+        if (_canTakeDamage && (currentExtraHealth + currentHealth > damage))
+        {
+            anim.SetTrigger("Damage");
+            if (GetComponent<AudioComponent>() && damageSound != null)
+            {
+                GetComponent<AudioComponent>().PlaySound(damageSound);
+            }
+        }
+        
+            
         if (currentExtraHealth == 0) 
         { 
+
             base.ReceiveDamage(damage);
+            
             SetText();
         }
         else 
@@ -82,21 +94,20 @@ public class PlayersHealthComponent : HealthComponent
             {
                 
                 base.ReceiveDamage(damage - currentExtraHealth);
+                anim.SetTrigger("Damage");
                 SetText();
             }
             
+
             ReceiveExtraDamage(damage);
             
 
         }
+        
 
         if (currentHealth > 0)
         {
-            anim.SetTrigger("Damage");
-            if (GetComponent<AudioComponent>() && damageSound!=null)
-            {
-                GetComponent<AudioComponent>().PlaySound(damageSound);
-            }
+            
             OnDamageTaken?.Invoke();
         }
         

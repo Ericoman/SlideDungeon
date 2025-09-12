@@ -20,6 +20,10 @@ public class TriggerEndPuzzle : MonoBehaviour
             {
                 wall.SetActive(false);
             }
+            if (GetComponent<AudioComponent>())
+            {
+                GetComponent<AudioComponent>().Play();
+            }
             EndCorridor.SetActive(true);
         }
         

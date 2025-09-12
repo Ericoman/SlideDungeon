@@ -32,6 +32,10 @@ public class TeslaCoil : MonoBehaviour
     // Cached reference to `sphere2`
     private GameObject sphere2;
     public event Action<bool> Activated;
+
+    public AudioClip connectSound;
+
+    public AudioClip connectedSound;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -53,6 +57,10 @@ public class TeslaCoil : MonoBehaviour
     public void Activate()
     {
         IsActive = true;
+        if (GetComponent<AudioComponent>() && connectSound != null)
+        {
+            GetComponent<AudioComponent>().PlaySound(connectSound);
+        }
         StartCoroutine(DeactivateAfterTime(activeDuration)); 
     }
     
@@ -148,6 +156,11 @@ public class TeslaCoil : MonoBehaviour
         // Keep the Tesla Coil active while sphere2 is attached
         IsActive = true;
 
+        if (GetComponent<AudioComponent>() && connectSound != null)
+        {
+            GetComponent<AudioComponent>().PlaySound(connectedSound);
+        }
+
         Debug.Log($"TeslaCoil: Activated with sphere2 '{sphere.name}'.");
     }
     
@@ -164,7 +177,7 @@ public class TeslaCoil : MonoBehaviour
         {
             StopCoroutine(raycastDeactivationCoroutine);
         }
-
+        
         raycastDeactivationCoroutine = StartCoroutine(RaycastDeactivationTimeout());
     }
 
