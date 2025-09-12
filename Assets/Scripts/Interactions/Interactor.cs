@@ -1,21 +1,29 @@
 using Assets.Devs.Julia.Scripts;
 using Assets.Scripts.Interactions;
-using System.ComponentModel;
-using Unity.Cinemachine;
-using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.EnhancedTouch;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class Interactor : MonoBehaviour
 {
     [SerializeField] private float _interactionRadius = 1.5f;
     [SerializeField] private LayerMask _interactableLayer;
     [SerializeField] private LayerMask _obstacleLayer;
-    [SerializeField] private Canvas _canvas;
+
     [SerializeField] private float _maxDistanceToFloor = 2;
+    public float holdThreshold = 0.5f;
+
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private DeviceDetector deviceDetector;
+    public Animator anim;
+
+
+    [Header("Interaction info")]
+    [SerializeField] private Canvas _canvas;
+    [SerializeField] private Sprite _keboardImg;
+    [SerializeField] private Sprite _gamepadImg; 
+    private Image _image;
 
     private PlayerInput _playerInput;
     private InputAction _interactAction;
@@ -26,15 +34,14 @@ public class Interactor : MonoBehaviour
     private IInteractableHeld _heldObject = null;
 
     private float _interactHeldTime = 0f;
-    public float holdThreshold = 0.5f;
 
-    public Animator anim;
 
     private void Awake()
     {
         _transform = transform;
         _playerInput = GetComponent<PlayerInput>();
         _interactAction = _playerInput.actions["Interact"];
+        _image = _canvas.GetComponentInChildren<Image>();
     }
 
 
@@ -47,9 +54,22 @@ public class Interactor : MonoBehaviour
     public void SetOtline(RaycastHit hit, bool visible) 
     {
         if (visible) 
-        { 
-             //set UI 
-            if (_canvas) _canvas.gameObject.SetActive(true);
+        {
+            //set UI 
+            if (_canvas != null && _image != null) 
+            {
+                if (deviceDetector.IsUsingKeyboard())
+                {
+                    _image.sprite = _keboardImg;
+                }
+                else 
+                {
+                    _image.sprite = _gamepadImg;
+                }
+                
+                _canvas.gameObject.SetActive(true);
+            }
+
 
             //set outline
             Outline _aux = _otlineLastSeen;
