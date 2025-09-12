@@ -1,7 +1,9 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 public class BullController : MonoBehaviour
 {
@@ -14,8 +16,11 @@ public class BullController : MonoBehaviour
     public float viewRadius = 20;
     public float viewangle = 180;
     public LayerMask playerMask;
-    public LayerMask obstacleMasck;
+    public LayerMask obstacleMask;
     public float waitAfterCharge = 1f;
+
+    public float rotateIfBlocked = 45;
+    public float spaceToBlocked = 2;
 
     //player
     public int damage = 4;
@@ -74,7 +79,7 @@ public class BullController : MonoBehaviour
                 }
                 else if (Vector3.Angle(transform.forward, dirToPlayer) < viewangle / 2)
                 {
-                    if (!Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleMasck)) //No obstacles
+                    if (!Physics.Raycast(transform.position, dirToPlayer, dstToPlayer, obstacleMask)) //No obstacles
                     {
                         _isWaiting = false;
                         if (_punto == null) 
@@ -112,6 +117,7 @@ public class BullController : MonoBehaviour
             navMeshAgent.updateRotation = false;
 
             bool hasHit = false;
+            bool hasHitPlayer = false;
             float chargeTime = 3f;
             float timer = 0f;
 
@@ -124,6 +130,7 @@ public class BullController : MonoBehaviour
                 if (playerInRange.Length != 0)
                 {
                     hasHit = true;
+                    hasHitPlayer = true;
 
                     HealthComponent health = playerInRange[0].gameObject.GetComponentInChildren<HealthComponent>();
                     health.ReceiveDamage(damage);
@@ -171,6 +178,31 @@ public class BullController : MonoBehaviour
             rotated += step;
             yield return null;
         }
+
+        bool isBloked = true;
+
+        do
+        {
+            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, spaceToBlocked, obstacleMask))
+            {
+                transform.Rotate(Vector3.up, rotateIfBlocked); // si se queda mirando a un obstaculo rotamos 
+            }
+            else 
+            {
+                isBloked = false;
+            }
+           // Debug.DrawRay(transform.position, transform.forward * spaceToBlocked, Color.red);
+        }
+        while (isBloked);
+
+        
+    }
+
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, transform.forward * spaceToBlocked);
     }
 
 }

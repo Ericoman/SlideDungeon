@@ -126,6 +126,11 @@ public class ThunderSpellCast : SpellBase
         {
             SecondCast(); // Perform the logic for the second cast
         }
+        if (GetComponent<AudioComponent>())
+        {
+            GetComponent<AudioComponent>().Play();
+        }
+       
     }
     
     private void FirstCast()
@@ -174,6 +179,8 @@ public class ThunderSpellCast : SpellBase
             isCasting = false; // Release the lock
             return;
         }
+
+        
         
         // Subscribe to the destruction event
         currentThunderLink.OnDestructionRequested += HandleDestructionRequested;

@@ -124,8 +124,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3661742310968290113}
   startWaitTime: 1
-  speedWalk: 4
-  speedRun: 6
+  speedWalk: 3
+  speedRun: 5
   viewRadius: 6
   viewangle: 180
   playerMask:
@@ -133,7 +133,7 @@ MonoBehaviour:
     m_Bits: 8
   obstacleMasck:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 1025
   damage: 1
   damageRadius: 1
   waypoints: []

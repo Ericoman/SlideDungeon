@@ -6,9 +6,7 @@ public class AudioComponent : MonoBehaviour
 {
 
 
-    public AudioClip clip;
-
-    private AudioSource audioSource;
+    public AudioSource audioSource;
 
     void Awake()
     {
@@ -20,18 +18,27 @@ public class AudioComponent : MonoBehaviour
     // Método público para reproducir
     public void Play()
     {
-        if (clip != null)
+        if (audioSource.clip != null)
         {
-            audioSource.clip = clip;
             audioSource.Play();
         }
-        else
-        {
-            Debug.LogWarning("No se asignó un audio en " + gameObject.name);
-        }
+            
+            
+        
     }
 
-    
+    public void PlaySound(AudioClip clip)
+    {
+        if (clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
+
+
+
+    }
+
+
     public void Stop()
     {
         audioSource.Stop();

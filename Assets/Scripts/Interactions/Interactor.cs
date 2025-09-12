@@ -104,6 +104,13 @@ public class Interactor : MonoBehaviour
                 if ((_obstacleLayer.value & objectLayerMask) != 0)
                 {
                     SetOtline(hit, false);
+
+                    if (_heldObject != null)
+                    {
+                        playerMovement.SetCanMove(true);
+                        _heldObject = null;
+                    }
+
                     return;
                 }
 

@@ -127,10 +127,12 @@ MonoBehaviour:
   playerMask:
     serializedVersion: 2
     m_Bits: 8
-  obstacleMasck:
+  obstacleMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 1537
   waitAfterCharge: 1
+  rotateIfBlocked: 45
+  spaceToBlocked: 2
   damage: 4
   damageRadius: 2
 --- !u!1001 &4962814066176706802
