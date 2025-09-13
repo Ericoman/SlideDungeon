@@ -48,9 +48,9 @@ MonoBehaviour:
   thunderLinkPrefab: {fileID: 7102323481054594359, guid: ebe767d4117599046bf0ec5aac7fc137, type: 3}
   targetTransform: {fileID: 0}
   castOrigin: {fileID: 0}
-  raycastRange: 10
+  raycastRange: 5
   sphereMoveSpeed: 17
-  maxAttachmentDistance: 15
+  maxAttachmentDistance: 10
   maxThunderLinks: 1
 --- !u!114 &-443742809945492941
 MonoBehaviour:

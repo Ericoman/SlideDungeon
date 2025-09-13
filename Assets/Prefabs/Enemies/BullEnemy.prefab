@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3212814506951583540}
   - component: {fileID: 5888162331151052858}
   - component: {fileID: 2106846667090148085}
+  - component: {fileID: 4126607446459162099}
   m_Layer: 0
   m_Name: BullEnemy
   m_TagString: Enemy
@@ -135,6 +136,27 @@ MonoBehaviour:
   spaceToBlocked: 2
   damage: 4
   damageRadius: 2
+--- !u!135 &4126607446459162099
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4572468961338940723}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.9
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &4962814066176706802
 PrefabInstance:
   m_ObjectHideFlags: 0

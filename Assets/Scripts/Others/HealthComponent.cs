@@ -126,4 +126,13 @@ public class HealthComponent : MonoBehaviour
     {
         OnDeath = null;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("ThunderLink"))
+        {
+            ReceiveDamage(1);
+            Debug.LogWarning("ThunderLink hit enemy collider!");
+        }
+    }
 }
