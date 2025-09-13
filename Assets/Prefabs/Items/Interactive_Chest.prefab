@@ -108,9 +108,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   messageUIPrefab: {fileID: 6303870084342460274, guid: be587348199b16642881f0489eff21e5, type: 3}
+  type: 0
   messageText: Mucho texto
-  _keboardImg: {fileID: 751063945, guid: 398df3e7483d4e14a8b34b63459f1b53, type: 3}
-  _gamepadImg: {fileID: 21300000, guid: 5141914693480ac4e97b3ff817363da2, type: 3}
+  _keboardInfoImg: {fileID: 0}
+  _gamepadInfoImg: {fileID: 0}
+  _keboardExitImg: {fileID: 751063945, guid: 398df3e7483d4e14a8b34b63459f1b53, type: 3}
+  _gamepadExitImg: {fileID: 21300000, guid: 5141914693480ac4e97b3ff817363da2, type: 3}
 --- !u!65 &5950495059965601036
 BoxCollider:
   m_ObjectHideFlags: 0

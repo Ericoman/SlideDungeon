@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 1
-  outlineColor: {r: 0.93333334, g: 0.79768705, b: 0.39607838, a: 1}
+  outlineColor: {r: 0.39607844, g: 0.8039216, b: 0.93333334, a: 1}
   outlineWidth: 4
   precomputeOutline: 0
   bakeKeys: []
@@ -274,10 +274,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   messageUIPrefab: {fileID: 6303870084342460274, guid: be587348199b16642881f0489eff21e5, type: 3}
+  type: 0
   messageText: AHHHHHHHHHHHHHH ahbsfdliua hwridugaqiufqgbliaqhjgbslf uahsdfrui ghlifucdgaqwiufbg
     aihsbf liayugfaiyuwgfailu hnfaiu wfhe
-  _keboardImg: {fileID: 751063945, guid: 398df3e7483d4e14a8b34b63459f1b53, type: 3}
-  _gamepadImg: {fileID: 21300000, guid: 5141914693480ac4e97b3ff817363da2, type: 3}
+  _keboardInfoImg: {fileID: 0}
+  _gamepadInfoImg: {fileID: 0}
+  _keboardExitImg: {fileID: 751063945, guid: 398df3e7483d4e14a8b34b63459f1b53, type: 3}
+  _gamepadExitImg: {fileID: 21300000, guid: 5141914693480ac4e97b3ff817363da2, type: 3}
 --- !u!65 &7348962238973079024
 BoxCollider:
   m_ObjectHideFlags: 0
