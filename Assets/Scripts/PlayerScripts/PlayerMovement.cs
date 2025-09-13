@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public float initialMoveSpeed = 5f; // Movement speed of the character
     private float _moveSpeed; // Movement speed of the character
 
+    public float dashSpeed = 7f;
+    public float dashTime = 0.25f;
 
     private Vector2 move;
     private Vector3 lastMovementDirection;
@@ -121,6 +123,11 @@ public class PlayerMovement : MonoBehaviour
                         Quaternion.LookRotation(lastMovementDirection),
                         Time.deltaTime * 10f
                     );
+
+                    if (_playerInput.actions["Dash"].WasPressedThisFrame())
+                    {
+                        StartCoroutine(Dash());
+                    }
                 }
             }
             else
@@ -131,6 +138,16 @@ public class PlayerMovement : MonoBehaviour
                 // Translate player en la dirección de movement
                 transform.Translate(movement * _moveSpeed * Time.deltaTime, Space.World);
         }
+    }
+
+
+    IEnumerator Dash() 
+    { 
+        float startTime = Time.time;
+        
+        _moveSpeed = dashSpeed;
+        yield return new WaitForSeconds(dashTime);
+        _moveSpeed = initialMoveSpeed;
     }
 
     public void PuzzleInteract()
