@@ -168,10 +168,14 @@ public class PatrolController : MonoBehaviour
 
     void Move(float speed)
     {
-        navMeshAgent.isStopped = false;
-        navMeshAgent.speed = speed;
-        navMeshAgent.updatePosition = true;
-        navMeshAgent.updateRotation = true;
+        if ((navMeshAgent.isOnNavMesh))
+        {
+            navMeshAgent.isStopped = false;
+            navMeshAgent.speed = speed;
+            navMeshAgent.updatePosition = true;
+            navMeshAgent.updateRotation = true;
+        }
+        
     }
 
     void Stop()
