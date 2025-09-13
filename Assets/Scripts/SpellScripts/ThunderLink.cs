@@ -13,6 +13,8 @@ public class ThunderLink : MonoBehaviour
     private Coroutine sphere1MovementCoroutine;
     private Coroutine sphere2MovementCoroutine;
     
+    public float setupDelay = 1f;
+    
     public event Action<GameObject, GameObject, Vector3> OnDestructionRequested;
 
     public bool isSphere1MovementComplete { get; private set; } // Flag for movement completion status
@@ -67,8 +69,8 @@ public class ThunderLink : MonoBehaviour
                 return;
             }
 
-            TriggerRelay relay = sphere2.AddComponent<TriggerRelay>();
-            relay.Setup(linkedSpellCast.OnSphere2TriggerEnter);
+            // Start a Coroutine to delay relay.Setup
+            StartCoroutine(DelayedSetup(sphere2, linkedSpellCast.OnSphere2TriggerEnter));
         }
     }
 
@@ -286,6 +288,18 @@ public class ThunderLink : MonoBehaviour
             {
                 health.ReceiveDamage(1); // Apply damage to the enemy
             }
+        }
+    }
+    
+    private IEnumerator DelayedSetup(GameObject sphere, System.Action<Collider> triggerEnterCallback)
+    {
+        // Wait for 1 second
+        yield return new WaitForSeconds(setupDelay);
+
+        if (sphere != null) // Ensure the sphere still exists
+        {
+            TriggerRelay relay = sphere.AddComponent<TriggerRelay>();
+            relay.Setup(triggerEnterCallback);
         }
     }
 

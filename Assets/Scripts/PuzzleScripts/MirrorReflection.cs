@@ -72,7 +72,7 @@ public class MirrorReflection : MonoBehaviour
         isBeingHitByRaycast = true;
     }
     
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("ThunderLink"))
         {
@@ -84,14 +84,14 @@ public class MirrorReflection : MonoBehaviour
             IsActive = true; // Stay active as sphere2 is present
         }
     }
-
+    
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("ThunderLink"))
         {
             IsActive = true;
         }
-    }
+    }*/
 
     private void OnTriggerExit(Collider other)
     {
