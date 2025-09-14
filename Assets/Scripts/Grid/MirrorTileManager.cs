@@ -62,6 +62,10 @@ public class MirrorTileManager : MonoBehaviour
 
     private void MirroredTileInstancerOnTileMovedEvent(object sender, Vector2Int newGridPosition, Vector2Int oldGridPosition)
     {
+        if (GetComponent<AudioComponent>())
+        {
+            GetComponent<AudioComponent>().Play();
+        }
         Tileable mirrorTile = gridManager.GetTile(oldGridPosition);
         mirrorTile.RemoveFromGrid();
         mirrorTile.TryMove(newGridPosition);

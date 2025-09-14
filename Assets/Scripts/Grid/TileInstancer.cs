@@ -131,7 +131,10 @@ public class TileInstancer : MonoBehaviour
 
         if (tile.TryMove(oldGridPosition + direction))
         {
-            
+            if (GetComponent<AudioComponent>())
+            {
+                GetComponent<AudioComponent>().Play();
+            }
             TileMovedEvent?.Invoke(this, tile.LastGridPosition, oldGridPosition);
         }
         tile.ResetToPreviousGrid();
