@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using System;
-
+using UnityEngine.VFX;
 public class PlayersHealthComponent : HealthComponent
 {
     //public TextMeshProUGUI heartsText;
@@ -25,11 +25,13 @@ public class PlayersHealthComponent : HealthComponent
     public AudioClip healSound;
 
     public event System.Action OnDamageTaken;
-
+    [Header("VFX")]
+    public VisualEffect healVFX;
+    public VisualEffect extraHeartVFX;
     void Start()
     {
         currentHealth = maxHealth;
-        if(heartsManagerUI) heartsManagerUI.SetFullHealth();
+        if (heartsManagerUI) heartsManagerUI.SetFullHealth();
 
         StartCoroutine(FallPositionCoroutine());
     }
@@ -44,7 +46,7 @@ public class PlayersHealthComponent : HealthComponent
         while (true)
         {
             if (IsGrounded())
-            { 
+            {
                 _fallPosition = gameObject.transform.position;
             }
             yield return new WaitForSeconds(updateFallPositionCooldown);
@@ -60,11 +62,19 @@ public class PlayersHealthComponent : HealthComponent
     override public void ReceiveHealth(int health)
     {
         base.ReceiveHealth(health);
-        if (GetComponent<AudioComponent>() && healSound!=null)
+        if (GetComponent<AudioComponent>() && healSound != null)
         {
             GetComponent<AudioComponent>().PlaySound(healSound);
         }
+        if (healVFX != null)
+        {
+            VisualEffect vfx = Instantiate(healVFX, transform.position, Quaternion.identity);
+            vfx.Play();
+            Destroy(vfx.gameObject, 2f); // destruye la instancia después de 2s
+        }
         SetText();
+
+
     }
     override public bool ReceiveDamage(int damage)
     {
@@ -76,48 +86,48 @@ public class PlayersHealthComponent : HealthComponent
                 GetComponent<AudioComponent>().PlaySound(damageSound);
             }
         }
-        
-            
-        if (currentExtraHealth == 0) 
-        { 
+
+
+        if (currentExtraHealth == 0)
+        {
 
             base.ReceiveDamage(damage);
-            
+
             SetText();
         }
-        else 
+        else
         {
             if (!_canTakeDamage)
                 return false;
 
-            if (damage - currentExtraHealth > 0) 
+            if (damage - currentExtraHealth > 0)
             {
-                
+
                 base.ReceiveDamage(damage - currentExtraHealth);
                 anim.SetTrigger("Damage");
                 SetText();
             }
-            
+
 
             ReceiveExtraDamage(damage);
-            
+
 
         }
-        
+
 
         if (currentHealth > 0)
         {
-            
+
             OnDamageTaken?.Invoke();
         }
-        
 
-            return true;
+
+        return true;
     }
 
-    
 
-    override public void ReceiveDamageByFall(int damage) 
+
+    override public void ReceiveDamageByFall(int damage)
     {
         if (currentExtraHealth == 0)
         {
@@ -128,12 +138,12 @@ public class PlayersHealthComponent : HealthComponent
 
             if (damage - currentExtraHealth > 0)
             {
-                
+
                 base.ReceiveDamage(damage - currentExtraHealth);
             }
-            
+
             ReceiveExtraDamage(damage);
-            
+
             RespawnFall();
         }
     }
@@ -148,10 +158,10 @@ public class PlayersHealthComponent : HealthComponent
         base.DieAnimation();
         playermove.SetCanMove(false);
 
-        
+
     }
 
-    
+
 
     //healthComponent respawn
     override protected void RespawnDeath()
@@ -170,8 +180,8 @@ public class PlayersHealthComponent : HealthComponent
     //extra healht
     public bool ReceiveExtraHealth(int health)
     {
-        if (currentExtraHealth >= maxExtraHealth) 
-        { 
+        if (currentExtraHealth >= maxExtraHealth)
+        {
             return false;
         }
         if (GetComponent<AudioComponent>() && healSound != null)
@@ -180,6 +190,12 @@ public class PlayersHealthComponent : HealthComponent
         }
         currentExtraHealth = Math.Min(maxExtraHealth, currentExtraHealth + health);
         SetTextExtra();
+        if (extraHeartVFX != null)
+        {
+            VisualEffect vfx = Instantiate(extraHeartVFX, transform.position, Quaternion.identity);
+            vfx.Play();
+            Destroy(vfx.gameObject, 2f);
+        }
         return true;
     }
     public void ReceiveExtraDamage(int damage)
@@ -189,14 +205,14 @@ public class PlayersHealthComponent : HealthComponent
         SetTextExtra();
     }
 
-    void SetText() 
+    void SetText()
     {
-        if (heartsManagerUI) 
+        if (heartsManagerUI)
             heartsManagerUI.SetHearts(currentHealth);
     }
-    void SetTextExtra() 
+    void SetTextExtra()
     {
-        if (heartsManagerUI) 
+        if (heartsManagerUI)
             heartsManagerUI.SetExtraHeart(currentExtraHealth);
     }
 
