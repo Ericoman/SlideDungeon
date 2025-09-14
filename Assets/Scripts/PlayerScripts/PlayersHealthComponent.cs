@@ -28,6 +28,13 @@ public class PlayersHealthComponent : HealthComponent
     [Header("VFX")]
     public VisualEffect healVFX;
     public VisualEffect extraHeartVFX;
+    public VisualEffect respawnVFX;
+
+    [SerializeField] private float respawnVFXCooldown = 1.0f; // tiempo mínimo entre efectos
+    private float lastRespawnVFXTime = -999f;
+
+    private bool respawnVFXPlayed = false;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -170,11 +177,30 @@ public class PlayersHealthComponent : HealthComponent
         base.RespawnDeath();
         SetText();
         playermove.SetCanMove(true);
+
+        if (respawnVFX != null && Time.time - lastRespawnVFXTime >= respawnVFXCooldown)
+        {
+            Vector3 spawnPos = transform.position + Vector3.up * 1.0f;
+            VisualEffect vfx = Instantiate(respawnVFX, spawnPos, Quaternion.identity);
+            vfx.Play();
+            Destroy(vfx.gameObject, 1f);
+
+            lastRespawnVFXTime = Time.time;
+        }
     }
     override protected void RespawnFall()
     {
         gameObject.transform.position = _fallPosition;
         SetText();
+        if (respawnVFX != null && Time.time - lastRespawnVFXTime >= respawnVFXCooldown)
+        {
+            Vector3 spawnPos = transform.position + Vector3.up * 1.0f;
+            VisualEffect vfx = Instantiate(respawnVFX, spawnPos, Quaternion.identity);
+            vfx.Play();
+            Destroy(vfx.gameObject, 1f);
+
+            lastRespawnVFXTime = Time.time;
+        }
     }
 
     //extra healht
