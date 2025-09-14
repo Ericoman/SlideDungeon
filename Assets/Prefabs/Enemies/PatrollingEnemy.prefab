@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 4765472622961358679}
   - component: {fileID: 8196941424311278855}
   - component: {fileID: 58627650896185739}
-  - component: {fileID: 5441248092016423965}
   - component: {fileID: 682217247322852044}
   - component: {fileID: 7548513995493629145}
   m_Layer: 9
@@ -159,19 +158,6 @@ MonoBehaviour:
   damage: 1
   damageRadius: 1
   waypoints: []
---- !u!114 &5441248092016423965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 834813617661644455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ba80f48243df7c4886b2043ea0a74ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageProduced: 1
 --- !u!114 &682217247322852044
 MonoBehaviour:
   m_ObjectHideFlags: 0
