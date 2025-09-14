@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using GlobalControllers;
 using SavingSystem;
+using UI;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -427,5 +429,21 @@ public class GameManager : MonoBehaviour
     public void LoadLastState()
     {
         savingSystemManager.Load();
+    }
+
+    public void QuitGame()
+    {
+        SceneController.Instance.GoToMainMenu();
+    }
+
+    [SerializeField] 
+    private ShowablePanel pauseMenu;
+    private bool _bIsPaused = false;
+    public bool IsPaused => _bIsPaused;
+    public void Pause(bool pause)
+    {
+        pauseMenu.Show(pause);
+        Time.timeScale = pause ? 0 : 1;
+        _bIsPaused = pause;
     }
 }

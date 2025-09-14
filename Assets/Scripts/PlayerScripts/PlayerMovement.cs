@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -41,6 +42,11 @@ public class PlayerMovement : MonoBehaviour
        
         _playerInput = GetComponent<PlayerInput>();
         _moveSpeed = initialMoveSpeed;
+    }
+
+    public void OnPause()
+    {
+        GameManager.Instance.Pause(!GameManager.Instance.IsPaused);
     }
 
     private void Update()

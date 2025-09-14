@@ -229,6 +229,12 @@ namespace SavingSystem
             return oldestFile;
         }
 
+        public bool IsThereAnySavedData()
+        {
+            string dir = Path.Combine(Application.persistentDataPath,SAVE_FILES_DIRECTORY);
+            return Directory.Exists(dir) && Directory.GetFiles(dir).Length > 0;
+        }
+
 
         public void RegisterRoom(Rooms.RoomManager room)
         {
