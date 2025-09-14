@@ -195,6 +195,7 @@ namespace Rooms
             {
                 _moveDoorCoroutine = StartCoroutine(MoveDoor_CO());
             }
+            
             TurnOnTorches();
             RoomCompleted?.Invoke();
         }

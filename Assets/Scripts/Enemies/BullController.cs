@@ -120,6 +120,10 @@ public class BullController : MonoBehaviour
             bool hasHitPlayer = false;
             float chargeTime = 3f;
             float timer = 0f;
+            //if (GetComponent<AudioComponent>())
+            //{
+            //    GetComponent<AudioComponent>().Play();
+            //}
 
             while (!hasHit && timer < chargeTime)
             {
@@ -145,7 +149,7 @@ public class BullController : MonoBehaviour
                 timer += Time.deltaTime;
                 yield return null;
             }
-
+            //GetComponent<AudioComponent>().Stop();
             // fin de la carga
             navMeshAgent.isStopped = true;
             animator.SetBool("animSpin", true);

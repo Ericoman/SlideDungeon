@@ -173,7 +173,11 @@ public class PlayersHealthComponent : HealthComponent
         if (currentExtraHealth >= maxExtraHealth) 
         { 
             return false;
-        } 
+        }
+        if (GetComponent<AudioComponent>() && healSound != null)
+        {
+            GetComponent<AudioComponent>().PlaySound(healSound);
+        }
         currentExtraHealth = Math.Min(maxExtraHealth, currentExtraHealth + health);
         SetTextExtra();
         return true;
