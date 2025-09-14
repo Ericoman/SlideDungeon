@@ -60,7 +60,7 @@ public class MessageInteract : MonoBehaviour, IInteractable
             else  //Image
             {
                 //Info image based on current device
-                Transform infoImage = currentMessageUI.transform.Find("InfoImage");
+                Transform infoImage = currentMessageUI.transform.Find("PopUp");
                 if (infoImage != null && infoImage.gameObject)
                 {
                     if (deviceDetector.IsUsingKeyboard())
