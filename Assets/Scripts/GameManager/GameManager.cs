@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public bool movingCamera = false;
 
     public Camera maincamera;
+    private CameraMovement mainCameraMovement;
     public Camera endCamera;
 
     public Camera cameraZoomOut;
@@ -72,9 +73,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
         TilePositionUI = initialTilePositionUI;
-
-        // Opcional: Persistir entre escenas
-        DontDestroyOnLoad(gameObject);
+        mainCameraMovement = maincamera.GetComponent<CameraMovement>();
     }
 
     private void Start()
@@ -122,9 +121,12 @@ public class GameManager : MonoBehaviour
 
     public void ActivatePuzzleMode(bool activate)
     {
+        if (movingCamera) return;
         if (activate)
         {
+            mainCameraMovement.enabled = false;
             MoveCameraToLocation(maincamera,maincamera.transform,endCamera.transform);
+            StartCoroutine(ReenableMainCameraMovement());
             SwitchCameras(maincamera,endCamera);
         }
         else
@@ -136,11 +138,17 @@ public class GameManager : MonoBehaviour
             MoveCameraToLocation(endCamera,endCamera.transform,maincamera.transform);
             SwitchCameras(endCamera,maincamera);
             StartCoroutine(ResetEndCamera());
+            savingSystemManager.Save();
         }
         puzzleMode = activate;
         ShowPuzzleView(activate);
     }
 
+    private IEnumerator ReenableMainCameraMovement()
+    {
+        yield return new WaitUntil(() => !movingCamera);
+        mainCameraMovement.enabled = true;
+    }
     private IEnumerator ResetEndCamera()
     {
         yield return new WaitUntil(() => !movingCamera);
@@ -160,14 +168,7 @@ public class GameManager : MonoBehaviour
     }
     public void MoveCameraToLocation(Camera cameraToMove,Transform start, Transform destination)
     {
-        StopAllCoroutines();
-        
-
-        if (currentMoveCoroutine != null)
-            StopCoroutine(currentMoveCoroutine);
-
         currentMoveCoroutine = StartCoroutine(MoveCameraCoroutine(cameraToMove,start.position, start.rotation, destination.position, destination.rotation));
-        
     }
 
     IEnumerator MoveCameraCoroutine(Camera cameraToMove, Vector3 startPos, Quaternion startRot, Vector3 endPos, Quaternion endRot)
@@ -433,6 +434,10 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()
     {
+        if (_bIsPaused)
+        {
+            Pause(false);
+        }
         SceneController.Instance.GoToMainMenu();
     }
 

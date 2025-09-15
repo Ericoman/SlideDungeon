@@ -60,12 +60,14 @@ namespace Rooms
         {
             foreach (GameObject enemy in enemies)
             {
+                if(enemy == null) continue;
                 HealthComponent healthComponent = enemy.GetComponent<HealthComponent>();
                 healthComponent.OnDeath -= OnEnemyDied;
             }
 
             foreach (TeslaCoilPuzzleManager teslaCoil in teslaCoils)
             {
+                if(teslaCoil == null) continue;
                 teslaCoil.PuzzleCompleted -= TeslaCoilOnPuzzleCompleted;
             }
             

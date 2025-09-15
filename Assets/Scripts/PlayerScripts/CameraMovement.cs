@@ -22,15 +22,21 @@ public class CameraMovement : MonoBehaviour
             Debug.LogError("Player reference is missing in CameraMovement. Assign the player in the inspector.");
             return;
         }
-        if (!GameManager.Instance.movingCamera)
-        {
-            Vector3 desiredPosition = player.position + offset;
 
-            // Smoothly move the camera to the desired position
-            transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, 1f / smoothSpeed);
-            transform.localRotation = originalLocalRotation;
-        }
+        Vector3 desiredPosition = player.position + offset;
+
+        // Smoothly move the camera to the desired position
+        transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, 1f / smoothSpeed);
+        transform.localRotation = originalLocalRotation;
+        
         // Calculate the desired camera position based on the player's position and the offset
        
+    }
+
+    private void OnEnable()
+    {
+        Vector3 desiredPosition = player.position + offset;
+        transform.position = desiredPosition;
+        transform.localRotation = originalLocalRotation;
     }
 }
