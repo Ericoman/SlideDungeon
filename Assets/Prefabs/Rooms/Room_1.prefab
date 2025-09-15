@@ -66102,9 +66102,13 @@ PrefabInstance:
       value: 180.093
       objectReference: {fileID: 0}
     - target: {fileID: 4290402491265572703, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290402491265572703, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
       propertyPath: messageText
-      value: Instead of looking for gold, maybe you should try to get out of this
-        dungeon.
+      value: 'Instead of looking for gold, maybe you should try to get out of this
+        dungeon. '
       objectReference: {fileID: 0}
     - target: {fileID: 7303729105041818068, guid: 6885f9ab2f8e80742b08dfdbf1224ef7, type: 3}
       propertyPath: m_Enabled
@@ -76951,10 +76955,22 @@ PrefabInstance:
       value: TutorialBook
       objectReference: {fileID: 0}
     - target: {fileID: 6576566073008253895, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6576566073008253895, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
       propertyPath: messageText
       value: 'Press Space to throw a Lightning Bolt. Easy? Now try to connect the
         two towers. '
       objectReference: {fileID: 0}
+    - target: {fileID: 6576566073008253895, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
+      propertyPath: _gamepadInfoImg
+      value: 
+      objectReference: {fileID: -726584958, guid: c7d6e4d6b52ca3742b23ad416845eee1, type: 3}
+    - target: {fileID: 6576566073008253895, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
+      propertyPath: _keboardInfoImg
+      value: 
+      objectReference: {fileID: 1281808299, guid: 398df3e7483d4e14a8b34b63459f1b53, type: 3}
     - target: {fileID: 6739392415332081660, guid: d7a4720447858ae42ad68792fc6f2f3a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.22
