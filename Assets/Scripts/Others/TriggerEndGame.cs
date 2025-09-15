@@ -12,6 +12,11 @@ public class TriggerEndGame : MonoBehaviour
 
     public float duration = 0.5f;
 
+    public void Start()
+    {
+        targetImage = GameManager.Instance.targetImage;
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
