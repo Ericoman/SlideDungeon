@@ -11,7 +11,7 @@ public class PuzzleInteract : MonoBehaviour, IInteractable
         if (interactor.tag == "Player")
         {
             PlayerMovement playerMovement = interactor.GetComponent<PlayerMovement>();
-            if (playerMovement)
+            if (playerMovement && !GameManager.Instance.movingCamera)
             {
                 playerMovement.PuzzleInteract();
                 outlineMeshRenderer.enabled = !playerMovement.GetPuzzleMode();
