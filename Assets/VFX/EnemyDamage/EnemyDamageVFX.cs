@@ -25,6 +25,10 @@ public class EnemyDamageVFX : MonoBehaviour
 
     private Vector3 _originalScale;
 
+
+    public AudioClip damageSound;
+    public AudioClip dieSound;
+
     void Awake()
     {
         if (health == null)
@@ -57,6 +61,10 @@ public class EnemyDamageVFX : MonoBehaviour
         if (Time.time - _lastEffectTime >= cooldown)
         {
             PlayHitEffect();
+            //if (GetComponent<AudioComponent>() && damageSound != null)
+            //{
+            //    GetComponent<AudioComponent>().PlaySound(damageSound);
+            //}
             _lastEffectTime = Time.time;
         }
 
@@ -69,6 +77,10 @@ public class EnemyDamageVFX : MonoBehaviour
         if (hitVFX == null || spawnPoint == null) return;
         VisualEffect vfx = Instantiate(hitVFX, spawnPoint.position, Quaternion.identity);
         vfx.Play();
+        if (GetComponent<AudioComponent>() && damageSound != null)
+        {
+            GetComponent<AudioComponent>().PlaySound(damageSound);
+        }
         Destroy(vfx.gameObject, 2f);
     }
 
@@ -85,6 +97,10 @@ public class EnemyDamageVFX : MonoBehaviour
         if (deathVFX == null || spawnPoint == null) return;
         VisualEffect vfx = Instantiate(deathVFX, spawnPoint.position, Quaternion.identity);
         vfx.Play();
+        if (GetComponent<AudioComponent>() && dieSound != null)
+        {
+            GetComponent<AudioComponent>().PlaySound(dieSound);
+        }
         Destroy(vfx.gameObject, 3f);
     }
 

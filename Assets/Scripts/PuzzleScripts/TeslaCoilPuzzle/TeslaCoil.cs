@@ -156,7 +156,7 @@ public class TeslaCoil : MonoBehaviour
         // Keep the Tesla Coil active while sphere2 is attached
         IsActive = true;
 
-        if (GetComponent<AudioComponent>() && connectSound != null)
+        if (GetComponent<AudioComponent>() && connectedSound != null)
         {
             GetComponent<AudioComponent>().PlaySound(connectedSound);
         }

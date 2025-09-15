@@ -23,6 +23,7 @@ public class ShooterController : MonoBehaviour
     public Transform shootPoint;
     public float shootInterval = 2f;
     float _shootTimer;
+    public AudioClip shootSound;
 
     void Start()
     {
@@ -75,7 +76,7 @@ public class ShooterController : MonoBehaviour
             }
             if (GetComponent<AudioComponent>() )
             {
-                GetComponent<AudioComponent>().Play();
+                GetComponent<AudioComponent>().PlaySound(shootSound);
             }
             animator.SetTrigger("animShoot");
         }

@@ -19,6 +19,7 @@ public class HealthComponent : MonoBehaviour
 
     public event Action OnDeath;
 
+
     public event System.Action OnDamageTaken;
 
 
@@ -48,6 +49,7 @@ public class HealthComponent : MonoBehaviour
                 
             }
         }
+
         OnDamageTaken?.Invoke();
 
         // Start cooldown coroutine
