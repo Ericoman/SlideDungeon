@@ -20,6 +20,7 @@ public class MessageInteract : MonoBehaviour, IInteractable
     public string messageText = "Mago fumon mueve habitacion";
 
     [Header("If Image")]
+    [SerializeField] private string imageLocation = "PopUp/Key_Image";
     [SerializeField] private Sprite _keboardInfoImg;
     [SerializeField] private Sprite _gamepadInfoImg;
 
@@ -60,7 +61,7 @@ public class MessageInteract : MonoBehaviour, IInteractable
             else  //Image
             {
                 //Info image based on current device
-                Transform infoImage = currentMessageUI.transform.Find("PopUp/Key_Image");
+                Transform infoImage = currentMessageUI.transform.Find(imageLocation);
                 if (infoImage != null && infoImage.gameObject)
                 {
                     if (deviceDetector.IsUsingKeyboard())
