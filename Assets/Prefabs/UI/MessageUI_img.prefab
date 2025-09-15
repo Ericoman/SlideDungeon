@@ -264,8 +264,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.23386182, y: 0.18200001}
   m_AnchorMax: {x: 0.9863443, y: 0.82800007}
-  m_AnchoredPosition: {x: 113.964264, y: -0.000015258789}
-  m_SizeDelta: {x: -341.7586, y: -52.824}
+  m_AnchoredPosition: {x: 113.964264, y: 9.3384}
+  m_SizeDelta: {x: -341.7586, y: -71.5008}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1185647980442438782
 CanvasRenderer:
@@ -295,7 +295,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'to cast a Thunder Bolt. Try to connect those two towers. '
+  m_text: "to throw a Lightning Bolt. Easy? \nNow try to connect the two towers. "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8db82c174220b414cbd2bec0fe9c079e, type: 2}
   m_sharedMaterial: {fileID: -1823509887480048311, guid: 8db82c174220b414cbd2bec0fe9c079e, type: 2}
@@ -440,8 +440,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278855256
-  m_fontColor: {r: 0.34509805, g: 0.14901961, b: 0.039215688, a: 1}
+    rgba: 4278987617
+  m_fontColor: {r: 0.3803922, g: 0.16862746, b: 0.04705883, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
