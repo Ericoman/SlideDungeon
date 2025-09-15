@@ -597,10 +597,11 @@ MonoBehaviour:
   vfxUsesLocalSpace: 0
   reflectionDirection: {fileID: 6931581247095787893}
   _isActive: 0
-  checkInterval: 1
+  checkInterval: 0.3
   activeDuration: 5
-  raycastInterval: 0
-  deactivateTimeout: 2
+  raycastInterval: 0.1
+  isBeingHitByRaycast: 0
+  deactivateTimeout: 1
 --- !u!82 &5942719913631291665
 AudioSource:
   m_ObjectHideFlags: 0
