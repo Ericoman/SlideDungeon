@@ -61,12 +61,12 @@ public class PlayerMovement : MonoBehaviour
                     _canMove = false;
                     Debug.Log(GameManager.Instance.maincamera.transform.position + "  "+GameManager.Instance.endCamera.transform.position);
                     GameManager.Instance.ActivatePuzzleMode(true);
-                    GameManager.Instance.ResetHighlight();
-                    GameManager.Instance.HighlightTileable();
+                    //GameManager.Instance.ResetHighlight();
+                    //GameManager.Instance.HighlightTileable();
                 }
                 else{
                     _canMove = true;
-                    GameManager.Instance.ResetHighlight();
+                    //GameManager.Instance.ResetHighlight();
                     GameManager.Instance.ActivatePuzzleMode(false);
                 }
             }

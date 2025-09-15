@@ -14,7 +14,10 @@ public class PuzzleInteract : MonoBehaviour, IInteractable
             if (playerMovement && !GameManager.Instance.movingCamera)
             {
                 playerMovement.PuzzleInteract();
-                outlineMeshRenderer.enabled = !playerMovement.GetPuzzleMode();
+                if (!GameManager.Instance.movingCamera)
+                {
+                    outlineMeshRenderer.enabled = !playerMovement.GetPuzzleMode();
+                }
             }
         }
     }

@@ -1,11 +1,11 @@
 using System;
+using UnityEngine;
 using System.Collections;
 using GlobalControllers;
 using SavingSystem;
 using UI;
 using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -54,11 +54,14 @@ public class GameManager : MonoBehaviour
     public bool ShowingFirstmovement = false;
 
     public bool playTutorial = true;
+    public Image targetImage;
 
     public GameObject puzzleView;
     
     TileInstancer tileInstancer;
     SavingSystemManager savingSystemManager;
+
+   
     
     private void Awake()
     {
@@ -121,13 +124,15 @@ public class GameManager : MonoBehaviour
 
     public void ActivatePuzzleMode(bool activate)
     {
+        savedCamPosition = maincamera.transform.position;
+        savedCamRotation = maincamera.transform.rotation;
         if (movingCamera) return;
         if (activate)
         {
             mainCameraMovement.enabled = false;
             MoveCameraToLocation(maincamera,maincamera.transform,endCamera.transform);
             StartCoroutine(ReenableMainCameraMovement());
-            SwitchCameras(maincamera,endCamera);
+            SwitchCameras(maincamera,endCamera, activate);
         }
         else
         {
@@ -136,7 +141,7 @@ public class GameManager : MonoBehaviour
                 SetSelectedTileable();
             }
             MoveCameraToLocation(endCamera,endCamera.transform,maincamera.transform);
-            SwitchCameras(endCamera,maincamera);
+            SwitchCameras(endCamera,maincamera,activate);
             StartCoroutine(ResetEndCamera());
             savingSystemManager.Save();
         }
@@ -155,16 +160,23 @@ public class GameManager : MonoBehaviour
         endCamera.transform.localPosition = originalEndCamPosition;
         endCamera.transform.localRotation = originalEndCamRotation;
     }
-    private void SwitchCameras(Camera cameraToHide, Camera cameraToShow)
+    private void SwitchCameras(Camera cameraToHide, Camera cameraToShow, bool value)
     {
-        StartCoroutine(SwitchCameras_CO(cameraToHide, cameraToShow));
+        StartCoroutine(SwitchCameras_CO(cameraToHide, cameraToShow, value));
     }
 
-    private IEnumerator SwitchCameras_CO(Camera cameraToHide, Camera cameraToShow)
+    private IEnumerator SwitchCameras_CO(Camera cameraToHide, Camera cameraToShow, bool value)
     {
         yield return new WaitUntil(() => !movingCamera);
-        cameraToHide.enabled = false;
+        if (value)
+        {
+            HighlightTileable();
+        }
+        else { ResetHighlight(); }
+            cameraToHide.enabled = false;
         cameraToShow.enabled = true;
+        maincamera.transform.position = savedCamPosition;
+        maincamera.transform.rotation = savedCamRotation;
     }
     public void MoveCameraToLocation(Camera cameraToMove,Transform start, Transform destination)
     {
@@ -196,7 +208,7 @@ public class GameManager : MonoBehaviour
         
         cameraToMove.transform.position = endPos;
         cameraToMove.transform.rotation = endRot;
-        //HighlightTileable();
+        HighlightTileable();
         movingCamera = false;
     }
 
@@ -247,7 +259,7 @@ public class GameManager : MonoBehaviour
 
             currentTileable.GetComponent<Outline>().enabled = false;
 
-            //currentTileable = null;
+            currentTileable = null;
             //savedMaterialTileable = null;
         }
         TilePositionUI = initialTilePositionUI;
