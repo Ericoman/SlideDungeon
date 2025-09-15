@@ -55,6 +55,7 @@ public class MirrorReflection : MonoBehaviour
         {
             PerformRaycast();
         }
+        
 
     }
 
@@ -196,7 +197,7 @@ public class MirrorReflection : MonoBehaviour
 
         Vector3 origin = reflectionDirection.position;
         Vector3 dir = reflectionDirection.forward;
-        int layerMask = ~LayerMask.GetMask("Player");
+        int layerMask = ~LayerMask.GetMask("Player", "Room");
 
         if (Physics.Raycast(origin, dir, out RaycastHit hit, Mathf.Infinity, layerMask))
         {
@@ -232,12 +233,19 @@ public class MirrorReflection : MonoBehaviour
         }
         else
         {
-            // este espejo dejó de impactar nada → apagar VFX y marcar "sin rayo"
-            if (vfx != null) vfx.Stop();
-            isBeingHitByRaycast = false;
+            // If not hit, stop VFX and handle deactivation
+            if (vfx != null && vfx.enabled)
+            {
+                Debug.Log("Stopping VFX");
+                vfx.Stop();
+            }
+
+            isBeingHitByRaycast = false; // Reset raycast status
 
             if (deactivateCoroutine == null)
+            {
                 deactivateCoroutine = StartCoroutine(DeactivateAfterTimeout());
+            }
         }
     }
 
@@ -253,6 +261,7 @@ public class MirrorReflection : MonoBehaviour
 
     public void Deactivate()
     {
+        Debug.Log("Mirror: Deactivating.");
         IsActive = false;
 
         // Stop raycasting when the mirror is deactivated
@@ -263,7 +272,15 @@ public class MirrorReflection : MonoBehaviour
         }
 
         isBeingHitByRaycast = false; // Reset the hit flag
-        if (vfx != null) vfx.Stop();
+        if (vfx != null && vfx.enabled)
+        {
+            Debug.Log("Stopping VFX");
+            vfx.Stop(); // Stop the VFX
+        }
+        else
+        {
+            Debug.Log("VFX already stopped or null");
+        }
     }
 
     private IEnumerator DeactivateAfterTimeout()
@@ -274,6 +291,11 @@ public class MirrorReflection : MonoBehaviour
         if (!isBeingHitByRaycast)
         {
             Deactivate();
+        }
+        else
+        {
+            // If another ray hit resets the timer, we shouldn't deactivate
+            deactivateCoroutine = null;
         }
 
         deactivateCoroutine = null; // Clear coroutine reference
