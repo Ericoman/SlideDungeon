@@ -9,6 +9,8 @@ namespace UI
     {
         [SerializeField]
         private ShowablePanel settingsPanel;
+        [SerializeField]
+        private ShowablePanel creditsPanel;
 
         [SerializeField] 
         private GameObject continueGameButton;
@@ -47,6 +49,11 @@ namespace UI
         public void ShowSettings()
         {
             settingsPanel.Show(true);
+        }
+
+        public void ShowCredits()
+        {
+            creditsPanel.Show(true);
         }
     }
 }

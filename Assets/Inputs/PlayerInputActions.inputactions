@@ -105,6 +105,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ReloadPuzzle",
+                    "type": "Button",
+                    "id": "763ed884-d751-4c2d-aeb7-25a5ab547d06",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "SelectTileable",
                     "type": "Button",
                     "id": "4e480c77-4aa0-4adf-b7bd-07b3ed289adb",
@@ -363,6 +372,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "RotateLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "52914148-56e5-48e4-8dbb-5cea4f5a9220",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReloadPuzzle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4945f6e2-baa5-4786-9a98-98cd208a1c23",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReloadPuzzle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
