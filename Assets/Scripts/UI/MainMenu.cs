@@ -2,6 +2,8 @@ using System;
 using GlobalControllers;
 using SavingSystem;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 namespace UI
 {
@@ -14,7 +16,11 @@ namespace UI
 
         [SerializeField] 
         private GameObject continueGameButton;
+        [SerializeField]
+        private CanvasGroup buttonsCanvasGroup;
 
+        [SerializeField] 
+        private GameObject firstSelectedUIElement;
         SavingSystemManager savingSystemManager;
         private void Start()
         {
@@ -29,8 +35,22 @@ namespace UI
             }
             
             continueGameButton.SetActive(savingSystemManager.IsThereAnySavedData());
+
+            settingsPanel.OnShow.AddListener(()=>EnableInteraction(false));
+            settingsPanel.OnHide.AddListener(() => EnableInteraction(true));
+
+            EnableInteraction(true);
         }
 
+        private void EnableInteraction(bool enable)
+        {
+            buttonsCanvasGroup.interactable = enable;
+            buttonsCanvasGroup.blocksRaycasts = enable;
+            if (enable)
+            {
+                EventSystem.current.SetSelectedGameObject(firstSelectedUIElement);
+            }
+        }
         public void ContinueGame()
         {
             SceneController.Instance.StartGame();

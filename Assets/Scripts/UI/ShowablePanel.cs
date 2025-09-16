@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
 namespace UI
@@ -8,6 +9,8 @@ namespace UI
     [RequireComponent(typeof(CanvasGroup))]
     public class ShowablePanel : MonoBehaviour
     {
+        [SerializeField]
+        private GameObject firstSelectedUIElement = null;
         [SerializeField]
         private bool tryUseCanvasGroup = true;
         [SerializeField]
@@ -58,6 +61,10 @@ namespace UI
 
             if (bIsShown)
             {
+                if (firstSelectedUIElement != null)
+                {
+                    EventSystem.current.SetSelectedGameObject(firstSelectedUIElement);
+                }
                 OnShow?.Invoke();
             }
             else

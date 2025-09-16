@@ -68,9 +68,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.8156863, b: 0.5058824, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 0.8156863, b: 0.5058824, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -170,6 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fe232fcc8a0b7d4f8051adae3d7375d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstSelectedUIElement: {fileID: 31889325658231782}
   tryUseCanvasGroup: 1
   startHidden: 1
   alphaShow: 1
@@ -566,9 +567,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.8156863, b: 0.5058824, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 0.8156863, b: 0.5058824, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1735,9 +1736,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.59200495, g: 1, b: 0.5058824, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.5921569, g: 1, b: 0.5058824, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1799,7 +1800,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 206525881417264895, guid: 150eff816594ebb449611a41b44a22bc, type: 3}
       propertyPath: m_fontSize
-      value: 27.35
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 270781286022330544, guid: 150eff816594ebb449611a41b44a22bc, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1867,7 +1868,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1618226631849160358, guid: 150eff816594ebb449611a41b44a22bc, type: 3}
       propertyPath: m_fontSize
-      value: 24.7
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 2301966481007857684, guid: 150eff816594ebb449611a41b44a22bc, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1943,7 +1944,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3988878749447171839, guid: 150eff816594ebb449611a41b44a22bc, type: 3}
       propertyPath: m_fontSize
-      value: 25.15
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 4191829686689962282, guid: 150eff816594ebb449611a41b44a22bc, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2255,7 +2256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9129944973685923933, guid: 150eff816594ebb449611a41b44a22bc, type: 3}
       propertyPath: m_fontSize
-      value: 29.8
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 9131793942202000373, guid: 150eff816594ebb449611a41b44a22bc, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2468,7 +2469,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4387537092846923886, guid: 163d2f9e032650e4caa25d6078bdb0f6, type: 3}
       propertyPath: m_fontSize
-      value: 28.9
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 5132997099231438051, guid: 163d2f9e032650e4caa25d6078bdb0f6, type: 3}
       propertyPath: m_fontSize
@@ -2612,7 +2613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8489032851032413255, guid: 163d2f9e032650e4caa25d6078bdb0f6, type: 3}
       propertyPath: m_fontSize
-      value: 26.9
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 8834276952215886832, guid: 163d2f9e032650e4caa25d6078bdb0f6, type: 3}
       propertyPath: m_fontSize

@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace UI.PauseMenu
 {
@@ -6,10 +8,31 @@ namespace UI.PauseMenu
     {
         [SerializeField]
         private ShowablePanel settingsPanel;
+        [SerializeField]
+        private CanvasGroup buttonsCanvasGroup;
 
-        public void ShowSettingsPanel()
+        [SerializeField] 
+        private GameObject firstSelectedUIElement;
+
+        private void Start()
         {
-            settingsPanel.Show(true);
+            GetComponent<ShowablePanel>().OnHide.AddListener(()=> ShowSettingsPanel(false));
+            settingsPanel.OnShow.AddListener(()=>EnableInteraction(false));
+            settingsPanel.OnHide.AddListener(() => EnableInteraction(true));
+        }
+
+        private void EnableInteraction(bool enable)
+        {
+            buttonsCanvasGroup.interactable = enable;
+            buttonsCanvasGroup.blocksRaycasts = enable;
+            if (enable)
+            {
+                EventSystem.current.SetSelectedGameObject(firstSelectedUIElement);
+            }
+        }
+        public void ShowSettingsPanel(bool show)
+        {
+            settingsPanel.Show(show);
         }
 
         public void Resume()
