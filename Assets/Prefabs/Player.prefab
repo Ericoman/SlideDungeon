@@ -1550,7 +1550,7 @@ MonoBehaviour:
   _obstacleLayer:
     serializedVersion: 2
     m_Bits: 1025
-  _maxDistanceToFloor: 1
+  _maxDistanceToFloor: 0.5
   holdThreshold: 0.25
   playerMovement: {fileID: 3521537669410011455}
   deviceDetector: {fileID: 6849928722542677425}
