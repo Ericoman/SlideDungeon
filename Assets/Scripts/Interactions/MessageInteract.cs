@@ -25,6 +25,7 @@ public class MessageInteract : MonoBehaviour, IInteractable
     [SerializeField] private Sprite _gamepadInfoImg;
 
     [Header("Exit info")]
+    [SerializeField] private string imageExitLocation = "PopUp/Exit/ExitImage";
     [SerializeField] private Sprite _keboardExitImg;
     [SerializeField] private Sprite _gamepadExitImg;
 
@@ -38,7 +39,7 @@ public class MessageInteract : MonoBehaviour, IInteractable
             DeviceDetector deviceDetector = interactor.GetComponent<DeviceDetector>();
             if (deviceDetector) 
             {
-                Transform exitImage = currentMessageUI.transform.Find("PopUp/Exit/ExitImage");
+                Transform exitImage = currentMessageUI.transform.Find(imageExitLocation);
                 if (exitImage != null && exitImage.gameObject) 
                 {
                     if (deviceDetector.IsUsingKeyboard()) 
