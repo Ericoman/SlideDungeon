@@ -38,6 +38,9 @@ namespace UI
 
             settingsPanel.OnShow.AddListener(()=>EnableInteraction(false));
             settingsPanel.OnHide.AddListener(() => EnableInteraction(true));
+            
+            creditsPanel.OnShow.AddListener(()=>EnableInteraction(false));
+            creditsPanel.OnHide.AddListener(() => EnableInteraction(true));
 
             EnableInteraction(true);
         }
